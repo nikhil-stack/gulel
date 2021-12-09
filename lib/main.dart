@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/screens/Products_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,11 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Gulel',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.blue.shade200,
       ),
-      home: Center(child: Text('Vampire yo baby')),
+      home: ProductScreen(),
     );
   }
 }
