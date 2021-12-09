@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
   //const CategoryItem({ Key? key }) : super(key: key);
+  final String id;
+  final String title;
+  final String ImageUrl;
+  CategoryItem(this.id, this.title, this.ImageUrl);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class CategoryItem extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        'Almonds',
+                        title,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -77,9 +81,7 @@ class CategoryItem extends StatelessWidget {
                       border: Border.all(color: Colors.black, width: 1),
                       shape: BoxShape.circle,
                       image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                              'https://images.pexels.com/photos/3997459/pexels-photo-3997459.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')))),
+                          fit: BoxFit.fill, image: NetworkImage(ImageUrl)))),
             ),
           ),
         ],

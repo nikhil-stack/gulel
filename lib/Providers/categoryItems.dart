@@ -58,4 +58,11 @@ class CategoryItems_Provider with ChangeNotifier {
         stockAvailable: 100,
         title: "Cashew LWP"),
   ];
+  List<Category> get categories {
+    return [..._categories];
+  }
+
+  List<Product> get items {
+    return [..._items];
+  }
 }
