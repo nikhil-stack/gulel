@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
   //const CategoryItem({ Key? key }) : super(key: key);
+  final String id;
+  final String title;
+  final String imageUrl;
+  CategoryItem({this.id, this.title, this.imageUrl});
+  void selectCategory(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed('/products-screen', arguments: {'id': title});
+  }
 
   @override
   Widget build(BuildContext context) {
