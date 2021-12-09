@@ -17,6 +17,12 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.blue.shade200,
       ),
       home: CategoriesScreen(),
+<<<<<<< HEAD
+=======
+      routes: {
+        '/products-screen': (ctx) => ProductScreen(),
+      },
+>>>>>>> eb61102c4a8aa8478992bb22f0ae7441f2e75098
     );
   }
 }

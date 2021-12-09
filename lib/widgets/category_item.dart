@@ -4,8 +4,16 @@ class CategoryItem extends StatelessWidget {
   //const CategoryItem({ Key? key }) : super(key: key);
   final String id;
   final String title;
+<<<<<<< HEAD
   final String ImageUrl;
   CategoryItem(this.id, this.title, this.ImageUrl);
+=======
+  final String imageUrl;
+  CategoryItem({this.id, this.title, this.imageUrl});
+  void selectCategory(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed('/products-screen', arguments: {'id': title});
+  }
+>>>>>>> eb61102c4a8aa8478992bb22f0ae7441f2e75098
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ class Product {
   double price;
   String imageUrl;
   int stockAvailable;
+  String category;
   Product({
     this.id,
     this.category,
@@ -12,5 +13,6 @@ class Product {
     this.price,
     this.imageUrl,
     this.stockAvailable,
+    this.category,
   });
 }
