@@ -12,54 +12,58 @@ class CategoryItem extends StatelessWidget {
     return GridTile(
       child: Stack(
         children: [
-          Container(
-            /*decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2)),*/
-            height: 500,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 0,
-            ),
-            child: Column(
-              children: [
-                InkWell(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                    height: 50,
-                    width: double.infinity,
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      /*gradient: LinearGradient(
-                        colors: [Colors.white.withOpacity(0.5), Colors.white],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),*/
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap:() => Navigator.of(context).pushNamed('/products-screen', arguments: {'id': title}),
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                    height: 120,
-                    width: double.infinity,
-                    padding: EdgeInsets.all(15),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        title,
-                        textAlign: TextAlign.center,
+
+          GestureDetector(
+                                onTap:() => Navigator.of(context).pushNamed('/products-screen', arguments: {'id': title}),
+
+            child: Container(
+              /*decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2)),*/
+              height: 500,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 0,
+              ),
+              child: Column(
+                children: [
+                  InkWell(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        /*gradient: LinearGradient(
+                          colors: [Colors.white.withOpacity(0.5), Colors.white],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),*/
+                        borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(15),
+                  ),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      padding: EdgeInsets.all(15),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          title,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Positioned(

@@ -22,7 +22,7 @@ class ProductItem extends StatelessWidget {
             onTap: () => Navigator.of(context).pushNamed('/product-details', arguments: {'id': name}),
             child: GridTile(
               child: Hero(
-                  tag: 1,
+                  tag: id,
                   child: Image.network(
                     imageUrl,
                     fit: BoxFit.cover,

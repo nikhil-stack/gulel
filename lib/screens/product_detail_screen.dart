@@ -26,7 +26,7 @@ class ProductDetail extends StatelessWidget {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: Hero(
-                    tag: 2,
+                    tag: title,
                     child: Image.network(
                       displayedProduct.imageUrl,
                       width: double.infinity,
