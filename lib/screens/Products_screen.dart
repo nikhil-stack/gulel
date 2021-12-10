@@ -17,7 +17,8 @@ class _ProductScreenState extends State<ProductScreen> {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryy = routeArgs['title'];
-    displayedProducts = widget.availableProducts.where((product) => product.category.contains(categoryy));
+    displayedProducts = widget.availableProducts
+        .where((product) => product.category.contains(categoryy));
     super.didChangeDependencies();
   }
 
