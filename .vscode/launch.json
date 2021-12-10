@@ -4,7 +4,7 @@
             "name": "Flutter (lib\\widgets\\Product_item.dart)",
             "type": "dart",
             "request": "launch",
-            "program": "C:\\Users\\Nikhil\\flutter projects\\gulel\\lib\\main.dart"
+            "program": "lib\\main.dart"
         }
     ]
 }
