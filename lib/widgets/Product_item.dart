@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
+  String id;
+  String name;
+  double price;
+  int quantity;
+  String imageUrl;
+  String category;
+  ProductItem({this.id, this.name, this.price, this.quantity, this.imageUrl, this.category});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,7 +24,7 @@ class ProductItem extends StatelessWidget {
               child: Hero(
                   tag: 1,
                   child: Image.network(
-                    "https://media.gettyimages.com/photos/almonds-picture-id153711056",
+                    imageUrl,
                     fit: BoxFit.cover,
                   )),
               footer: Container(
@@ -29,7 +36,7 @@ class ProductItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Pistachios",
+                          name,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         IconButton(
@@ -38,7 +45,11 @@ class ProductItem extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [Text('Price'), Text('Rs.xxx'), Text("Qty.__")],
+                      children: [
+                        Text('Price'),
+                        Text(price.toString()),
+                        Text(quantity.toString())
+                      ],
                     )
                   ],
                 ),

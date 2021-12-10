@@ -29,21 +29,21 @@ class CategoryItems_Provider with ChangeNotifier {
   List<Product> _items = [
     Product(
         id: "it1",
-        category: "Almond",
+        category1: "Almond",
         price: 800.0,
         imageUrl: "https://the.ismaili/sites/ismaili/files/5277.jpg",
         stockAvailable: 100,
         title: "Clifornian Non pareil"),
     Product(
         id: "it2",
-        category: "Almond",
+        category1: "Almond",
         price: 700.0,
         imageUrl: "https://the.ismaili/sites/ismaili/files/5277.jpg",
         stockAvailable: 100,
         title: "Australian Almonds"),
     Product(
         id: "it3",
-        category: "Cashew",
+        category1: "Cashew",
         price: 700.0,
         imageUrl:
             "https://th.bing.com/th/id/OIP.O1DjnYjOjx_ef412DSfDSwHaEd?pid=ImgDet&rs=1",
@@ -51,7 +51,7 @@ class CategoryItems_Provider with ChangeNotifier {
         title: "Cashew K"),
     Product(
         id: "it4",
-        category: "Cashew",
+        category1: "Cashew",
         price: 750.0,
         imageUrl:
             "https://th.bing.com/th/id/OIP.O1DjnYjOjx_ef412DSfDSwHaEd?pid=ImgDet&rs=1",

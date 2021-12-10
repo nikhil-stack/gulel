@@ -6,9 +6,6 @@ class CategoryItem extends StatelessWidget {
   final String title;
   final String imageUrl;
   CategoryItem(this.id, this.title, this.imageUrl);
-  void selectCategory(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed('/products-screen', arguments: {'id': title});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +40,7 @@ class CategoryItem extends StatelessWidget {
                   ),
                 ),
                 InkWell(
+                  onTap:() => Navigator.of(context).pushNamed('/products-screen', arguments: {'id': title}),
                   borderRadius: BorderRadius.circular(15),
                   child: Container(
                     height: 120,
