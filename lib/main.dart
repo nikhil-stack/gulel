@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         home: CategoriesScreen(), //CategoriesScreen(),
         routes: {
           '/products-screen': (ctx) => ProductScreen(),
+          '/product-details': (ctx) => ProductDetail(),
         },
       ),
     );

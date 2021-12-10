@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/categoryItems.dart';
+import 'package:gulel/models/products.dart';
 import 'package:gulel/widgets/Bottom_navigation.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Product displayedProduct;
+    List<Product> availableProducts;
+    availableProducts = Provider.of<CategoryItems_Provider>(context).items;
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+
+    final title = routeArgs['id'];
+    displayedProduct = availableProducts.firstWhere((element) => element.title == title);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(10),
@@ -17,7 +28,7 @@ class ProductDetail extends StatelessWidget {
                 background: Hero(
                     tag: 2,
                     child: Image.network(
-                      "https://th.bing.com/th/id/OIP.XcVxjhsnZYGM-pkgiDiruQHaE6?pid=ImgDet&rs=1",
+                      displayedProduct.imageUrl,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     )),
@@ -29,7 +40,7 @@ class ProductDetail extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Dates(Khajoor)",
+                        displayedProduct.title,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       IconButton(
@@ -47,13 +58,13 @@ class ProductDetail extends StatelessWidget {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text("Rs.xxx")
+                              Text("Rs. " + displayedProduct.price.toString())
                             ],
                           ),
                           Text("Offers"),
                         ],
                       ),
-                      Text("Qty. ___"),
+                      Text("Qty. Available " + displayedProduct.stockAvailable.toString()),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),

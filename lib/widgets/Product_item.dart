@@ -19,7 +19,7 @@ class ProductItem extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: InkWell(
-            onTap: () {},
+            onTap: () => Navigator.of(context).pushNamed('/product-details', arguments: {'id': name}),
             child: GridTile(
               child: Hero(
                   tag: 1,
