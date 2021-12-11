@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
+import 'package:gulel/models/quantity.dart';
 import 'package:gulel/widgets/Bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,8 @@ class ProductDetail extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as Map<String, String>;
 
     final title = routeArgs['id'];
-    displayedProduct = availableProducts.firstWhere((element) => element.title == title);
+    displayedProduct =
+        availableProducts.firstWhere((element) => element.title == title);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(10),
@@ -43,8 +45,24 @@ class ProductDetail extends StatelessWidget {
                         displayedProduct.title,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                          onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+                      TextButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  return GestureDetector(
+                                    onTap: () {},
+                                    child: SelectQuantity(
+                                      ProductID: displayedProduct.id,
+                                      title: displayedProduct.title,
+                                      Price: displayedProduct.price,
+                                      imageUrl: displayedProduct.imageUrl,
+                                    ),
+                                    behavior: HitTestBehavior.opaque,
+                                  );
+                                });
+                          },
+                          child: Text("Add To Cart")),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
@@ -64,7 +82,8 @@ class ProductDetail extends StatelessWidget {
                           Text("Offers"),
                         ],
                       ),
-                      Text("Qty. Available " + displayedProduct.stockAvailable.toString()),
+                      Text("Qty. Available " +
+                          displayedProduct.stockAvailable.toString()),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
