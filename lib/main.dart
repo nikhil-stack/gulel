@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
 import 'package:gulel/screens/Products_screen.dart';
@@ -23,8 +24,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     /*List<Product> _availableProducts =
         Provider.of<CategoryItems_Provider>(context).items;*/
-    return ChangeNotifierProvider.value(
-      value: CategoryItems_Provider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => CategoryItems_Provider()),
+        ChangeNotifierProvider.value(value: Cart_Provider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Gulel',

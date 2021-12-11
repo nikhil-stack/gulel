@@ -43,6 +43,7 @@ class Cart_Provider with ChangeNotifier {
               quantity: quantity,
               title: title));
     }
+    ;
 
     notifyListeners();
   }

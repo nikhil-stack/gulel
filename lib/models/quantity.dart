@@ -59,7 +59,7 @@ class _SelectQuantityState extends State<SelectQuantity> {
                   "Add Product",
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () => SubmitData,
+                onPressed: () => SubmitData(),
               ),
             ],
           ),
