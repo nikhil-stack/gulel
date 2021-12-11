@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
 import 'package:gulel/screens/Products_screen.dart';
+import 'package:gulel/screens/add_category_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
+import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +36,8 @@ class _MyAppState extends State<MyApp> {
         routes: {
           '/products-screen': (ctx) => ProductScreen(),
           '/product-details': (ctx) => ProductDetail(),
+          '/add-category': (ctx) => AddCategoryScreen(),
+          '/edit-category': (ctx) => EditCategoriesScreen(),
         },
       ),
     );

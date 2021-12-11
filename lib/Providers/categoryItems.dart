@@ -65,4 +65,9 @@ class CategoryItems_Provider with ChangeNotifier {
   List<Product> get items {
     return [..._items];
   }
+
+  void addCategories(Category newCategory) {
+    _categories.add(newCategory);
+    notifyListeners();
+  }
 }

@@ -28,6 +28,10 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBarClass(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.category),
+        onPressed: () => Navigator.of(context).pushNamed('/edit-category'),
+      ),
     );
   }
 }
