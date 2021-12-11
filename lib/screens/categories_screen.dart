@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
+import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/widgets/Bottom_navigation.dart';
 import 'package:gulel/widgets/category_item.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,13 @@ class CategoriesScreen extends StatelessWidget {
         title: Center(
           child: Text('Gulel'),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+              icon: Icon(Icons.shopping_cart))
+        ],
       ),
       body: GridView.builder(
         itemCount: prov.length,

@@ -53,11 +53,10 @@ class ProductDetail extends StatelessWidget {
                                   return GestureDetector(
                                     onTap: () {},
                                     child: SelectQuantity(
-                                      ProductID: displayedProduct.id,
-                                      title: displayedProduct.title,
-                                      Price: displayedProduct.price,
-                                      imageUrl: displayedProduct.imageUrl,
-                                    ),
+                                        displayedProduct.id,
+                                        displayedProduct.title,
+                                        displayedProduct.price,
+                                        displayedProduct.imageUrl),
                                     behavior: HitTestBehavior.opaque,
                                   );
                                 });

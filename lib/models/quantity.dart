@@ -8,11 +8,8 @@ class SelectQuantity extends StatefulWidget {
   String title;
   double Price;
   String imageUrl;
-  SelectQuantity(
-      {@required this.ProductID,
-      @required this.title,
-      @required this.Price,
-      @required this.imageUrl});
+  SelectQuantity(@required this.ProductID, @required this.title,
+      @required this.Price, @required this.imageUrl);
   @override
   _SelectQuantityState createState() => _SelectQuantityState();
 }
