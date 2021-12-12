@@ -8,6 +8,7 @@ import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
+import 'package:gulel/widgets/Bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Gulel',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.deepPurple,
           accentColor: Colors.blue.shade200,
         ),
         home: CategoriesScreen(), //CategoriesScreen(),
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
           '/add-category': (ctx) => AddCategoryScreen(),
           '/edit-category': (ctx) => EditCategoriesScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
+          // CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
         },
       ),
     );

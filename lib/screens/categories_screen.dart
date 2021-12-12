@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class CategoriesScreen extends StatelessWidget {
   //const CategoriesScreen({ Key? key }) : super(key: key);
+  static const routeName = '\Cart-Screen';
 
   @override
   Widget build(BuildContext context) {
