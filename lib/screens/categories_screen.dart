@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/screens/cart_screen.dart';
-import 'package:gulel/widgets/Bottom_navigation.dart';
 import 'package:gulel/widgets/category_item.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,7 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var prov = Provider.of<CategoryItems_Provider>(context).categories;
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Center(
           child: Text('Gulel'),
         ),
@@ -24,7 +23,7 @@ class CategoriesScreen extends StatelessWidget {
               },
               icon: Icon(Icons.shopping_cart))
         ],
-      ),
+      ),*/
       body: GridView.builder(
         itemCount: prov.length,
         itemBuilder: (ctx, index) => CategoryItem(
@@ -36,7 +35,6 @@ class CategoriesScreen extends StatelessWidget {
           crossAxisSpacing: 20,
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarClass(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.category),
         onPressed: () => Navigator.of(context).pushNamed('/edit-category'),

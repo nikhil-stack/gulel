@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
 import 'package:gulel/models/quantity.dart';
-import 'package:gulel/widgets/Bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetail extends StatelessWidget {
@@ -140,7 +139,6 @@ class ProductDetail extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarClass(),
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
-import 'package:gulel/widgets/Bottom_navigation.dart';
+import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.deepPurple,
           accentColor: Colors.blue.shade200,
         ),
-        home: CategoriesScreen(), //CategoriesScreen(),
+        home: TabsScreen(), //CategoriesScreen(),
         routes: {
           '/products-screen': (ctx) => ProductScreen(),
           '/product-details': (ctx) => ProductDetail(),

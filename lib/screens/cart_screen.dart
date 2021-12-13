@@ -11,9 +11,9 @@ class CartScreen extends StatelessWidget {
     var cartitems = Provider.of<Cart_Provider>(context).items;
     var cart = Provider.of<Cart_Provider>(context);
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text("Your Cart"),
-      ),
+      ),*/
       body: cartitems.length == 0
           ? Center(child: Text("No items added"))
           : Column(
