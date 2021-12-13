@@ -10,8 +10,13 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context)
-          .pushNamed('/products-screen', arguments: {'id': title}),
+      onTap: () => Navigator.of(context).pushNamed(
+        '/products-screen',
+        arguments: {
+          'id': id,
+          'title': title,
+        },
+      ),
       child: GridTile(
         child: Stack(
           children: [

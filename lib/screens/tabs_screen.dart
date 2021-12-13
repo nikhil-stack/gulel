@@ -37,7 +37,14 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gulel'),
+        title: Center(child: Text('Gulel'),),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+              icon: Icon(Icons.shopping_cart))
+        ],
       ),
       body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavigationBar(

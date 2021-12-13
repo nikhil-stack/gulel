@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "910720054329",
+    "project_id": "gulel-ab427",
+    "storage_bucket": "gulel-ab427.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910720054329:android:2785a990cc3d5a171d09e8",
+        "android_client_info": {
+          "package_name": "com.example.gulel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910720054329-loogeh8vf0fj5sh6sqtk41njn1165evo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_EkhxC-AiJQX5Hxm8ohBmv69nyUPLuM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910720054329-loogeh8vf0fj5sh6sqtk41njn1165evo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

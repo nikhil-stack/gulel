@@ -4,9 +4,36 @@ import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/widgets/category_item.dart';
 import 'package:provider/provider.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
   //const CategoriesScreen({ Key? key }) : super(key: key);
   static const routeName = '\Cart-Screen';
+
+  @override
+  _CategoriesScreenState createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<CategoryItems_Provider>(context)
+          .fetchAndSetCategories()
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +51,7 @@ class CategoriesScreen extends StatelessWidget {
               icon: Icon(Icons.shopping_cart))
         ],
       ),*/
-      body: GridView.builder(
+      body: _isLoading ? Center(child: CircularProgressIndicator(),) : GridView.builder(
         itemCount: prov.length,
         itemBuilder: (ctx, index) => CategoryItem(
             prov[index].id, prov[index].title, prov[index].imageUrl),

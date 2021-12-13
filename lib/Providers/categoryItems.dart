@@ -1,30 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gulel/models/category.dart';
 import 'package:gulel/models/products.dart';
+import 'package:http/http.dart' as http;
 
 class CategoryItems_Provider with ChangeNotifier {
   List<Category> _categories = [
-    Category(
-      id: '1',
-      title: 'Cardamom',
-      imageUrl:
-          'https://images.pexels.com/photos/3040873/pexels-photo-3040873.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    ),
-    Category(
-        id: '2',
-        title: 'Black pepper',
-        imageUrl:
-            'https://images.pexels.com/photos/5741507/pexels-photo-5741507.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
-    Category(
-        id: '3',
-        title: 'Almond',
-        imageUrl:
-            'https://images.pexels.com/photos/57042/pexels-photo-57042.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
-    Category(
-        id: '4',
-        title: 'Cashew',
-        imageUrl:
-            'https://images.pexels.com/photos/4663476/pexels-photo-4663476.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+    
   ];
   List<Product> _items = [
     Product(
@@ -66,7 +49,42 @@ class CategoryItems_Provider with ChangeNotifier {
     return [..._items];
   }
 
-  void addCategories(Category newCategory) {
+  Future<void> fetchAndSetCategories() async {
+    var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/categories.json');
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final List<Category> loadedCategories = [];
+    extractedData.forEach((catId, catData) {
+      loadedCategories.add(
+        Category(
+          id: catId,
+          imageUrl: catData['imageUrl'],
+          title: catData['title'],
+        ),
+      );
+    });
+    _categories = loadedCategories;
+    notifyListeners();
+  }
+
+  Future<void> addCategories(Category category) async {
+    var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/categories.json');
+    final response = await http.post(
+      url,
+      body: json.encode(
+        {
+          'title': category.title,
+          'imageUrl': category.imageUrl,
+        },
+      ),
+    );
+    final newCategory = Category(
+      id: json.decode(response.body)['name'],
+      title: category.title,
+      imageUrl: category.imageUrl,
+    );
     _categories.add(newCategory);
     notifyListeners();
   }

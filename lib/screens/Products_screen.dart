@@ -22,6 +22,7 @@ class _ProductScreenState extends State<ProductScreen> {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryy = routeArgs['id'];
+    final upperTitle = routeArgs['title'];
 
     setState(() {
       /*displayedProducts = availableProducts.firstWhere((product) {
@@ -30,13 +31,14 @@ class _ProductScreenState extends State<ProductScreen> {
         return product.category1 == categoryy;
       });*/
       displayedProducts = availableProducts
-          .where((element) => element.category1.contains(categoryy)).toList();
+          .where((element) => element.category1.contains(categoryy))
+          .toList();
     });
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          categoryy,
+          upperTitle,
           textAlign: TextAlign.center,
         ),
       ),

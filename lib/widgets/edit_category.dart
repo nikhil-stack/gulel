@@ -10,6 +10,12 @@ class EditCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.of(context).pushNamed(
+        '/edit-products',
+        arguments: {
+          'id': categoryKey,
+        },
+      ),
       key: Key(categoryKey),
       leading: CircleAvatar(
         backgroundImage: NetworkImage(imageUrl),

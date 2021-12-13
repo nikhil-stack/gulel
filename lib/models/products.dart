@@ -1,6 +1,5 @@
 class Product {
   String id;
-  String category;
   String title;
   double price;
   String imageUrl;
@@ -8,7 +7,6 @@ class Product {
   String category1;
   Product({
     this.id,
-    this.category,
     this.title,
     this.price,
     this.imageUrl,
