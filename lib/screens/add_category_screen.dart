@@ -31,7 +31,12 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add a new category'),
-        actions: [IconButton(icon: Icon(Icons.save), onPressed: _saveForm)],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: _saveForm,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -14,6 +14,7 @@ class EditCategory extends StatelessWidget {
         '/edit-products',
         arguments: {
           'id': categoryKey,
+          'categoryName': title,
         },
       ),
       key: Key(categoryKey),

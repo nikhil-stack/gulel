@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
+import 'package:provider/provider.dart';
 
 class AddProductScreen extends StatefulWidget {
   //const AddProductScreen({ Key? key }) : super(key: key);
@@ -19,11 +21,33 @@ class _AddProductScreenState extends State<AddProductScreen> {
     category1: '',
   );
   final _imageUrlController = TextEditingController();
+
+  void _saveForm() {
+    final isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState.save();
+    Provider.of<CategoryItems_Provider>(context, listen: false)
+        .addProduct(_newProduct);
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final categoryy = routeArgs['categoryName'];
+    final categoryId = routeArgs['categoryId'];
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a new Product'),
+        title: Text(categoryy),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: _saveForm,
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -47,7 +71,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     price: _newProduct.price,
                     imageUrl: _newProduct.imageUrl,
                     stockAvailable: _newProduct.stockAvailable,
-                    category1: _newProduct.category1,
+                    category1: categoryId,
                   );
                 },
               ),
@@ -85,50 +109,31 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 onSaved: (value) {
                   _newProduct = Product(
                     id: _newProduct.id,
-                    title: value,
+                    title: _newProduct.title,
                     price: _newProduct.price,
-                    imageUrl: _newProduct.imageUrl,
+                    imageUrl: value,
                     stockAvailable: _newProduct.stockAvailable,
                     category1: _newProduct.category1,
                   );
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: InputDecoration(labelText: 'Stock Available'),
                 textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please provide a title';
+                    return 'Please provide Stock Available';
                   }
                   return null;
                 },
                 onSaved: (value) {
                   _newProduct = Product(
                     id: _newProduct.id,
-                    title: value,
+                    title: _newProduct.title,
                     price: _newProduct.price,
                     imageUrl: _newProduct.imageUrl,
-                    stockAvailable: _newProduct.stockAvailable,
-                    category1: _newProduct.category1,
-                  );
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Title'),
-                textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please provide a title';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _newProduct = Product(
-                    id: _newProduct.id,
-                    title: value,
-                    price: _newProduct.price,
-                    imageUrl: _newProduct.imageUrl,
-                    stockAvailable: _newProduct.stockAvailable,
+                    stockAvailable: int.tryParse(value),
                     category1: _newProduct.category1,
                   );
                 },

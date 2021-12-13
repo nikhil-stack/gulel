@@ -14,6 +14,32 @@ class EditProductsScreen extends StatefulWidget {
 class _EditProductsScreenState extends State<EditProductsScreen> {
   List<Product> displayedProducts;
   List<Product> availableProducts;
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final categoryy = routeArgs['id'];
+    //final upperTitle = routeArgs['title'];
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<CategoryItems_Provider>(context)
+          .fetchAndSetProducts(categoryy)
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final availableProducts =
@@ -21,6 +47,7 @@ class _EditProductsScreenState extends State<EditProductsScreen> {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryy = routeArgs['id'];
+    final categoryName = routeArgs['categoryName'];
 
     setState(() {
       displayedProducts = availableProducts
@@ -33,17 +60,31 @@ class _EditProductsScreenState extends State<EditProductsScreen> {
       appBar: AppBar(
         title: Text('Edit Products'),
       ),
-      body: ListView.builder(
-        itemBuilder: (ctx, index) => EditProduct(
-          productKey: displayedProducts[index].id,
-          title: displayedProducts[index].title,
-          imageUrl: displayedProducts[index].imageUrl,
-        ),
-        itemCount: displayedProducts.length,
-      ),
+      body: availableProducts.length == 0
+          ? Center(
+              child: Text('No Products Found!'),
+            )
+          : _isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemBuilder: (ctx, index) => EditProduct(
+                    productKey: displayedProducts[index].id,
+                    title: displayedProducts[index].title,
+                    imageUrl: displayedProducts[index].imageUrl,
+                  ),
+                  itemCount: displayedProducts.length,
+                ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => Navigator.of(context).pushNamed('/add-product'),
+        onPressed: () => Navigator.of(context).pushNamed(
+          '/add-product',
+          arguments: {
+            'categoryId': categoryy,
+            'categoryName': categoryName,
+          },
+        ),
       ),
     );
   }

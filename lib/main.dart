@@ -4,6 +4,7 @@ import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
 import 'package:gulel/screens/Products_screen.dart';
 import 'package:gulel/screens/add_category_screen.dart';
+import 'package:gulel/screens/add_product_screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           '/edit-category': (ctx) => EditCategoriesScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
           '/edit-products': (ctx) => EditProductsScreen(),
-          '/add-product': (ctx) => 
+          '/add-product': (ctx) => AddProductScreen(),
         },
       ),
     );

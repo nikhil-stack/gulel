@@ -6,9 +6,7 @@ import 'package:gulel/models/products.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryItems_Provider with ChangeNotifier {
-  List<Category> _categories = [
-    
-  ];
+  List<Category> _categories = [];
   List<Product> _items = [
     Product(
         id: "it1",
@@ -70,7 +68,8 @@ class CategoryItems_Provider with ChangeNotifier {
 
   Future<void> addCategories(Category category) async {
     var url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/categories.json');
+      'https://gulel-ab427-default-rtdb.firebaseio.com/categories.json',
+    );
     final response = await http.post(
       url,
       body: json.encode(
@@ -86,6 +85,60 @@ class CategoryItems_Provider with ChangeNotifier {
       imageUrl: category.imageUrl,
     );
     _categories.add(newCategory);
+    notifyListeners();
+  }
+
+  Future<void> addProduct(Product product) async {
+    final categoryId = product.category1;
+    var url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/$categoryId.json',
+    );
+    final response = await http.post(
+      url,
+      body: json.encode(
+        {
+          'title': product.title,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+          'stock': product.stockAvailable,
+          'category1': product.category1,
+        },
+      ),
+    );
+    final newProduct = Product(
+      id: json.decode(response.body)['name'],
+      title: product.title,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      stockAvailable: product.stockAvailable,
+      category1: product.category1,
+    );
+    _items.add(newProduct);
+    notifyListeners();
+  }
+
+  Future<void> fetchAndSetProducts(String categoryId) async {
+    var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/$categoryId.json');
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final List<Product> loadedProducts = [];
+    print(extractedData);
+    if (extractedData != null) {
+      extractedData.forEach((prodId, prodData) {
+        loadedProducts.add(
+          Product(
+            title: prodData['title'],
+            id: prodId,
+            price: prodData['price'],
+            imageUrl: prodData['imageUrl'],
+            stockAvailable: prodData['stockAvailable'],
+            category1: prodData['category1'],
+          ),
+        );
+      });
+    }
+    _items = loadedProducts;
     notifyListeners();
   }
 }

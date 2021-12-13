@@ -7,7 +7,13 @@ class ProductItem extends StatelessWidget {
   int quantity;
   String imageUrl;
   String category;
-  ProductItem({this.id, this.name, this.price, this.quantity, this.imageUrl, this.category});
+  ProductItem(
+      {this.id,
+      this.name,
+      this.price,
+      this.quantity,
+      this.imageUrl,
+      this.category});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,7 +25,8 @@ class ProductItem extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: InkWell(
-            onTap: () => Navigator.of(context).pushNamed('/product-details', arguments: {'id': name}),
+            onTap: () => Navigator.of(context)
+                .pushNamed('/product-details', arguments: {'id': name}),
             child: GridTile(
               child: Hero(
                   tag: id,
@@ -32,23 +39,26 @@ class ProductItem extends StatelessWidget {
                 //decoration: BoxDecoration(),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          name,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(
-                            onPressed: () {}, icon: Icon(Icons.favorite_border))
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.favorite_border))
+                        ],
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text('Price'),
                         Text(price.toString()),
-                        Text(quantity.toString())
                       ],
                     )
                   ],
