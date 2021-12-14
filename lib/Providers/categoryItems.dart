@@ -91,7 +91,7 @@ class CategoryItems_Provider with ChangeNotifier {
   Future<void> addProduct(Product product) async {
     final categoryId = product.category1;
     var url = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/$categoryId.json',
+      'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
     );
     final response = await http.post(
       url,
@@ -119,7 +119,7 @@ class CategoryItems_Provider with ChangeNotifier {
 
   Future<void> fetchAndSetProducts(String categoryId) async {
     var url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/$categoryId.json');
+        'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json');
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     final List<Product> loadedProducts = [];

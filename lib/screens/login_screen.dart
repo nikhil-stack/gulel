@@ -15,33 +15,29 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _codeController = TextEditingController();
 
-  Future<bool> loginUser(String phone, BuildContext context) async {
+  Future registerUser(String mobile, BuildContext context) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
 
     _auth.verifyPhoneNumber(
-        phoneNumber: phone,
+        phoneNumber: mobile,
         timeout: Duration(seconds: 60),
-        verificationCompleted: (AuthCredential credential) async {
-          Navigator.of(context).pop();
-
-          var result = await _auth.signInWithCredential(credential);
-
-          var user = result.user;
-
-          if (user != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TabsScreen(),
-                ));
-          } else {
-            print("Error");
-          }
+        verificationCompleted: (AuthCredential authCredential) {
+          
+          _auth.signInWithCredential(authCredential).then((AuthResult result) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TabsScreen(result.user),
+              ),
+            );
+          }).catchError((e) {
+            print(e);
+          });
 
           //This callback would gets called when verification is done auto maticlly
         },
-        verificationFailed: (var exception) {
-          print(exception);
+        verificationFailed: (AuthException authException) {
+          print(authException.message);
         },
         codeSent: (String verificationId, [int forceResendingToken]) {
           showDialog(
@@ -63,33 +59,36 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text("Confirm"),
                       textColor: Colors.white,
                       color: Colors.blue,
-                      onPressed: () async {
-                        final code = _codeController.text.trim();
-                        AuthCredential credential =
-                            PhoneAuthProvider.credential(
-                                verificationId: verificationId, smsCode: code);
-
-                        var result =
-                            await _auth.signInWithCredential(credential);
-
-                        var user = result.user;
-
-                        if (user != null) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TabsScreen(),
-                              ));
-                        } else {
-                          print("Error");
-                        }
+                      onPressed: () {
+                        FirebaseAuth auth = FirebaseAuth.instance;
+                        var smsCode = _codeController.text.trim();
+                        var _credential = PhoneAuthProvider.getCredential(
+                          verificationId: verificationId,
+                          smsCode: smsCode,
+                        );
+                        auth
+                            .signInWithCredential(_credential)
+                            .then((AuthResult result) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TabsScreen(result.user),
+                            ),
+                          );
+                        }).catchError((e) {
+                          print(e);
+                        });
                       },
                     )
                   ],
                 );
               });
         },
-        codeAutoRetrievalTimeout: null);
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationId = verificationId;
+          print(verificationId);
+          print('TimeOut');
+        });
   }
 
   @override
@@ -136,11 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.text,
                       controller: _phoneController,
                     ),
-                    /* TextFormField(
-                      decoration: InputDecoration(labelText: 'Password'),
-                      // keyboardType: TextInputType.emailAddress,
-                      obscureText: true,
-                    )*/
+                    
                   ],
                 )),
             SizedBox(
@@ -150,9 +145,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: FlatButton(
                   color: Theme.of(context).accentColor,
                   onPressed: () {
-                    final phone = _phoneController.text.trim();
+                    final mobile = _phoneController.text.trim();
 
-                    loginUser(phone, context);
+                    registerUser(mobile, context);
                   },
                   child: Text("Login",
                       style: TextStyle(fontWeight: FontWeight.bold))),

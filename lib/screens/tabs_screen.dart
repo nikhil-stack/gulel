@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TabsScreen extends StatefulWidget {
   //const TabsScreen({ Key? key }) : super(key: key);
-
+  final FirebaseUser user;
+  TabsScreen(this.user);
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
@@ -37,7 +39,9 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Gulel'),),
+        title: Center(
+          child: Text('Gulel'),
+        ),
         actions: [
           IconButton(
               onPressed: () {
