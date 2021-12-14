@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
-import 'package:gulel/models/products.dart';
 import 'package:gulel/screens/Products_screen.dart';
 import 'package:gulel/screens/add_category_screen.dart';
 import 'package:gulel/screens/add_product_screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
-import 'package:gulel/screens/categories_screen.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/edit_products_screen.dart';
+import 'package:gulel/screens/login_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -40,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.deepPurple,
           accentColor: Colors.blue.shade200,
         ),
-        home: TabsScreen(), //CategoriesScreen(),
+        home: LoginScreen(), //TabsScreen(), //CategoriesScreen(),
         routes: {
           '/products-screen': (ctx) => ProductScreen(),
           '/product-details': (ctx) => ProductDetail(),
