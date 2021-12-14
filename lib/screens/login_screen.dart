@@ -22,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
         phoneNumber: mobile,
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) {
-          
           _auth.signInWithCredential(authCredential).then((AuthResult result) {
             Navigator.pushReplacement(
               context,
@@ -132,10 +131,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(labelText: 'MobileNo'),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       controller: _phoneController,
                     ),
-                    
                   ],
                 )),
             SizedBox(
@@ -145,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: FlatButton(
                   color: Theme.of(context).accentColor,
                   onPressed: () {
-                    final mobile = _phoneController.text.trim();
+                    final mobile = "+91" + _phoneController.text.trim();
 
                     registerUser(mobile, context);
                   },
