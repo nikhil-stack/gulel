@@ -43,18 +43,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     var prov = Provider.of<CategoryItems_Provider>(context).categories;
     return Scaffold(
-      /*appBar: AppBar(
-        title: Center(
-          child: Text('Gulel'),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.routeName);
-              },
-              icon: Icon(Icons.shopping_cart))
-        ],
-      ),*/
       body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),

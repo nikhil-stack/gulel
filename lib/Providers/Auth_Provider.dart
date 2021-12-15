@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
+import 'package:http/http.dart' as http;
 
 class Auth_Provider with ChangeNotifier {
-  
   DateTime expeiryDate;
   final _codeController = TextEditingController();
 
@@ -19,18 +18,32 @@ class Auth_Provider with ChangeNotifier {
         phoneNumber: mobile,
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) {
-          _auth.signInWithCredential(authCredential).then((AuthResult result) {
-            print(result);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TabsScreen(),
-              ),
-              (route) => false,
-            );
-          }).catchError((e) {
-            print(e);
-          });
+          _auth.signInWithCredential(authCredential).then(
+            (AuthResult result) {
+              print(result);
+              if (result.additionalUserInfo.isNewUser) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignUp(),
+                  ),
+                  (route) => false,
+                );
+              } else {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TabsScreen(),
+                  ),
+                  (route) => false,
+                );
+              }
+            },
+          ).catchError(
+            (e) {
+              print(e);
+            },
+          );
 
           //This callback would gets called when verification is done auto maticlly
         },
@@ -67,13 +80,34 @@ class Auth_Provider with ChangeNotifier {
                         auth
                             .signInWithCredential(_credential)
                             .then((AuthResult result) {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TabsScreen(),
-                            ),
-                            (route) => false,
+                          if (result.additionalUserInfo.isNewUser) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUp(),
+                              ),
+                              (route) => false,
+                            );
+                          } else {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TabsScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          }
+                          /*final url = Uri.parse(
+                            'https://gulel-ab427-default-rtdb.firebaseio.com/users.json',
                           );
+                          final response = await http.post(
+                            url,
+                            body: json.encode(
+                              {
+                                'UserId': result.user.phoneNumber,
+                              },
+                            ),
+                          );*/
                         }).catchError((e) {
                           print(e);
                         });

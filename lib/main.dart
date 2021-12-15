@@ -63,6 +63,7 @@ class _MyAppState extends State<MyApp> {
           '/edit-products': (ctx) => EditProductsScreen(),
           '/add-product': (ctx) => AddProductScreen(),
           SignUp.routeName: (ctx) => SignUp(),
+          
         },
       ),
     );
