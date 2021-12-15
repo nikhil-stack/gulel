@@ -22,6 +22,7 @@ class Auth_Provider with ChangeNotifier {
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) {
           _auth.signInWithCredential(authCredential).then((AuthResult result) {
+            print(result);
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -89,45 +90,5 @@ class Auth_Provider with ChangeNotifier {
           print(verificationId);
           print('TimeOut');
         });
-  }
-
-  Future<bool> autologin() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('userData')) {
-      return false;
-    }
-    final extractedUserData =
-        json.decode(prefs.getString("userData")) as Map<String, dynamic>;
-    final expieryUserDate = DateTime.parse(extractedUserData['expiery']);
-    if (expieryUserDate.isBefore(DateTime.now())) {
-      return false;
-    }
-    _token = extractedUserData["token"];
-    _userId = extractedUserData["userId"];
-    expeiryDate = expieryUserDate;
-    notifyListeners();
-    autologout();
-    return true;
-  }
-
-  Future<void> logout() async {
-    _userId = null;
-    _token = null;
-    expeiryDate = null;
-    if (_authTimer != null) {
-      _authTimer.cancel();
-      _authTimer = null;
-    }
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    notifyListeners();
-  }
-
-  void autologout() {
-    if (_authTimer != null) {
-      _authTimer.cancel();
-    }
-    final timetoexpire = expeiryDate.difference(DateTime.now()).inSeconds;
-    _authTimer = Timer(Duration(seconds: timetoexpire), logout);
   }
 }
