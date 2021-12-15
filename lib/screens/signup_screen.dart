@@ -13,7 +13,8 @@ class _SignUpState extends State<SignUp> {
   final EmailFocusNode = FocusNode();
   final OrgNameFocusNode = FocusNode();
   final AddressFocusNode = FocusNode();
-  final _passwordController = TextEditingController();
+  final GstFocusNode = FocusNode();
+  final MObileNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -55,27 +56,8 @@ class _SignUpState extends State<SignUp> {
                   },
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                  controller: _passwordController,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 5) {
-                      return 'Password is too short!';
-                    }
-                  },
+                  decoration: InputDecoration(labelText: 'GstNumber'),
                 ),
-                TextFormField(
-                    // enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
-                    obscureText: true,
-                    validator: // _authMode == AuthMode.Signup
-                        (value) {
-                      if (value != _passwordController.text) {
-                        return 'Passwords do not match!';
-                      }
-                    }
-                    // : null,
-                    ),
                 TextFormField(
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(labelText: 'Organization name'),
@@ -92,6 +74,7 @@ class _SignUpState extends State<SignUp> {
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(labelText: 'Mobile Number'),
                   keyboardType: TextInputType.number,
+                  focusNode: MObileNode,
                   //focusNode: priceFocusNode,
                 ),
                 SizedBox(

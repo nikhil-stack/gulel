@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/screens/Products_screen.dart';
@@ -9,6 +10,7 @@ import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/edit_products_screen.dart';
 import 'package:gulel/screens/login_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
+import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +34,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (ctx) => CategoryItems_Provider()),
         ChangeNotifierProvider.value(value: Cart_Provider()),
+        ChangeNotifierProvider.value(value: Auth_Provider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -49,6 +52,7 @@ class _MyAppState extends State<MyApp> {
           CartScreen.routeName: (ctx) => CartScreen(),
           '/edit-products': (ctx) => EditProductsScreen(),
           '/add-product': (ctx) => AddProductScreen(),
+          SignUp.routeName: (ctx) => SignUp(),
         },
       ),
     );
