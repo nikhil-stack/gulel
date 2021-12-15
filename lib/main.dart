@@ -13,6 +13,7 @@ import 'package:gulel/screens/product_detail_screen.dart';
 import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,7 +43,17 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.deepPurple,
           accentColor: Colors.blue.shade200,
         ),
-        home: LoginScreen(), //TabsScreen(), //CategoriesScreen(),
+        //home: LoginScreen(),
+        //TabsScreen(), //CategoriesScreen(),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.onAuthStateChanged,
+          builder: (ctx, snapshot) {
+            if (snapshot.hasData) {
+              return TabsScreen();
+            }
+            return LoginScreen();
+          },
+        ),
         routes: {
           '/products-screen': (ctx) => ProductScreen(),
           '/product-details': (ctx) => ProductDetail(),

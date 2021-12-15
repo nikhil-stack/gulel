@@ -6,8 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class TabsScreen extends StatefulWidget {
   //const TabsScreen({ Key? key }) : super(key: key);
-  final FirebaseUser user;
-  TabsScreen(this.user);
+  //final FirebaseUser user;
+  //TabsScreen(this.user);
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }

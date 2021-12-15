@@ -8,10 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 
 class Auth_Provider with ChangeNotifier {
-  String _token;
-  String _userId;
+  
   DateTime expeiryDate;
-  var _authTimer;
   final _codeController = TextEditingController();
 
   Future registerUser(String mobile, BuildContext context) async {
@@ -26,7 +24,7 @@ class Auth_Provider with ChangeNotifier {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => TabsScreen(result.user),
+                builder: (context) => TabsScreen(),
               ),
               (route) => false,
             );
@@ -72,7 +70,7 @@ class Auth_Provider with ChangeNotifier {
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TabsScreen(result.user),
+                              builder: (context) => TabsScreen(),
                             ),
                             (route) => false,
                           );

@@ -15,23 +15,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  @override
-  void initState() {
-    super.initState();
-    FirebaseAuth.instance.currentUser().then((firebaseUser) {
-      if (firebaseUser == null) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => LoginScreen()));
-      } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => TabsScreen(firebaseUser)));
-      }
-    });
-  }
 
   final _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
