@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/screens/signup_screen.dart';
+import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   // const LoginScreen({ Key? key }) : super(key: key);
@@ -13,6 +15,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.currentUser().then((firebaseUser) {
+      if (firebaseUser == null) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => LoginScreen()));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => TabsScreen(firebaseUser)));
+      }
+    });
+  }
+
   final _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -32,68 +52,84 @@ class _LoginScreenState extends State<LoginScreen> {
         )),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 20,
+              height: 70,
             ),
             Center(
                 child: Text("Gulel",
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 25))),
             SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Welcome",
-              style: TextStyle(fontSize: 22),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text("Please Login to Continue"),
-            Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'MobileNo'),
-                      keyboardType: TextInputType.number,
-                      controller: _phoneController,
-                    ),
-                  ],
-                )),
-            SizedBox(
-              height: 4,
+              height: 200,
             ),
             Center(
-              child: FlatButton(
-                  color: Theme.of(context).accentColor,
-                  onPressed: () {
-                    final mobile = "+91" + _phoneController.text.trim();
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome",
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    Text("Please Login to Continue"),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 1)),
+                      child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'MobileNo'),
+                                keyboardType: TextInputType.number,
+                                controller: _phoneController,
+                              ),
+                            ],
+                          )),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Center(
+                      child: FlatButton(
+                          color: Theme.of(context).accentColor,
+                          onPressed: () {
+                            final mobile = "+91" + _phoneController.text.trim();
 
-                    Provider.of<Auth_Provider>(context, listen: false)
-                        .registerUser(mobile, context);
-                  },
-                  child: Text("Login",
-                      style: TextStyle(fontWeight: FontWeight.bold))),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Row(
-              children: [
-                Text("Don't have an account?"),
-                SizedBox(
-                  width: 2,
+                            Provider.of<Auth_Provider>(context, listen: false)
+                                .registerUser(mobile, context);
+                          },
+                          child: Text("Login",
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        Text("Don't have an account?"),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        FlatButton(
+                          child: Text("SignUp"),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(SignUp.routeName);
+                          },
+                        )
+                      ],
+                    )
+                  ],
                 ),
-                FlatButton(
-                  child: Text("SignUp"),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(SignUp.routeName);
-                  },
-                )
-              ],
-            )
+              ),
+            ),
           ],
         ),
       ),

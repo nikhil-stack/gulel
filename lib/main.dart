@@ -13,7 +13,6 @@ import 'package:gulel/screens/product_detail_screen.dart';
 import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(MyApp());
