@@ -19,15 +19,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
       Provider.of<CategoryItems_Provider>(context)
           .fetchAndSetCategories()
           .then((_) {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       });
     }
     _isInit = false;
@@ -51,17 +55,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               icon: Icon(Icons.shopping_cart))
         ],
       ),*/
-      body: _isLoading ? Center(child: CircularProgressIndicator(),) : GridView.builder(
-        itemCount: prov.length,
-        itemBuilder: (ctx, index) => CategoryItem(
-            prov[index].id, prov[index].title, prov[index].imageUrl),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 0.9,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-        ),
-      ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : GridView.builder(
+              itemCount: prov.length,
+              itemBuilder: (ctx, index) => CategoryItem(
+                  prov[index].id, prov[index].title, prov[index].imageUrl),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 0.9,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.category),
         onPressed: () => Navigator.of(context).pushNamed('/edit-category'),

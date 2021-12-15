@@ -3,6 +3,7 @@ import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gulel/screens/logout_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   //const TabsScreen({ Key? key }) : super(key: key);
@@ -22,7 +23,7 @@ class _TabsScreenState extends State<TabsScreen> {
       CategoriesScreen(),
       OrderScreen(),
       CartScreen(),
-      CategoriesScreen(),
+      LogoutScreen(),
     ];
     super.initState();
   }
@@ -71,8 +72,8 @@ class _TabsScreenState extends State<TabsScreen> {
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.logout),
+            label: 'Logout',
           ),
         ],
       ),
