@@ -45,7 +45,7 @@ class Cart_Provider with ChangeNotifier {
               imageUrl: exCartItem.imageUrl,
               price: exCartItem.price,
               title: exCartItem.title,
-              quantity: exCartItem.quantity + quantity));
+              quantity: quantity));
     } else {
       _items.putIfAbsent(
           ProductID,

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/user_Provider.dart';
+import 'package:gulel/models/signUpcontainer.dart';
+import 'package:gulel/screens/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   static const routeName = '\SignUp-Screen';
@@ -8,89 +12,289 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _form = GlobalKey<FormState>();
+  // final _form = GlobalKey<FormState>();
   final NameFocusNode = FocusNode();
   final EmailFocusNode = FocusNode();
   final OrgNameFocusNode = FocusNode();
   final AddressFocusNode = FocusNode();
   final GstFocusNode = FocusNode();
   final MObileNode = FocusNode();
+  final _NameController = TextEditingController();
+  final _EmailController = TextEditingController();
+  final _GstController = TextEditingController();
+  final _OrgnameController = TextEditingController();
+  final _AddressController = TextEditingController();
+  final _MobileController = TextEditingController();
+
+  Widget _backButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 0, top: 20, bottom: 10),
+              child: Icon(Icons.keyboard_arrow_left, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _nameWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
+          controller: _NameController,
+          decoration: InputDecoration(
+            // hintText: 'Enter your full name',
+            labelText: 'Name',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _emailWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
+          controller: _EmailController,
+          decoration: InputDecoration(
+            // hintText: 'Enter your full name',
+            labelText: 'Email',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _GstNumberWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
+          controller: _GstController,
+          decoration: InputDecoration(
+            labelText: 'GstNumber',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _OrganizationnameWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
+          controller: _OrgnameController,
+          decoration: InputDecoration(
+            labelText: 'Organization name',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _AddressWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
+          controller: _AddressController,
+          decoration: InputDecoration(
+            labelText: 'Address',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _MobileNumberWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
+          controller: _MobileController,
+          decoration: InputDecoration(
+            labelText: 'mobileNumber',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _submitButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: InkWell(
+        onTap: () {
+          Provider.of<user_provider>(context, listen: false).addUser(
+              _NameController.text,
+              _EmailController.text,
+              _GstController.text,
+              _OrgnameController.text,
+              _AddressController.text,
+              _MobileController.text);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            'Sign up',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+                height: 1.6),
+          ),
+          SizedBox.fromSize(
+            size: Size.square(70.0), // button width and height
+            child: ClipOval(
+              child: Material(
+                color: Color.fromRGBO(76, 81, 93, 1),
+                child: Icon(Icons.arrow_forward,
+                    color: Colors.white), // button color
+              ),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+
+  Widget _createLoginLabel() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      alignment: Alignment.bottomLeft,
+      child: InkWell(
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen())),
+        child: Text(
+          'Login',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            decoration: TextDecoration.underline,
+            decorationThickness: 2,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("SignUp"),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-          image: NetworkImage(
-            "https://images.pexels.com/photos/7412065/pexels-photo-7412065.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-          ),
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.4), BlendMode.dstATop),
-          fit: BoxFit.cover,
-        )),
-        child: Form(
-            key: _form,
-            child: ListView(
-              children: [
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(labelText: 'Full Name'),
-                  // onFieldSubmitted: (){},
-                ),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(labelText: 'Email'),
-                  keyboardType: TextInputType.text,
-                  focusNode: EmailFocusNode,
-                  validator: (value) {
-                    if (value.isEmpty || !value.contains('@')) {
-                      return 'Invalid email!';
-                    }
-                    return null;
-                    // return null;
-                  },
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'GstNumber'),
-                ),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(labelText: 'Organization name'),
-                  keyboardType: TextInputType.text,
-                  focusNode: OrgNameFocusNode,
-                ),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(labelText: 'Address'),
-                  keyboardType: TextInputType.text,
-                  focusNode: AddressFocusNode,
-                ),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(labelText: 'Mobile Number'),
-                  keyboardType: TextInputType.number,
-                  focusNode: MObileNode,
-                  //focusNode: priceFocusNode,
-                ),
-                SizedBox(
-                  height: 6,
-                ),
-                Center(
-                  child: Container(
-                    child: FlatButton(
-                      onPressed: () {},
-                      child: Text("Submit"),
-                      color: Theme.of(context).accentColor,
+      body: SizedBox(
+        height: height,
+        child: Stack(
+          children: [
+            Positioned(
+                height: MediaQuery.of(context).size.height * 1,
+                child: SignUpContainer()),
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        SizedBox(height: height * .4),
+                        _nameWidget(),
+                        SizedBox(height: 20),
+                        _emailWidget(),
+                        SizedBox(height: 20),
+                        _GstNumberWidget(),
+                        SizedBox(height: 20),
+                        _OrganizationnameWidget(),
+                        SizedBox(height: 20),
+                        _AddressWidget(),
+                        SizedBox(height: 20),
+                        _MobileNumberWidget(),
+                        SizedBox(height: 80),
+                        _submitButton(),
+                        SizedBox(height: height * .050),
+                        _createLoginLabel(),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              ),
+            ),
+            Positioned(top: 60, left: 0, child: _backButton()),
+          ],
+        ),
       ),
     );
   }

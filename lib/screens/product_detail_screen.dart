@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/models/products.dart';
 import 'package:gulel/models/quantity.dart';
+import 'package:gulel/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetail extends StatelessWidget {
@@ -94,7 +95,25 @@ class ProductDetail extends StatelessWidget {
                         ),
                         width: MediaQuery.of(context).size.width / 2,
                         child: FlatButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await showModalBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  return GestureDetector(
+                                    onTap: () {},
+                                    child: SelectQuantity(
+                                        displayedProduct.id,
+                                        displayedProduct.title,
+                                        displayedProduct.price,
+                                        displayedProduct.imageUrl),
+                                    behavior: HitTestBehavior.opaque,
+                                  );
+                                });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartScreen()));
+                          },
                           child: Text(
                             "BUY NOW",
                             style: TextStyle(fontSize: 14),
