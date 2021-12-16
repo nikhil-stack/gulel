@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OrderScreen extends StatefulWidget {
+  static const routeName = '\Order_Screen';
   @override
   _OrderScreenState createState() => _OrderScreenState();
 }

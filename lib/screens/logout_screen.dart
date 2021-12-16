@@ -4,7 +4,7 @@ import 'package:gulel/screens/login_screen.dart';
 
 class LogoutScreen extends StatefulWidget {
   //const LogoutScreen({ Key? key }) : super(key: key);
-
+  static const routeName = '\Logout-Screen';
   @override
   _LogoutScreenState createState() => _LogoutScreenState();
 }

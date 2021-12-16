@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
+import 'package:gulel/screens/Profile_Screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +24,7 @@ class _TabsScreenState extends State<TabsScreen> {
       CategoriesScreen(),
       OrderScreen(),
       CartScreen(),
-      LogoutScreen(),
+      Profile(),
     ];
     super.initState();
   }
@@ -72,8 +73,8 @@ class _TabsScreenState extends State<TabsScreen> {
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.logout),
-            label: 'Logout',
+            icon: Icon(Icons.account_box),
+            label: 'Account',
           ),
         ],
       ),

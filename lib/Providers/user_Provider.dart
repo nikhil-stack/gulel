@@ -24,6 +24,9 @@ class user {
 }
 
 class user_provider with ChangeNotifier {
+  final String userId;
+  user_provider(this.userId);
+
   Future<void> addUser(
       FullName, emailId, GstNumber, OrganName, address, MobileNumber) async {
     var url = Uri.parse(
@@ -43,5 +46,12 @@ class user_provider with ChangeNotifier {
       ),
     );
     notifyListeners();
+  }
+
+  Future<void> fetchandset(String userId) async {
+    var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/products/$userId.json');
+    final response = await http.get(url);
+    print(response);
   }
 }

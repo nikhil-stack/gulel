@@ -3,6 +3,7 @@ import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/user_Provider.dart';
+import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/Products_screen.dart';
 import 'package:gulel/screens/add_category_screen.dart';
 import 'package:gulel/screens/add_product_screen.dart';
@@ -10,6 +11,7 @@ import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/edit_products_screen.dart';
 import 'package:gulel/screens/login_screen.dart';
+import 'package:gulel/screens/logout_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
 import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
@@ -40,8 +42,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(
           value: Auth_Provider(),
         ),
-        ChangeNotifierProvider.value(
-          value: user_provider(),
+        ChangeNotifierProxyProvider<Auth_Provider, user_provider>(
+          update: (ctx, auth, pre) => user_provider(auth.userId),
         ),
         ChangeNotifierProxyProvider<Auth_Provider, Cart_Provider>(
           update: (ctx, auth, previousProducts) => Cart_Provider(
@@ -63,6 +65,7 @@ class _MyAppState extends State<MyApp> {
           stream: FirebaseAuth.instance.onAuthStateChanged,
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
+              //  print(snapshot.data);
               return TabsScreen();
             }
             return LoginScreen();
@@ -77,6 +80,8 @@ class _MyAppState extends State<MyApp> {
           '/edit-products': (ctx) => EditProductsScreen(),
           '/add-product': (ctx) => AddProductScreen(),
           SignUp.routeName: (ctx) => SignUp(),
+          LogoutScreen.routeName: (ctx) => LogoutScreen(),
+          OrderScreen.routeName: (ctx) => OrderScreen(),
         },
       ),
     );
