@@ -34,9 +34,21 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => CategoryItems_Provider()),
-        ChangeNotifierProvider.value(value: Cart_Provider()),
-        ChangeNotifierProvider.value(value: Auth_Provider()),
-        ChangeNotifierProvider.value(value: user_provider()),
+        /*ChangeNotifierProvider.value(
+          value: Cart_Provider(),
+        ),*/
+        ChangeNotifierProvider.value(
+          value: Auth_Provider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: user_provider(),
+        ),
+        ChangeNotifierProxyProvider<Auth_Provider, Cart_Provider>(
+          update: (ctx, auth, previousProducts) => Cart_Provider(
+            auth.userId,
+            previousProducts == null ? {} : previousProducts.items,
+          ),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -10,6 +10,11 @@ import 'package:http/http.dart' as http;
 class Auth_Provider with ChangeNotifier {
   DateTime expeiryDate;
   final _codeController = TextEditingController();
+  String _userId;
+
+  String get userId {
+    return _userId;
+  }
 
   Future registerUser(String mobile, BuildContext context) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
@@ -20,7 +25,7 @@ class Auth_Provider with ChangeNotifier {
         verificationCompleted: (AuthCredential authCredential) {
           _auth.signInWithCredential(authCredential).then(
             (AuthResult result) {
-              print(result);
+              _userId = result.user.uid;
               if (result.additionalUserInfo.isNewUser) {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -62,6 +67,7 @@ class Auth_Provider with ChangeNotifier {
                     children: <Widget>[
                       TextField(
                         controller: _codeController,
+                        keyboardType: TextInputType.number,
                       ),
                     ],
                   ),
@@ -80,6 +86,7 @@ class Auth_Provider with ChangeNotifier {
                         auth
                             .signInWithCredential(_credential)
                             .then((AuthResult result) {
+                          _userId = result.user.uid;
                           if (result.additionalUserInfo.isNewUser) {
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -119,8 +126,7 @@ class Auth_Provider with ChangeNotifier {
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           verificationId = verificationId;
-          print(verificationId);
-          print('TimeOut');
+          
         });
   }
 }
