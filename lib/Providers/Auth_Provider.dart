@@ -6,15 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth_Provider with ChangeNotifier {
   DateTime expeiryDate;
   final _codeController = TextEditingController();
-  String _userId;
-
-  String get userId {
-    return _userId;
-  }
 
   Future registerUser(String mobile, BuildContext context) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,8 +20,12 @@ class Auth_Provider with ChangeNotifier {
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) {
           _auth.signInWithCredential(authCredential).then(
-            (AuthResult result) {
-              _userId = result.user.uid;
+            (AuthResult result) async {
+              final prefs = await SharedPreferences.getInstance();
+              final userData = json.encode({
+                'userId': result.user.uid,
+              });
+              prefs.setString('userData', userData);
               if (result.additionalUserInfo.isNewUser) {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -85,9 +85,12 @@ class Auth_Provider with ChangeNotifier {
                         );
                         auth
                             .signInWithCredential(_credential)
-                            .then((AuthResult result) {
-                          _userId = result.user.uid;
-                          if (result.additionalUserInfo.isNewUser) {
+                            .then((AuthResult result) async {
+final prefs = await SharedPreferences.getInstance();
+              final userData = json.encode({
+                'userId': result.user.uid,
+              });
+              prefs.setString('userData', userData);                          if (result.additionalUserInfo.isNewUser) {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -126,7 +129,6 @@ class Auth_Provider with ChangeNotifier {
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           verificationId = verificationId;
-          
         });
   }
 }
