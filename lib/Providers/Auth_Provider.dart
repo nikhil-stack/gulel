@@ -22,10 +22,7 @@ class Auth_Provider with ChangeNotifier {
           _auth.signInWithCredential(authCredential).then(
             (AuthResult result) async {
               final prefs = await SharedPreferences.getInstance();
-              final userData = json.encode({
-                'userId': result.user.uid,
-              });
-              prefs.setString('userData', userData);
+              prefs.setString('userId', result.user.uid);  
               if (result.additionalUserInfo.isNewUser) {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -87,10 +84,8 @@ class Auth_Provider with ChangeNotifier {
                             .signInWithCredential(_credential)
                             .then((AuthResult result) async {
 final prefs = await SharedPreferences.getInstance();
-              final userData = json.encode({
-                'userId': result.user.uid,
-              });
-              prefs.setString('userData', userData);                          if (result.additionalUserInfo.isNewUser) {
+              
+              prefs.setString('userId', result.user.uid);                          if (result.additionalUserInfo.isNewUser) {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

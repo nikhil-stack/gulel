@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartItem {
   String id;
@@ -26,9 +27,6 @@ class Cart_Provider with ChangeNotifier {
     return {..._items};
   }
 
-  final String userId;
-  Cart_Provider(this.userId, this._items);
-
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, CartItem) {
@@ -44,6 +42,9 @@ class Cart_Provider with ChangeNotifier {
 
   Future<void> addItem(String ProductID, String title, double Price,
       String imageUrl, int quantity) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    print(userId);
     if (_items.containsKey(ProductID)) {
       final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId/$ProductID.json',

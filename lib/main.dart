@@ -17,6 +17,7 @@ import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,9 +31,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     /*List<Product> _availableProducts =
         Provider.of<CategoryItems_Provider>(context).items;*/
+    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => CategoryItems_Provider()),
@@ -42,15 +44,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(
           value: Auth_Provider(),
         ),
-        ChangeNotifierProxyProvider<Auth_Provider, user_provider>(
-          update: (ctx, auth, pre) => user_provider(auth.userId),
-        ),
-        ChangeNotifierProxyProvider<Auth_Provider, Cart_Provider>(
-          update: (ctx, auth, previousProducts) => Cart_Provider(
-            auth.userId,
-            previousProducts == null ? {} : previousProducts.items,
-          ),
-        )
+                ChangeNotifierProvider.value(value: user_provider(),),
+
+        ChangeNotifierProvider.value(value: Cart_Provider(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

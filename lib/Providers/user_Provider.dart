@@ -24,8 +24,7 @@ class user {
 }
 
 class user_provider with ChangeNotifier {
-  final String userId;
-  user_provider(this.userId);
+  
 
   Future<void> addUser(
       FullName, emailId, GstNumber, OrganName, address, MobileNumber) async {
