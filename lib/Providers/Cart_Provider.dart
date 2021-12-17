@@ -36,7 +36,17 @@ class Cart_Provider with ChangeNotifier {
     return total;
   }
 
-  void deleteItem(String ProductId) {
+  Future<void> deleteItem(String ProductId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    final fireId = _items[ProductId].fireId;
+    final url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId/$fireId.json',
+    );
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      throw Exception("Couldn't delete product");
+    }
     _items.remove(ProductId);
     notifyListeners();
   }
