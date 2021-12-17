@@ -8,8 +8,9 @@ class SelectQuantity extends StatefulWidget {
   String title;
   double Price;
   String imageUrl;
+  String fireId;
   SelectQuantity(@required this.ProductID, @required this.title,
-      @required this.Price, @required this.imageUrl);
+      @required this.Price, @required this.imageUrl, this.fireId);
   @override
   _SelectQuantityState createState() => _SelectQuantityState();
 }
@@ -23,11 +24,13 @@ class _SelectQuantityState extends State<SelectQuantity> {
       return;
     }
     Provider.of<Cart_Provider>(context, listen: false).addItem(
-        widget.ProductID,
-        widget.title,
-        widget.Price,
-        widget.imageUrl,
-        int.tryParse(enteredQuantity));
+      widget.ProductID,
+      widget.title,
+      widget.Price,
+      widget.imageUrl,
+      int.tryParse(enteredQuantity),
+      widget.fireId,
+    );
     Navigator.of(context).pop();
   }
 

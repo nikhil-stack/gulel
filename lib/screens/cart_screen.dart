@@ -2,10 +2,42 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
+import 'package:gulel/Providers/categoryItems.dart';
 import 'package:provider/provider.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const routeName = '\Cart-Screen';
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      if (mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
+      Provider.of<Cart_Provider>(context)
+          .fetchAndSetCart()
+          .then((_) {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      });
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     var cartitems = Provider.of<Cart_Provider>(context).items;
@@ -14,7 +46,7 @@ class CartScreen extends StatelessWidget {
       /*appBar: AppBar(
         title: Text("Your Cart"),
       ),*/
-      body: cartitems.length == 0
+      body: _isLoading ? Center(child: CircularProgressIndicator(),) : cartitems.length == 0
           ? Center(child: Text("No items added"))
           : Column(
               children: [

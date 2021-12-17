@@ -5,6 +5,7 @@ class Product {
   String imageUrl;
   int stockAvailable;
   String category1;
+  String fireId;
   Product({
     this.id,
     this.title,
@@ -12,5 +13,6 @@ class Product {
     this.imageUrl,
     this.stockAvailable,
     this.category1,
+    this.fireId,
   });
 }
