@@ -57,7 +57,7 @@ class ProductDetail extends StatelessWidget {
                                         displayedProduct.title,
                                         displayedProduct.price,
                                         displayedProduct.imageUrl,
-                                        displayedProduct.fireId),
+                                        ),
                                     behavior: HitTestBehavior.opaque,
                                   );
                                 });
@@ -107,7 +107,7 @@ class ProductDetail extends StatelessWidget {
                                         displayedProduct.title,
                                         displayedProduct.price,
                                         displayedProduct.imageUrl, 
-                                        displayedProduct.fireId),
+                                        ),
                                     behavior: HitTestBehavior.opaque,
                                   );
                                 });

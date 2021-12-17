@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/Profile_Screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/screens/categories_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gulel/screens/logout_screen.dart';
+import 'package:provider/provider.dart';
 
 class TabsScreen extends StatefulWidget {
   //const TabsScreen({ Key? key }) : super(key: key);
@@ -26,6 +28,7 @@ class _TabsScreenState extends State<TabsScreen> {
       CartScreen(),
       Profile(),
     ];
+    Provider.of<Cart_Provider>(context,listen: false).fetchAndSetCart();
     super.initState();
   }
 

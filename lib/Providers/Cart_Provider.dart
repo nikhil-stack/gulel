@@ -49,20 +49,37 @@ class Cart_Provider with ChangeNotifier {
     );
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    final Map<String, dynamic> loadedCartItems = {};
-    print(extractedData);
+    final Map<String, CartItem> loadedCartItems = {};
+    //print(extractedData);
+    if (extractedData == null) {
+      return;
+    }
     extractedData.forEach((itemId, itemData) {
-      loadedCartItems.putIfAbsent(
-          itemId,
-          () => CartItem(
-              id: itemData['id'],
-              fireId: itemId,
-              title: itemData['title'],
-              imageUrl: itemData['imageUrl'],
-              quantity: itemData['quantity'],
-              price: itemData['price']));
+      loadedCartItems.putIfAbsent(itemId, () {
+        print(itemId);
+        return CartItem(
+          id: itemData['id'],
+          fireId: itemId,
+          title: itemData['title'],
+          imageUrl: itemData['imageUrl'],
+          quantity: itemData['quantity'],
+          price: itemData['price'],
+        );
+      });
     });
-    _items = loadedCartItems;
+    loadedCartItems.forEach((key, value) {
+      _items.putIfAbsent(
+        value.id,
+        () => CartItem(
+            id: value.id,
+            imageUrl: value.imageUrl,
+            price: value.price,
+            quantity: value.quantity,
+            title: value.title,
+            fireId: key),
+      );
+    });
+    print(_items);
     notifyListeners();
   }
 
@@ -72,11 +89,11 @@ class Cart_Provider with ChangeNotifier {
     double Price,
     String imageUrl,
     int quantity,
-    String fireId,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     if (_items.containsKey(ProductID)) {
+      final fireId = _items[ProductID].fireId;
       print(fireId);
       final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId/$fireId.json',

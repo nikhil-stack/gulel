@@ -8,9 +8,8 @@ class SelectQuantity extends StatefulWidget {
   String title;
   double Price;
   String imageUrl;
-  String fireId;
-  SelectQuantity(@required this.ProductID, @required this.title,
-      @required this.Price, @required this.imageUrl, this.fireId);
+    SelectQuantity(@required this.ProductID, @required this.title,
+      @required this.Price, @required this.imageUrl, );
   @override
   _SelectQuantityState createState() => _SelectQuantityState();
 }
@@ -29,7 +28,6 @@ class _SelectQuantityState extends State<SelectQuantity> {
       widget.Price,
       widget.imageUrl,
       int.tryParse(enteredQuantity),
-      widget.fireId,
     );
     Navigator.of(context).pop();
   }
