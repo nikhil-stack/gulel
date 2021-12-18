@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
-import 'package:gulel/Providers/categoryItems.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class CartScreen extends StatefulWidget {
   static const routeName = '\Cart-Screen';
@@ -15,9 +17,10 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   bool _isInit = true;
   bool _isLoading = false;
+  String address;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       if (mounted) {
         setState(() {
@@ -33,7 +36,15 @@ class _CartScreenState extends State<CartScreen> {
       });
     }
     _isInit = false;
-
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    final prefs1 = await SharedPreferences.getInstance();
+    final userIdtoken = prefs1.getString('userIdtoken');
+    var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
+    final response = await http.get(url);
+    var extracted_data = json.decode(response.body) as Map<String, dynamic>;
+    address = extracted_data['address'];
     super.didChangeDependencies();
   }
 
@@ -53,6 +64,26 @@ class _CartScreenState extends State<CartScreen> {
               ? Center(child: Text("No items added yet"))
               : Column(
                   children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 0.2)),
+                      height: MediaQuery.of(context).size.height / 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Address:-",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(address)
+                            ],
+                          ),
+                          TextButton(onPressed: () {}, child: Text("Change"))
+                        ],
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                           itemCount: cartitems.length,

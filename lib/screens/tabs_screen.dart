@@ -28,7 +28,7 @@ class _TabsScreenState extends State<TabsScreen> {
       CartScreen(),
       Profile(),
     ];
-    Provider.of<Cart_Provider>(context,listen: false).fetchAndSetCart();
+    Provider.of<Cart_Provider>(context, listen: false).fetchAndSetCart();
     super.initState();
   }
 
@@ -47,13 +47,13 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Center(
           child: Text('Gulel'),
         ),
-        actions: [
+        /* actions: [
           IconButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);
               },
               icon: Icon(Icons.shopping_cart))
-        ],
+        ],*/
       ),
       body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavigationBar(
