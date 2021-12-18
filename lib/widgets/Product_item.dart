@@ -3,21 +3,23 @@ import 'package:gulel/Providers/products.dart';
 import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
-  String id;
-  String name;
-  double price;
-  int quantity;
-  String imageUrl;
-  String category;
-  ProductItem(
-      {this.id,
-      this.name,
-      this.price,
-      this.quantity,
-      this.imageUrl,
-      this.category});
+  /*final String id;
+  final String name;
+  final double price;
+  final int quantity;
+  final String imageUrl;
+  final String category;
+  ProductItem({
+    this.id,
+    this.name,
+    this.price,
+    this.quantity,
+    this.imageUrl,
+    this.category,
+  });*/
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Container(
@@ -28,12 +30,12 @@ class ProductItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           child: InkWell(
             onTap: () => Navigator.of(context)
-                .pushNamed('/product-details', arguments: {'id': name}),
+                .pushNamed('/product-details', arguments: {'id': product.title}),
             child: GridTile(
               child: Hero(
-                  tag: id,
+                  tag: product.id,
                   child: Image.network(
-                    imageUrl,
+                    product.imageUrl,
                     fit: BoxFit.cover,
                   )),
               footer: Container(
@@ -47,18 +49,19 @@ class ProductItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            name,
+                            product.title,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Consumer<Product>(
                             builder: (ctx, product, child) => IconButton(
                               onPressed: () {
-                                product.toggleFavouriteStatus();
+                                product.toggleFavouriteStatus(product.id);
                               },
                               icon: Icon(
                                 product.isFavourite
                                     ? Icons.favorite
                                     : Icons.favorite_border,
+                                color: Colors.red,
                               ),
                             ),
                           )
@@ -69,7 +72,7 @@ class ProductItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text('Price'),
-                        Text(price.toString()),
+                        Text(product.price.toString()),
                       ],
                     )
                   ],

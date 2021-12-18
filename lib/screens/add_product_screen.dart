@@ -72,6 +72,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     imageUrl: _newProduct.imageUrl,
                     stockAvailable: _newProduct.stockAvailable,
                     category1: categoryId,
+                    isFavourite: _newProduct.isFavourite,
                   );
                 },
               ),
@@ -93,6 +94,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     imageUrl: _newProduct.imageUrl,
                     stockAvailable: _newProduct.stockAvailable,
                     category1: _newProduct.category1,
+                                        isFavourite: _newProduct.isFavourite,
+
                   );
                 },
               ),
@@ -114,6 +117,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     imageUrl: value,
                     stockAvailable: _newProduct.stockAvailable,
                     category1: _newProduct.category1,
+                                        isFavourite: _newProduct.isFavourite,
+
                   );
                 },
               ),
@@ -135,6 +140,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     imageUrl: _newProduct.imageUrl,
                     stockAvailable: int.tryParse(value),
                     category1: _newProduct.category1,
+                                        isFavourite: _newProduct.isFavourite,
+
                   );
                 },
               ),

@@ -24,14 +24,15 @@ class Product with ChangeNotifier {
     this.isFavourite = false,
   });
 
-  Future<void> toggleFavouriteStatus() async {
+  Future<void> toggleFavouriteStatus(String id1) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     final oldStatus = isFavourite;
     isFavourite = !isFavourite;
+    print(id1);
     notifyListeners();
     final url = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavourites/$userId/$id.json',
+      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavourites/$userId/$id1.json',
     );
     try {
       final response = await http.put(url, body: json.encode(isFavourite));

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gulel/models/category.dart';
 import 'package:gulel/Providers/products.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryItems_Provider with ChangeNotifier {
   List<Category> _categories = [];
@@ -106,13 +107,13 @@ class CategoryItems_Provider with ChangeNotifier {
       ),
     );
     final newProduct = Product(
-      id: json.decode(response.body)['name'],
-      title: product.title,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      stockAvailable: product.stockAvailable,
-      category1: product.category1,
-    );
+        id: json.decode(response.body)['name'],
+        title: product.title,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        stockAvailable: product.stockAvailable,
+        category1: product.category1,
+        isFavourite: product.isFavourite);
     _items.add(newProduct);
     notifyListeners();
   }
@@ -122,6 +123,13 @@ class CategoryItems_Provider with ChangeNotifier {
         'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json');
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavourites/$userId.json',
+    );
+    final favouriteResponse = await http.get(url);
+    final favoriteData = json.decode(favouriteResponse.body);
     final List<Product> loadedProducts = [];
     print(extractedData);
     if (extractedData != null) {
@@ -134,6 +142,7 @@ class CategoryItems_Provider with ChangeNotifier {
             imageUrl: prodData['imageUrl'],
             stockAvailable: prodData['stockAvailable'],
             category1: prodData['category1'],
+            isFavourite: favoriteData == null ? false : favoriteData[prodId] ?? false, 
           ),
         );
       });

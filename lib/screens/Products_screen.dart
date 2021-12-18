@@ -78,20 +78,19 @@ class _ProductScreenState extends State<ProductScreen> {
               : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.builder(
-                      itemCount: displayedProducts.length,
-                      itemBuilder: (context, index) => ProductItem(
-                            id: displayedProducts[index].id,
-                            name: displayedProducts[index].title,
-                            price: displayedProducts[index].price,
-                            quantity: displayedProducts[index].stockAvailable,
-                            imageUrl: displayedProducts[index].imageUrl,
-                            category: displayedProducts[index].category1,
-                          ),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.9,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 3)),
+                    itemCount: displayedProducts.length,
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                      value: displayedProducts[index],
+                      child: ProductItem(),
+                    ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.9,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 3,
+                    ),
+                  ),
                 ),
     );
   }
