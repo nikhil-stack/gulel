@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gulel/screens/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LogoutScreen extends StatefulWidget {
   //const LogoutScreen({ Key? key }) : super(key: key);

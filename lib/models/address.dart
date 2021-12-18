@@ -28,7 +28,7 @@ class _AddressState extends State<Address> {
         url,
         body: json.encode(
           {
-            'Address': enteredAddress,
+            'address': enteredAddress,
             'PinCode': enteredPinCode,
           },
         ),
