@@ -69,12 +69,12 @@ class user_provider with ChangeNotifier {
     final userId = prefs.getString('userId');
     final prefs1 = await SharedPreferences.getInstance();
     final userIdtoken = prefs1.getString('userIdtoken');
-    print(userIdtoken);
+    // print(userIdtoken);
     var url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
     final response = await http.get(url);
     var extracted_data = json.decode(response.body) as Map<String, dynamic>;
-    print(extracted_data);
+    //  print(extracted_data);
     user loadedUsers;
     /*userdata.FullName = extracted_data["FullName"];
     userdata.emailId = extracted_data["emailId"];

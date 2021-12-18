@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
+import 'package:gulel/models/address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -80,7 +81,19 @@ class _CartScreenState extends State<CartScreen> {
                               Text(address)
                             ],
                           ),
-                          TextButton(onPressed: () {}, child: Text("Change"))
+                          TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (_) {
+                                      return GestureDetector(
+                                        onTap: () {},
+                                        child: Address(),
+                                        behavior: HitTestBehavior.opaque,
+                                      );
+                                    });
+                              },
+                              child: Text("Change"))
                         ],
                       ),
                     ),
