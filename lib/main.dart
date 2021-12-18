@@ -3,11 +3,13 @@ import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/user_Provider.dart';
+//import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/Products_screen.dart';
 import 'package:gulel/screens/add_category_screen.dart';
 import 'package:gulel/screens/add_product_screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
+import 'package:gulel/screens/demo.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/edit_products_screen.dart';
 import 'package:gulel/screens/login_screen.dart';
@@ -31,10 +33,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     /*List<Product> _availableProducts =
         Provider.of<CategoryItems_Provider>(context).items;*/
-    
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => CategoryItems_Provider()),
@@ -44,9 +46,12 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(
           value: Auth_Provider(),
         ),
-                ChangeNotifierProvider.value(value: user_provider(),),
-
-        ChangeNotifierProvider.value(value: Cart_Provider(),),
+        ChangeNotifierProvider.value(
+          value: user_provider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Cart_Provider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -78,6 +83,7 @@ class _MyAppState extends State<MyApp> {
           SignUp.routeName: (ctx) => SignUp(),
           LogoutScreen.routeName: (ctx) => LogoutScreen(),
           OrderScreen.routeName: (ctx) => OrderScreen(),
+          EditProfilePage.routeName: (ctx) => EditProfilePage(),
         },
       ),
     );
