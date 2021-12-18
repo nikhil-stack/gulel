@@ -45,7 +45,9 @@ class _CartScreenState extends State<CartScreen> {
         'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
     final response = await http.get(url);
     var extracted_data = json.decode(response.body) as Map<String, dynamic>;
-    address = extracted_data['address'];
+    setState(() {
+      address = extracted_data['Address'];
+    });
     super.didChangeDependencies();
   }
 
@@ -78,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
                                 "Address:-",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text(address)
+                              Text(address),
                             ],
                           ),
                           TextButton(

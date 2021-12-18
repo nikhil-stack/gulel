@@ -13,8 +13,6 @@ class LogoutScreen extends StatefulWidget {
 class _LogoutScreenState extends State<LogoutScreen> {
   @override
   Future<void> didChangeDependencies() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
     FirebaseAuth.instance.signOut();
     super.didChangeDependencies();
   }

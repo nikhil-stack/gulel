@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Address extends StatefulWidget {
   @override
@@ -12,7 +14,7 @@ class Address extends StatefulWidget {
 class _AddressState extends State<Address> {
   final _addressController = TextEditingController();
   final _Pincodecontroller = TextEditingController();
-  void submitdata() async {
+  Future<void> submitdata() async {
     final enteredAddress = _addressController.text;
     final enteredPinCode = _Pincodecontroller.text;
     if ((enteredPinCode != Null) && (enteredAddress != Null)) {
@@ -22,13 +24,18 @@ class _AddressState extends State<Address> {
       final userIdtoken = prefs1.getString('userIdtoken');
       var url = Uri.parse(
           'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
-      await http.patch(url,
-          body: json.encode({
+      await http.patch(
+        url,
+        body: json.encode(
+          {
             'Address': enteredAddress,
             'PinCode': enteredPinCode,
-          }));
+          },
+        ),
+      );
     }
     Navigator.of(context).pop();
+    Provider.of<Cart_Provider>(context, listen: false).fetchAndSetCart();
   }
 
   @override
