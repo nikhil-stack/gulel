@@ -73,7 +73,6 @@ class user_provider with ChangeNotifier {
     var extracted_data = json.decode(response.body) as Map<String, dynamic>;
     print(extracted_data);
     user loadedUsers;
-
     /*userdata.FullName = extracted_data["FullName"];
     userdata.emailId = extracted_data["emailId"];
     userdata.GstNumber = extracted_data["GstNumber"];
@@ -84,7 +83,7 @@ class user_provider with ChangeNotifier {
         FullName: extracted_data['FullName'],
         emailId: extracted_data['emailId'],
         GstNumber: extracted_data['GstNumber'],
-        OrganName: extracted_data['OrganName'],
+        OrganName: extracted_data['Organame'],
         address: extracted_data['address'],
         MobileNumber: extracted_data['MobileNumber']);
     users = loadedUsers;
