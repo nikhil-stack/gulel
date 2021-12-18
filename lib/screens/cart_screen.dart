@@ -80,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
                                 "Address:-",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text(address),
+                              address != null ? Text(address) : Text('') ,
                             ],
                           ),
                           TextButton(

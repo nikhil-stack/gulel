@@ -17,7 +17,7 @@ class _AddressState extends State<Address> {
   Future<void> submitdata() async {
     final enteredAddress = _addressController.text;
     final enteredPinCode = _Pincodecontroller.text;
-    if ((enteredPinCode != Null) && (enteredAddress != Null)) {
+    if ((enteredPinCode.isNotEmpty) && (enteredAddress.isNotEmpty)) {
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getString('userId');
       final prefs1 = await SharedPreferences.getInstance();
