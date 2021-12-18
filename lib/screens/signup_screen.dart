@@ -266,13 +266,15 @@ class _SignUpState extends State<SignUp> {
         child: Stack(
           children: [
             Positioned(
-                height: MediaQuery.of(context).size.height * 1,
-                child: SignUpContainer()),
+              height: MediaQuery.of(context).size.height * 1,
+              child: SignUpContainer(),
+            ),
             SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
+                    //margin: EdgeInsets.symmetric(vertical: 60),
                     child: Column(
                       children: [
                         SizedBox(height: height * .4),

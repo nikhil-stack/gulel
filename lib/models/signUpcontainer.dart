@@ -25,8 +25,8 @@ class SignUpContainer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color.fromRGBO(80, 86, 96, 1),
             ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 150, horizontal: 20),
+            child: /*Padding(
+              padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
               child: Text('Create \nAccount!',
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
@@ -36,7 +36,8 @@ class SignUpContainer extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     // height: 5.5
                   )),
-            ),
+            ),*/
+                null,
           ),
         ),
       ],

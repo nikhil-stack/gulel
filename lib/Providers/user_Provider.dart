@@ -87,6 +87,7 @@ class user_provider with ChangeNotifier {
         address: extracted_data['address'],
         MobileNumber: extracted_data['MobileNumber']);
     users = loadedUsers;
+    notifyListeners();
     // print(json.decode(response.body));*/
   }
 }
