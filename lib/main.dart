@@ -9,7 +9,7 @@ import 'package:gulel/screens/Products_screen.dart';
 import 'package:gulel/screens/add_category_screen.dart';
 import 'package:gulel/screens/add_product_screen.dart';
 import 'package:gulel/screens/cart_screen.dart';
-import 'package:gulel/screens/demo.dart';
+import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/edit_categories_screen.dart';
 import 'package:gulel/screens/edit_products_screen.dart';
 import 'package:gulel/screens/login_screen.dart';

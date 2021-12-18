@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
-import 'package:gulel/screens/demo.dart';
+import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/logout_screen.dart';
 
 class Profile extends StatelessWidget {

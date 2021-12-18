@@ -21,6 +21,7 @@ class user {
     @required this.GstNumber,
     @required this.OrganName,
     @required this.address,
+    @required this.Pincode,
     @required this.MobileNumber,
   });
 }
@@ -86,6 +87,7 @@ class user_provider with ChangeNotifier {
         emailId: extracted_data['emailId'],
         GstNumber: extracted_data['GstNumber'],
         OrganName: extracted_data['Organame'],
+        Pincode: extracted_data['PinCode'],
         address: extracted_data['address'],
         MobileNumber: extracted_data['MobileNumber']);
     users = loadedUsers;
