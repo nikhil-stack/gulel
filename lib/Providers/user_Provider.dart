@@ -12,6 +12,7 @@ class user {
   String GstNumber;
   String OrganName;
   String address;
+  String Pincode;
   String MobileNumber;
 
   user({
@@ -33,8 +34,8 @@ class user_provider with ChangeNotifier {
       OrganName: null,
       address: null,
       MobileNumber: null);*/
-  Future<void> addUser(
-      FullName, emailId, GstNumber, OrganName, address, MobileNumber) async {
+  Future<void> addUser(FullName, emailId, GstNumber, OrganName, address,
+      Pincode, MobileNumber) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     var url = Uri.parse(
@@ -48,6 +49,7 @@ class user_provider with ChangeNotifier {
             'GstNumber': GstNumber,
             'Organame': OrganName,
             'address': address,
+            'PinCode': Pincode,
             'MobileNumber': MobileNumber,
           },
         ));
