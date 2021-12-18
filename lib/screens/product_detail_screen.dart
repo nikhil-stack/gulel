@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
-import 'package:gulel/models/products.dart';
+import 'package:gulel/Providers/products.dart';
 import 'package:gulel/models/quantity.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:provider/provider.dart';

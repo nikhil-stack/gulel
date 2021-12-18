@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/models/category.dart';
-import 'package:gulel/models/products.dart';
+import 'package:gulel/Providers/products.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryItems_Provider with ChangeNotifier {

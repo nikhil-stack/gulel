@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/products.dart';
+import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
   String id;
@@ -48,9 +50,18 @@ class ProductItem extends StatelessWidget {
                             name,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.favorite_border))
+                          Consumer<Product>(
+                            builder: (ctx, product, child) => IconButton(
+                              onPressed: () {
+                                product.toggleFavouriteStatus();
+                              },
+                              icon: Icon(
+                                product.isFavourite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

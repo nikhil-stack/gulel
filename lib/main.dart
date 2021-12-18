@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
+import 'package:gulel/Providers/products.dart';
 import 'package:gulel/Providers/user_Provider.dart';
 //import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
@@ -52,6 +53,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(
           value: Cart_Provider(),
         ),
+        ChangeNotifierProvider.value(
+          value: Product(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
