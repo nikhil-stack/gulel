@@ -26,6 +26,7 @@ class _SignUpState extends State<SignUp> {
   final _OrgnameController = TextEditingController();
   final _AddressController = TextEditingController();
   final _MobileController = TextEditingController();
+  final _PincodeController = TextEditingController();
 
   Widget _backButton() {
     return InkWell(
@@ -168,6 +169,30 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  Widget _PincodeWidget() {
+    return Stack(
+      children: [
+        TextFormField(
+          keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
+          controller: _PincodeController,
+          decoration: InputDecoration(
+            labelText: 'Pin Code',
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(226, 222, 211, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color.fromRGBO(226, 222, 211, 1),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _MobileNumberWidget() {
     return Stack(
       children: [
@@ -203,6 +228,7 @@ class _SignUpState extends State<SignUp> {
               _GstController.text,
               _OrgnameController.text,
               _AddressController.text,
+              _PincodeController.text,
               _MobileController.text);
           final mobile = "+91" + _MobileController.text.trim();
 
@@ -287,6 +313,8 @@ class _SignUpState extends State<SignUp> {
                         _OrganizationnameWidget(),
                         SizedBox(height: 20),
                         _AddressWidget(),
+                        SizedBox(height: 20),
+                        _PincodeWidget(),
                         SizedBox(height: 20),
                         _MobileNumberWidget(),
                         SizedBox(height: 80),
