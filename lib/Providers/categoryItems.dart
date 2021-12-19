@@ -8,38 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryItems_Provider with ChangeNotifier {
   List<Category> _categories = [];
-  List<Product> _items = [
-    Product(
-        id: "it1",
-        category1: "Almond",
-        price: 800.0,
-        imageUrl: "https://the.ismaili/sites/ismaili/files/5277.jpg",
-        stockAvailable: 100,
-        title: "Clifornian Non pareil"),
-    Product(
-        id: "it2",
-        category1: "Almond",
-        price: 700.0,
-        imageUrl: "https://the.ismaili/sites/ismaili/files/5277.jpg",
-        stockAvailable: 100,
-        title: "Australian Almonds"),
-    Product(
-        id: "it3",
-        category1: "Cashew",
-        price: 700.0,
-        imageUrl:
-            "https://th.bing.com/th/id/OIP.O1DjnYjOjx_ef412DSfDSwHaEd?pid=ImgDet&rs=1",
-        stockAvailable: 100,
-        title: "Cashew K"),
-    Product(
-        id: "it4",
-        category1: "Cashew",
-        price: 750.0,
-        imageUrl:
-            "https://th.bing.com/th/id/OIP.O1DjnYjOjx_ef412DSfDSwHaEd?pid=ImgDet&rs=1",
-        stockAvailable: 100,
-        title: "Cashew LWP"),
-  ];
+  List<Product> _items = [];
   List<Category> get categories {
     return [..._categories];
   }
@@ -120,7 +89,9 @@ class CategoryItems_Provider with ChangeNotifier {
 
   Future<void> fetchAndSetProducts(String categoryId) async {
     var url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json');
+      'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
+    );
+
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     final prefs = await SharedPreferences.getInstance();
@@ -142,12 +113,44 @@ class CategoryItems_Provider with ChangeNotifier {
             imageUrl: prodData['imageUrl'],
             stockAvailable: prodData['stockAvailable'],
             category1: prodData['category1'],
-            isFavourite: favoriteData == null ? false : favoriteData[prodId] ?? false, 
+            isFavourite:
+                favoriteData == null ? false : favoriteData[prodId] ?? false,
           ),
         );
       });
     }
     _items = loadedProducts;
+    notifyListeners();
+  }
+
+  Future<void> fetAndSetFavouriteProducts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    var url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavourites/$userId.json',
+    );
+    final favouriteResponse = await http.get(url);
+    final favoriteData = json.decode(favouriteResponse.body);
+    url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
+    );
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    print(favoriteData);
+    print(extractedData);
+    final Map<String, Map<String, dynamic>> loadedCategories = {};
+    final List<Product> loadedProducts = [];
+   /* extractedData.forEach(
+      (catId, catData) => loadedCategories.putIfAbsent(catId,() =>
+        Category(
+          id: catId,
+          title: catData['title'],
+          imageUrl: catData['imageUrl'],
+        ),
+      ),
+    );*/
+    //print(loadedCategories);
+    
     notifyListeners();
   }
 }

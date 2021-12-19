@@ -18,6 +18,7 @@ import 'package:gulel/screens/logout_screen.dart';
 import 'package:gulel/screens/product_detail_screen.dart';
 import 'package:gulel/screens/signup_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
+import 'package:gulel/screens/wishlist_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -88,6 +89,7 @@ class _MyAppState extends State<MyApp> {
           LogoutScreen.routeName: (ctx) => LogoutScreen(),
           OrderScreen.routeName: (ctx) => OrderScreen(),
           EditProfilePage.routeName: (ctx) => EditProfilePage(),
+          '/wishlist': (ctx) => WishlistScreen(),
         },
       ),
     );

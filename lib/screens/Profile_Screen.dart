@@ -36,7 +36,7 @@ class Profile extends StatelessWidget {
               Navigator.of(context).pushNamed(OrderScreen.routeName);
             },
           ),
-          InkWell(
+          /*InkWell(
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 0.05)),
@@ -45,8 +45,10 @@ class Profile extends StatelessWidget {
                 title: Text("Wishlist"),
               ),
             ),
-            onTap: () {},
-          ),
+            onTap: () {
+              Navigator.of(context).pushNamed('/wishlist');
+            },
+          ),*/
           InkWell(
             child: Container(
               decoration: BoxDecoration(

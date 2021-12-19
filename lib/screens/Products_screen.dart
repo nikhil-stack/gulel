@@ -55,9 +55,13 @@ class _ProductScreenState extends State<ProductScreen> {
         print(product.category1);
         return product.category1 == categoryy;
       });*/
-      displayedProducts = availableProducts
-          .where((element) => element.category1.contains(categoryy))
-          .toList();
+      
+        displayedProducts = availableProducts
+            .where(
+              (element) => element.category1.contains(categoryy),
+            )
+            .toList();
+      
     });
 
     return Scaffold(
