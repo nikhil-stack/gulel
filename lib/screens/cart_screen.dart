@@ -21,6 +21,8 @@ class _CartScreenState extends State<CartScreen> {
   bool _isInit = true;
   bool _isLoading = false;
   String address;
+  String contactNo;
+  String emailiduser;
   Razorpay razorpay;
   @override
   void didChangeDependencies() async {
@@ -47,6 +49,8 @@ class _CartScreenState extends State<CartScreen> {
         'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
     final response = await http.get(url);
     var extracted_data = json.decode(response.body) as Map<String, dynamic>;
+    contactNo = extracted_data['MobileNumber'];
+    emailiduser = extracted_data['emailId'];
     print(userIdtoken);
     print(userId);
     print(extracted_data);
@@ -79,8 +83,8 @@ class _CartScreenState extends State<CartScreen> {
       'name': 'Gulel',
       'description': "Payment of the added products",
       "prefill": {
-        "contact": "9096420854",
-        "email": "xyz@gmail.com",
+        "contact": contactNo,
+        "email": emailiduser,
       },
       "external": {
         "wallets": ["paytm"],
