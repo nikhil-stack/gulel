@@ -7,6 +7,8 @@ import 'package:gulel/models/address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:toast/toast.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '\Cart-Screen';
@@ -19,7 +21,7 @@ class _CartScreenState extends State<CartScreen> {
   bool _isInit = true;
   bool _isLoading = false;
   String address;
-
+  Razorpay razorpay;
   @override
   void didChangeDependencies() async {
     if (_isInit) {
@@ -55,9 +57,60 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    razorpay = new Razorpay();
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSucess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorPaymentfailed);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalwallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    razorpay.clear();
+  }
+
+  var finalamount;
+  void opencheckout() async {
+    var options = {
+      'key': 'rzp_test_fLj49L0iB9l9Hh',
+      'amount': num.parse(finalamount.toString()) * 100,
+      'name': 'Gulel',
+      'description': "Payment of the added products",
+      "prefill": {
+        "contact": "9096420854",
+        "email": "xyz@gmail.com",
+      },
+      "external": {
+        "wallets": ["paytm"],
+      }
+    };
+    try {
+      razorpay.open(options);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void handlerPaymentSucess() {
+    print("Payment Successfull");
+    Toast.show("Pament success", context);
+  }
+
+  void handlerErrorPaymentfailed() {
+    print("error");
+  }
+
+  void handlerExternalwallet() {
+    print("External Wallet");
+  }
+
+  @override
   Widget build(BuildContext context) {
     var cartitems = Provider.of<Cart_Provider>(context).items;
     var cart = Provider.of<Cart_Provider>(context);
+    finalamount = cart.totalAmount;
     return Scaffold(
       /*appBar: AppBar(
         title: Text("Your Cart"),
@@ -186,7 +239,7 @@ class _CartScreenState extends State<CartScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                                "\$${cartitems.values.toList()[index].price * cartitems.values.toList()[index].quantity}"),
+                                                "\Rs.${cartitems.values.toList()[index].price * cartitems.values.toList()[index].quantity}"),
                                           ],
                                         ),
                                       )
@@ -207,14 +260,14 @@ class _CartScreenState extends State<CartScreen> {
                           Row(
                             children: [
                               Text('Total MRP'),
-                              Text('\$${cart.totalAmount.toStringAsFixed(2)}')
+                              Text('\Rs.${cart.totalAmount.toStringAsFixed(2)}')
                             ],
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
                           Row(
                             children: [
                               Text('Discount on MRP'),
-                              Text('\$-Y',
+                              Text('\Rs.-Y',
                                   style: TextStyle(color: Colors.green))
                             ],
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -225,7 +278,7 @@ class _CartScreenState extends State<CartScreen> {
                               Text("Total Amount",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
-                              Text('\$Z',
+                              Text('\Rs.Z',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ],
@@ -234,7 +287,7 @@ class _CartScreenState extends State<CartScreen> {
                             width: double.infinity,
                             child: Card(
                               child: FlatButton(
-                                onPressed: () {},
+                                onPressed: () => opencheckout(),
                                 child: Text("Place Order"),
                                 color: Theme.of(context).accentColor,
                               ),
