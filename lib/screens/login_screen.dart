@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _createAccountLabel() {
+  /*Widget _createAccountLabel() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20),
       alignment: Alignment.bottomCenter,
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
-  }
+  }*/
 
   /* Widget _backButton() {
     return InkWell(
@@ -156,8 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _usernameWidget(),
                         SizedBox(height: 20),
                         _submitButton(),
-                        SizedBox(height: height * .050),
-                        _createAccountLabel(),
+                        
                       ],
                     ),
                   ),
