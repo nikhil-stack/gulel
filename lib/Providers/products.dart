@@ -36,6 +36,7 @@ class Product with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     isFavourite = !isFavourite;
+    notifyListeners();
     final url2 = Uri.parse(
       'https://gulel-ab427-default-rtdb.firebaseio.com/userFavouritesStatus/$userId/$id.json',
     );
