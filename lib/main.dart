@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
+import 'package:gulel/Providers/Order_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/products.dart';
 import 'package:gulel/Providers/user_Provider.dart';
@@ -56,6 +57,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: Product(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Orders(),
         )
       ],
       child: MaterialApp(

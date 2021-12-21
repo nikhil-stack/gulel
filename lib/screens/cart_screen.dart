@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
+import 'package:gulel/Providers/Order_Provider.dart';
 import 'package:gulel/models/address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -76,6 +76,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   var finalamount;
+  Cart_Provider cart;
   void opencheckout() async {
     var options = {
       'key': 'rzp_test_Dw8hG1B0QNLueE',
@@ -100,6 +101,9 @@ class _CartScreenState extends State<CartScreen> {
   void handlerPaymentSucess() {
     print("Payment Successfull");
     Toast.show("Pament success", context);
+    Provider.of<Orders>(context, listen: false)
+        .addItem(cart.items.values.toList(), finalamount, "Successful");
+    cart.clearCart();
   }
 
   void handlerErrorPaymentfailed() {
@@ -113,7 +117,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     var cartitems = Provider.of<Cart_Provider>(context).items;
-    var cart = Provider.of<Cart_Provider>(context);
+    cart = Provider.of<Cart_Provider>(context);
     finalamount = cart.totalAmount;
     return Scaffold(
       /*appBar: AppBar(
@@ -134,14 +138,26 @@ class _CartScreenState extends State<CartScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Address:-",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              address != null ? Text(address) : Text(''),
-                            ],
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Address:-",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                address != null
+                                    ? Flexible(
+                                        child: Container(
+                                          child: Text(
+                                            address,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                        ),
+                                      )
+                                    : Text(''),
+                              ],
+                            ),
                           ),
                           TextButton(
                               onPressed: () {
@@ -291,7 +307,13 @@ class _CartScreenState extends State<CartScreen> {
                             width: double.infinity,
                             child: Card(
                               child: FlatButton(
-                                onPressed: () => opencheckout(),
+                                onPressed: () {
+                                  //  opencheckout();
+                                  Provider.of<Orders>(context, listen: false)
+                                      .addItem(cart.items.values.toList(),
+                                          finalamount, "Successful");
+                                  cart.clearCart();
+                                },
                                 child: Text("Place Order"),
                                 color: Theme.of(context).accentColor,
                               ),
