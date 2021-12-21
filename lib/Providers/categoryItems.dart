@@ -76,50 +76,52 @@ class CategoryItems_Provider with ChangeNotifier {
       ),
     );
     final newProduct = Product(
-        id: json.decode(response.body)['name'],
-        title: product.title,
-        price: product.price,
-        imageUrl: product.imageUrl,
-        stockAvailable: product.stockAvailable,
-        category1: product.category1,
-        isFavourite: product.isFavourite);
+      id: json.decode(response.body)['name'],
+      title: product.title,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      stockAvailable: product.stockAvailable,
+      category1: product.category1,
+      isFavourite: product.isFavourite,
+    );
     _items.add(newProduct);
     notifyListeners();
   }
 
   Future<void> fetchAndSetProducts(String categoryId) async {
-    var url = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
-    );
+      var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
+      );
 
-    final response = await http.get(url);
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    final prefs = await SharedPreferences.getInstance();
-    final userId = prefs.getString('userId');
-    url = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavourites/$userId.json',
-    );
-    final favouriteResponse = await http.get(url);
-    final favoriteData = json.decode(favouriteResponse.body);
-    final List<Product> loadedProducts = [];
-    print(extractedData);
-    if (extractedData != null) {
-      extractedData.forEach((prodId, prodData) {
-        loadedProducts.add(
-          Product(
-            title: prodData['title'],
-            id: prodId,
-            price: prodData['price'],
-            imageUrl: prodData['imageUrl'],
-            stockAvailable: prodData['stockAvailable'],
-            category1: prodData['category1'],
-            isFavourite:
-                favoriteData == null ? false : favoriteData[prodId] ?? false,
-          ),
-        );
-      });
-    }
-    _items = loadedProducts;
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId');
+      url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/userFavouritesStatus/$userId.json',
+      );
+      final favouriteResponse = await http.get(url);
+      final favoriteData = json.decode(favouriteResponse.body);
+      final List<Product> loadedProducts = [];
+      print(extractedData);
+      if (extractedData != null) {
+        extractedData.forEach((prodId, prodData) {
+          loadedProducts.add(
+            Product(
+              title: prodData['title'],
+              id: prodId,
+              price: prodData['price'],
+              imageUrl: prodData['imageUrl'],
+              stockAvailable: prodData['stockAvailable'],
+              category1: prodData['category1'],
+              isFavourite:
+                  favoriteData == null ? false : favoriteData[prodId] ?? false,
+            ),
+          );
+        });
+      }
+      _items = loadedProducts;
+
     notifyListeners();
   }
 
@@ -140,7 +142,7 @@ class CategoryItems_Provider with ChangeNotifier {
     print(extractedData);
     final Map<String, Map<String, dynamic>> loadedCategories = {};
     final List<Product> loadedProducts = [];
-   /* extractedData.forEach(
+    /* extractedData.forEach(
       (catId, catData) => loadedCategories.putIfAbsent(catId,() =>
         Category(
           id: catId,
@@ -150,7 +152,7 @@ class CategoryItems_Provider with ChangeNotifier {
       ),
     );*/
     //print(loadedCategories);
-    
+
     notifyListeners();
   }
 }

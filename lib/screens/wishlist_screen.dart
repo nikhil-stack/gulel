@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/products.dart';
+import 'package:gulel/widgets/Product_item.dart';
 import 'package:provider/provider.dart';
 
 class WishlistScreen extends StatefulWidget {
@@ -12,7 +13,6 @@ class WishlistScreen extends StatefulWidget {
 
 class _WishlistScreenState extends State<WishlistScreen> {
   List<Product> displayedProducts;
-  List<Product> availableProducts;
 
   bool _isInit = true;
   bool _isLoading = false;
@@ -24,10 +24,12 @@ class _WishlistScreenState extends State<WishlistScreen> {
         _isLoading = true;
       });
       Provider.of<CategoryItems_Provider>(context)
-          .fetAndSetFavouriteProducts()
+          .fetchAndSetCategories()
           .then((_) {
-        setState(() {
-          _isLoading = false;
+        Provider.of<Product>(context, listen: false).fetchAndSetWishlist().then((_) {
+          setState(() {
+            _isLoading = false;
+          });
         });
       });
     }
@@ -38,13 +40,37 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
   @override
   Widget build(BuildContext context) {
+    displayedProducts = Provider.of<Product>(context).items;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Wishlist'),
       ),
-      body: Center(
-        child: Text('Wishlist'),
-      ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : displayedProducts.length == 0
+              ? Center(
+                  child: Text('No products found'),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                    itemCount: displayedProducts.length,
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                      value: displayedProducts[index],
+                      child: ProductItem(),
+                    ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.9,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 3,
+                    ),
+                  ),
+                ),
     );
   }
 }

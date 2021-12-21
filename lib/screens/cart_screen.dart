@@ -78,7 +78,7 @@ class _CartScreenState extends State<CartScreen> {
   var finalamount;
   void opencheckout() async {
     var options = {
-      'key': 'rzp_test_fLj49L0iB9l9Hh',
+      'key': 'rzp_test_Dw8hG1B0QNLueE',
       'amount': num.parse(finalamount.toString()) * 100,
       'name': 'Gulel',
       'description': "Payment of the added products",

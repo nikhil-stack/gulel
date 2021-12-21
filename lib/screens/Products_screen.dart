@@ -55,13 +55,12 @@ class _ProductScreenState extends State<ProductScreen> {
         print(product.category1);
         return product.category1 == categoryy;
       });*/
-      
-        displayedProducts = availableProducts
-            .where(
-              (element) => element.category1.contains(categoryy),
-            )
-            .toList();
-      
+
+      displayedProducts = availableProducts
+          .where(
+            (element) => element.category1.contains(categoryy),
+          )
+          .toList();
     });
 
     return Scaffold(
@@ -71,13 +70,13 @@ class _ProductScreenState extends State<ProductScreen> {
           textAlign: TextAlign.center,
         ),
       ),
-      body: availableProducts.length == 0
+      body: _isLoading
           ? Center(
-              child: Text('No products found'),
+              child: CircularProgressIndicator(),
             )
-          : _isLoading
+          : availableProducts.length == 0
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('No products found'),
                 )
               : Padding(
                   padding: const EdgeInsets.all(8.0),

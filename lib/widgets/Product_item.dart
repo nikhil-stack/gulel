@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/products.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +30,12 @@ class ProductItem extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: InkWell(
-            onTap: () => Navigator.of(context)
-                .pushNamed('/product-details', arguments: {'id': product.title}),
+            onTap: () {
+              Navigator.of(context).pushNamed('/product-details', arguments: {
+                'id': product.id,
+                'category': product.category1,
+              });
+            },
             child: GridTile(
               child: Hero(
                   tag: product.id,
@@ -55,7 +60,7 @@ class ProductItem extends StatelessWidget {
                           Consumer<Product>(
                             builder: (ctx, product, child) => IconButton(
                               onPressed: () {
-                                product.toggleFavouriteStatus(product.id);
+                                product.toggleFavourites(product);
                               },
                               icon: Icon(
                                 product.isFavourite
