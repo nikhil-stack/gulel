@@ -14,10 +14,15 @@ class Address extends StatefulWidget {
 class _AddressState extends State<Address> {
   final _addressController = TextEditingController();
   final _Pincodecontroller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   Future<void> submitdata() async {
-    final enteredAddress = _addressController.text;
-    final enteredPinCode = _Pincodecontroller.text;
-    if ((enteredPinCode.isNotEmpty) && (enteredAddress.isNotEmpty)) {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    final enteredAddress = _addressController.text.trim();
+    final enteredPinCode = _Pincodecontroller.text.trim();
+    if ((enteredPinCode.isNotEmpty && (enteredPinCode.length == 6)) &&
+        (enteredAddress.isNotEmpty)) {
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getString('userId');
       final prefs1 = await SharedPreferences.getInstance();
@@ -52,16 +57,32 @@ class _AddressState extends State<Address> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              TextField(
-                decoration: InputDecoration(labelText: "Address"),
-                controller: _addressController,
-                onSubmitted: (_) {},
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: "Pin Code"),
-                controller: _Pincodecontroller,
-                onSubmitted: (_) {},
-              ),
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(labelText: "Address"),
+                        controller: _addressController,
+                        validator: (value) {
+                          if (value.trim().isEmpty)
+                            return "Please Enter Valid Address";
+                          return null;
+                        },
+                        //onSubmitted: (_) {},
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: "Pin Code"),
+                        controller: _Pincodecontroller,
+                        validator: (value) {
+                          if (value.trim().isEmpty || value.trim().length != 6)
+                            return "Please Enter Valid Pin Code";
+                          return null;
+                        },
+                        // onSubmitted: (_) {},
+                      ),
+                    ],
+                  )),
               FlatButton(
                 color: Theme.of(context).accentColor,
                 child: Text(

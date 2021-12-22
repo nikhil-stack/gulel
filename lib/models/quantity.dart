@@ -8,8 +8,12 @@ class SelectQuantity extends StatefulWidget {
   String title;
   double Price;
   String imageUrl;
-    SelectQuantity(@required this.ProductID, @required this.title,
-      @required this.Price, @required this.imageUrl, );
+  SelectQuantity(
+    @required this.ProductID,
+    @required this.title,
+    @required this.Price,
+    @required this.imageUrl,
+  );
   @override
   _SelectQuantityState createState() => _SelectQuantityState();
 }
@@ -17,7 +21,7 @@ class SelectQuantity extends StatefulWidget {
 class _SelectQuantityState extends State<SelectQuantity> {
   final Quantitycontroller = TextEditingController();
   void SubmitData() {
-    final enteredQuantity = Quantitycontroller.text;
+    final enteredQuantity = Quantitycontroller.text.trim();
     //final enteredamount = double.parse(amountcontroller.text);
     if (enteredQuantity.isEmpty) {
       return;
@@ -47,8 +51,10 @@ class _SelectQuantityState extends State<SelectQuantity> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: "Quantity"),
+                decoration:
+                    InputDecoration(labelText: "Quantity", hintText: "In Kg"),
                 controller: Quantitycontroller,
+                keyboardType: TextInputType.number,
                 onSubmitted: (_) => SubmitData(),
               ),
               FlatButton(

@@ -28,6 +28,7 @@ class _SignUpState extends State<SignUp> {
   final _AddressController = TextEditingController();
   final _MobileController = TextEditingController();
   final _PincodeController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   Widget _backButton() {
     return InkWell(
@@ -55,6 +56,10 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _NameController,
+          validator: (value) {
+            if (value.trim().isEmpty) return "Please Enter Name";
+            return null;
+          },
           decoration: InputDecoration(
             // hintText: 'Enter your full name',
             labelText: 'Name',
@@ -80,6 +85,12 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _EmailController,
+          validator: (value) {
+            if (value.trim().isEmpty || !value.trim().contains('@')) {
+              return "Invalid Email";
+            }
+            return null;
+          },
           decoration: InputDecoration(
             // hintText: 'Enter your full name',
             labelText: 'Email',
@@ -105,6 +116,10 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _GstController,
+          validator: (value) {
+            if (value.length != 15) return "Invalid GST Number";
+            return null;
+          },
           decoration: InputDecoration(
             labelText: 'GstNumber',
             labelStyle: TextStyle(
@@ -129,6 +144,10 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _OrgnameController,
+          validator: (value) {
+            if (value.trim().isEmpty) return "Please Enter Organization Name";
+            return null;
+          },
           decoration: InputDecoration(
             labelText: 'Organization name',
             labelStyle: TextStyle(
@@ -153,6 +172,10 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _AddressController,
+          validator: (value) {
+            if (value.trim().isEmpty) return "Please Provide Address";
+            return null;
+          },
           decoration: InputDecoration(
             labelText: 'Address',
             labelStyle: TextStyle(
@@ -177,6 +200,10 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _PincodeController,
+          validator: (value) {
+            if (value.trim().length != 6) return "Invalid Pin Code!";
+            return null;
+          },
           decoration: InputDecoration(
             labelText: 'Pin Code',
             labelStyle: TextStyle(
@@ -201,6 +228,10 @@ class _SignUpState extends State<SignUp> {
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.next,
           controller: _MobileController,
+          validator: (value) {
+            if (value.trim().length < 10) return "Invalid Mobile Number";
+            return null;
+          },
           decoration: InputDecoration(
             labelText: 'mobileNumber',
             labelStyle: TextStyle(
@@ -219,10 +250,16 @@ class _SignUpState extends State<SignUp> {
   }
 
   Widget _submitButton() {
+    // if (!_formKey.currentState.validate()) {
+    // return Text("hi");
+    // }
     return Align(
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
+          if (!_formKey.currentState.validate()) {
+            return; //Text("hi");
+          }
           Provider.of<user_provider>(context, listen: false).addUser(
               _NameController.text,
               _EmailController.text,
@@ -302,27 +339,30 @@ class _SignUpState extends State<SignUp> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     //margin: EdgeInsets.symmetric(vertical: 60),
-                    child: Column(
-                      children: [
-                        SizedBox(height: height * .4),
-                        _nameWidget(),
-                        SizedBox(height: 20),
-                        _emailWidget(),
-                        SizedBox(height: 20),
-                        _GstNumberWidget(),
-                        SizedBox(height: 20),
-                        _OrganizationnameWidget(),
-                        SizedBox(height: 20),
-                        _AddressWidget(),
-                        SizedBox(height: 20),
-                        _PincodeWidget(),
-                        SizedBox(height: 20),
-                        _MobileNumberWidget(),
-                        SizedBox(height: 80),
-                        _submitButton(),
-                        SizedBox(height: height * .050),
-                        _createLoginLabel(),
-                      ],
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          SizedBox(height: height * .4),
+                          _nameWidget(),
+                          SizedBox(height: 20),
+                          _emailWidget(),
+                          SizedBox(height: 20),
+                          _GstNumberWidget(),
+                          SizedBox(height: 20),
+                          _OrganizationnameWidget(),
+                          SizedBox(height: 20),
+                          _AddressWidget(),
+                          SizedBox(height: 20),
+                          _PincodeWidget(),
+                          SizedBox(height: 20),
+                          _MobileNumberWidget(),
+                          SizedBox(height: 80),
+                          _submitButton(),
+                          SizedBox(height: height * .050),
+                          _createLoginLabel(),
+                        ],
+                      ),
                     ),
                   ),
                 ],
