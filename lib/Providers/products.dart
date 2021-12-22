@@ -15,6 +15,7 @@ class Product with ChangeNotifier {
   String fireId;
   bool isFavourite;
   String favoriteId;
+  String description;
   Product({
     this.id,
     this.title,
@@ -25,6 +26,7 @@ class Product with ChangeNotifier {
     this.fireId,
     this.isFavourite = false,
     this.favoriteId,
+    this.description
   });
 
   List<Product> _items = [];

@@ -63,6 +63,7 @@ class CategoryItems_Provider with ChangeNotifier {
     var url = Uri.parse(
       'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
     );
+    print(product.description);
     final response = await http.post(
       url,
       body: json.encode(
@@ -72,55 +73,57 @@ class CategoryItems_Provider with ChangeNotifier {
           'imageUrl': product.imageUrl,
           'stock': product.stockAvailable,
           'category1': product.category1,
+          'description': product.description,
         },
       ),
     );
     final newProduct = Product(
-      id: json.decode(response.body)['name'],
-      title: product.title,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      stockAvailable: product.stockAvailable,
-      category1: product.category1,
-      isFavourite: product.isFavourite,
-    );
+        id: json.decode(response.body)['name'],
+        title: product.title,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        stockAvailable: product.stockAvailable,
+        category1: product.category1,
+        isFavourite: product.isFavourite,
+        description: product.description);
     _items.add(newProduct);
     notifyListeners();
   }
 
   Future<void> fetchAndSetProducts(String categoryId) async {
-      var url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
-      );
+    var url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId.json',
+    );
 
-      final response = await http.get(url);
-      final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final prefs = await SharedPreferences.getInstance();
-      final userId = prefs.getString('userId');
-      url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/userFavouritesStatus/$userId.json',
-      );
-      final favouriteResponse = await http.get(url);
-      final favoriteData = json.decode(favouriteResponse.body);
-      final List<Product> loadedProducts = [];
-      print(extractedData);
-      if (extractedData != null) {
-        extractedData.forEach((prodId, prodData) {
-          loadedProducts.add(
-            Product(
-              title: prodData['title'],
-              id: prodId,
-              price: prodData['price'],
-              imageUrl: prodData['imageUrl'],
-              stockAvailable: prodData['stockAvailable'],
-              category1: prodData['category1'],
-              isFavourite:
-                  favoriteData == null ? false : favoriteData[prodId] ?? false,
-            ),
-          );
-        });
-      }
-      _items = loadedProducts;
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavouritesStatus/$userId.json',
+    );
+    final favouriteResponse = await http.get(url);
+    final favoriteData = json.decode(favouriteResponse.body);
+    final List<Product> loadedProducts = [];
+    print(extractedData);
+    if (extractedData != null) {
+      extractedData.forEach((prodId, prodData) {
+        loadedProducts.add(
+          Product(
+            title: prodData['title'],
+            id: prodId,
+            price: prodData['price'],
+            imageUrl: prodData['imageUrl'],
+            stockAvailable: prodData['stock'],
+            category1: prodData['category1'],
+            isFavourite:
+                favoriteData == null ? false : favoriteData[prodId] ?? false,
+            description: prodData['description'],
+          ),
+        );
+      });
+    }
+    _items = loadedProducts;
 
     notifyListeners();
   }
@@ -154,5 +157,39 @@ class CategoryItems_Provider with ChangeNotifier {
     //print(loadedCategories);
 
     notifyListeners();
+  }
+
+  Product findById(String productId) {
+    return _items.firstWhere((element) => element.id == productId);
+  }
+
+  Future<void> updateProduct(
+    String id,
+    Product newProduct,
+  ) async {
+    final categoryId = newProduct.category1;
+    final prodIndex = _items.indexWhere((element) => element.id == id);
+    print('INdex' + prodIndex.toString());
+    print('categoryId ' + categoryId.toString());
+    if (prodIndex >= 0) {
+      final url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/products/$categoryId/$id.json',
+      );
+      await http.patch(
+        url,
+        body: json.encode(
+          {
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'price': newProduct.price,
+            'imageUrl': newProduct.imageUrl,
+            'stock': newProduct.stockAvailable,
+            'category1': newProduct.category1,
+          },
+        ),
+      );
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    }
   }
 }
