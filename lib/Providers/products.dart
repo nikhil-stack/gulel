@@ -16,18 +16,17 @@ class Product with ChangeNotifier {
   bool isFavourite;
   String favoriteId;
   String description;
-  Product({
-    this.id,
-    this.title,
-    this.price,
-    this.imageUrl,
-    this.stockAvailable,
-    this.category1,
-    this.fireId,
-    this.isFavourite = false,
-    this.favoriteId,
-    this.description
-  });
+  Product(
+      {this.id,
+      this.title,
+      this.price,
+      this.imageUrl,
+      this.stockAvailable,
+      this.category1,
+      this.fireId,
+      this.isFavourite = false,
+      this.favoriteId,
+      this.description});
 
   List<Product> _items = [];
   List<Product> get items {
@@ -61,6 +60,9 @@ class Product with ChangeNotifier {
     final responseData2 = json.decode(response2.body) as Map<String, dynamic>;
     final responseData3 = responseData2.values;
     final List<Product> loadedProducts = [];
+    if (responseData == null) {
+      return;
+    }
     responseData.forEach((key, value) {
       //print(value);
       if (value.toString().contains('true')) {
