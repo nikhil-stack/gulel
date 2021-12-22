@@ -16,7 +16,11 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   bool _isInit = true;
   bool _isLoading = false;
-
+  final _NameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _AddressController = TextEditingController();
+  final _MobileController = TextEditingController();
+  final _PincodeController = TextEditingController();
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -134,20 +138,228 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             SizedBox(
                               height: 35,
                             ),
-                            buildTextField(
-                                "Full Name", userdata.users.FullName, false),
-                            buildTextField(
-                                "E-mail", userdata.users.emailId, false),
-                            buildTextField(
-                                "Address", userdata.users.address, false),
-                            buildTextField(
-                                "PinCode", userdata.users.Pincode, false),
-                            buildTextField("Organization name",
-                                userdata.users.OrganName, false),
-                            buildTextField(
-                                "GST Number", userdata.users.GstNumber, false),
-                            buildTextField("Mobile Number",
-                                userdata.users.MobileNumber, false),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: _NameController,
+                                //onChanged: (value) async {},
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Full Name",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.FullName,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                //onSubmitted: (value) async {},
+                                controller: _emailController,
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "E-Mail",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.emailId,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: _AddressController,
+                                //  onSubmitted: (value) async {},
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Address",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.address,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: _PincodeController,
+                                //  onSubmitted: (value) async {},
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Pincode",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.Pincode,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                // onSubmitted: (value) async {},
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Organization Name",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.OrganName,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                // onSubmitted: (value) async {},
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "GST Number",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.GstNumber,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: _MobileController,
+                                //  onSubmitted: (value) async {},
+                                obscureText: false ? showPassword : false,
+                                decoration: InputDecoration(
+                                    suffixIcon: false
+                                        ? IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : null,
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Mobile Number",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: userdata.users.MobileNumber,
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    )),
+                              ),
+                            ),
                             SizedBox(
                               height: 35,
                             ),
@@ -168,7 +380,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           color: Colors.black)),
                                 ),
                                 RaisedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    final userId = prefs.getString('userId');
+                                    final prefs1 =
+                                        await SharedPreferences.getInstance();
+                                    final userIdtoken =
+                                        prefs1.getString('userIdtoken');
+                                    var url = Uri.parse(
+                                        'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
+                                    await http.patch(url,
+                                        body: json.encode({
+                                          if (_NameController.text != "")
+                                            "FullName": _NameController.text,
+                                          if (_emailController.text != "")
+                                            'emailId': _emailController.text,
+                                          if (_AddressController.text != "")
+                                            'address': _AddressController.text,
+                                          if (_PincodeController.text != "")
+                                            'PinCode': _PincodeController.text,
+                                        }));
                                     Navigator.of(context).pop();
                                   },
                                   color: Colors.green,
@@ -208,20 +440,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
-        onChanged: (value) async {
-          if (value != Null) {
-            final prefs = await SharedPreferences.getInstance();
-            final userId = prefs.getString('userId');
-            final prefs1 = await SharedPreferences.getInstance();
-            final userIdtoken = prefs1.getString('userIdtoken');
-            var url = Uri.parse(
-                'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
-            await http.patch(url,
-                body: json.encode({
-                  "$key": value,
-                }));
-          }
-        },
+        onSubmitted: (value) async {},
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField

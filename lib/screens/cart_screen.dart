@@ -306,16 +306,41 @@ class _CartScreenState extends State<CartScreen> {
                           Container(
                             width: double.infinity,
                             child: Card(
-                              child: FlatButton(
-                                onPressed: () {
-                                  //  opencheckout();
-                                  Provider.of<Orders>(context, listen: false)
-                                      .addItem(cart.items.values.toList(),
-                                          finalamount, "Successful");
-                                  cart.clearCart();
-                                },
-                                child: Text("Place Order"),
-                                color: Theme.of(context).accentColor,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        //  opencheckout();
+                                        Provider.of<Orders>(context,
+                                                listen: false)
+                                            .addItem(
+                                                cart.items.values.toList(),
+                                                finalamount,
+                                                "Cash on Delivery");
+                                        cart.clearCart();
+                                      },
+                                      child: Text("Cash On Delivery"),
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 2,
+                                  ),
+                                  Expanded(
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        opencheckout();
+                                      },
+                                      child: Text("Pay Now"),
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                  ),
+                                ],
                               ),
                               elevation: 4,
                             ),

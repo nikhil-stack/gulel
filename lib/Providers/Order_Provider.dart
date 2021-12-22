@@ -6,6 +6,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderItem {
+  String Name;
+  String GSTNo;
+  String OrgName;
   String Id;
   double Amount;
   List<CartItem> Products;
@@ -15,6 +18,9 @@ class OrderItem {
   String paymentStatus;
   String MobileNumber;
   OrderItem({
+    this.Name,
+    this.GSTNo,
+    this.OrgName,
     this.Id,
     this.Amount,
     this.Products,
@@ -47,6 +53,9 @@ class Orders with ChangeNotifier {
     final timestamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({
+          'FullName': extractedData['FullName'],
+          'GstNumber': extractedData['GstNumber'],
+          'Organame': extractedData['Organame'],
           'amount': total,
           'address': extractedData['address'],
           'PinCode': extractedData['PinCode'],
@@ -65,6 +74,9 @@ class Orders with ChangeNotifier {
     _Order.insert(
         0,
         OrderItem(
+          Name: extractedData['FullName'],
+          GSTNo: extractedData['GstNumber'],
+          OrgName: extractedData['Organame'],
           Id: json.decode(response.body)['name'],
           Amount: total,
           time1: timestamp,
@@ -90,6 +102,9 @@ class Orders with ChangeNotifier {
     }
     extracted_Data.forEach((OrderId, OrderData) {
       loadedOrder.add(OrderItem(
+          Name: OrderData['FullName'],
+          GSTNo: OrderData['GstNumber'],
+          OrgName: OrderData['Organame'],
           Id: OrderId,
           address: OrderData['address'],
           Amount: OrderData['amount'],

@@ -20,7 +20,7 @@ class _OrderItem1State extends State<OrderItem1> {
       duration: Duration(milliseconds: 300),
       curve: Curves.easeIn,
       height:
-          expand ? min(widget.order.Products.length * 20.0 + 300, 1000) : 95,
+          expand ? min(widget.order.Products.length * 20.0 + 400, 1000) : 95,
       child: Card(
         margin: EdgeInsets.all(10),
         child: Column(
@@ -42,7 +42,7 @@ class _OrderItem1State extends State<OrderItem1> {
               curve: Curves.easeIn,
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: expand
-                  ? min(widget.order.Products.length * 20.0 + 150, 1000)
+                  ? min(widget.order.Products.length * 20.0 + 280, 1000)
                   : 0,
               child: Column(
                 children: [
@@ -65,6 +65,15 @@ class _OrderItem1State extends State<OrderItem1> {
                   ),
                   SizedBox(
                     height: 6,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Name:-",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(widget.order.Name)
+                    ],
                   ),
                   Container(
                     child: Row(
@@ -93,6 +102,30 @@ class _OrderItem1State extends State<OrderItem1> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(widget.order.Pincode),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "GST No:-",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(widget.order.GSTNo)
+                    ],
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Organization Name:-",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(widget.order.OrgName)
                     ],
                   ),
                   SizedBox(
