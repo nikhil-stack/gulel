@@ -29,10 +29,12 @@ class _OrderScreenState extends State<OrderScreen> {
     return Scaffold(
       body: _Isloading
           ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemBuilder: (ctx, index) => OrderItem1(Order1.Order[index]),
-              itemCount: Order1.Order.length,
-            ),
+          : Order1.Order.isEmpty
+              ? Center(child: Text("No Orders Yet"))
+              : ListView.builder(
+                  itemBuilder: (ctx, index) => OrderItem1(Order1.Order[index]),
+                  itemCount: Order1.Order.length,
+                ),
     );
   }
 }
