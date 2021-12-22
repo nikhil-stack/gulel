@@ -5,6 +5,7 @@ import 'package:gulel/Providers/Order_Provider.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/products.dart';
 import 'package:gulel/Providers/user_Provider.dart';
+import 'package:gulel/screens/Help_Screen.dart';
 //import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/Products_screen.dart';
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
           OrderScreen.routeName: (ctx) => OrderScreen(),
           EditProfilePage.routeName: (ctx) => EditProfilePage(),
           '/wishlist': (ctx) => WishlistScreen(),
+          HelpScreen.routeName: (ctx) => HelpScreen(),
         },
       ),
     );

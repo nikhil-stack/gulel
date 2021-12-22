@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/screens/Help_Screen.dart';
 //import 'package:gulel/screens/Edit_Profile.dart';
 import 'package:gulel/screens/Orders_Screen.dart';
 import 'package:gulel/screens/Edit_Profile.dart';
@@ -58,7 +59,9 @@ class Profile extends StatelessWidget {
                 title: Text("Help"),
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(HelpScreen.routeName);
+            },
           ),
           InkWell(
             child: Container(
