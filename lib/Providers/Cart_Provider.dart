@@ -164,7 +164,13 @@ class Cart_Provider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearCart() {
+  void clearCart() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    final url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId.json',
+    );
+    await http.delete(url);
     _items = {};
     notifyListeners();
   }
