@@ -16,9 +16,11 @@ class _OrderScreenState extends State<OrderScreen> {
     _Isloading = true;
 
     Provider.of<Orders>(context, listen: false).getandset().then((_) {
-      setState(() {
-        _Isloading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _Isloading = false;
+        });
+      }
     });
     super.initState();
   }

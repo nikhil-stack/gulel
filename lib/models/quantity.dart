@@ -23,7 +23,7 @@ class _SelectQuantityState extends State<SelectQuantity> {
   void SubmitData() {
     final enteredQuantity = Quantitycontroller.text.trim();
     //final enteredamount = double.parse(amountcontroller.text);
-    if (enteredQuantity.isEmpty) {
+    if (enteredQuantity.isEmpty || int.tryParse(enteredQuantity) <= 0) {
       return;
     }
     Provider.of<Cart_Provider>(context, listen: false).addItem(

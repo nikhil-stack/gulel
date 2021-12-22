@@ -37,124 +37,126 @@ class _OrderItem1State extends State<OrderItem1> {
                   },
                   icon: Icon(expand ? Icons.expand_less : Icons.more)),
             ),
-            AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeIn,
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-              height: expand
-                  ? min(widget.order.Products.length * 20.0 + 280, 1000)
-                  : 0,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView(
-                        children: widget.order.Products
-                            .map((pro) => Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(pro.title),
-                                        Text('${pro.quantity}x${pro.price}')
-                                      ],
-                                    ),
-                                  ],
-                                ))
-                            .toList()),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Name:-",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(widget.order.Name)
-                    ],
-                  ),
-                  Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                height: expand
+                    ? min(widget.order.Products.length * 20.0 + 280, 1000)
+                    : 0,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                          children: widget.order.Products
+                              .map((pro) => Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(pro.title),
+                                          Text('${pro.quantity}x${pro.price}')
+                                        ],
+                                      ),
+                                    ],
+                                  ))
+                              .toList()),
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    Row(
                       children: [
                         Text(
-                          "Address:-",
+                          "Name:-",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Flexible(
-                          child: Text(
-                            widget.order.address,
-                            softWrap: true,
-                          ),
-                        ),
+                        Text(widget.order.Name)
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Pin Code:-",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    Container(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Address:-",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Flexible(
+                            child: Text(
+                              widget.order.address,
+                              softWrap: true,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(widget.order.Pincode),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "GST No:-",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(widget.order.GSTNo)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Organization Name:-",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(widget.order.OrgName)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Contact No:-",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(widget.order.MobileNumber),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Payment Status:-",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(widget.order.paymentStatus)
-                    ],
-                  )
-                ],
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Pin Code:-",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(widget.order.Pincode),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "GST No:-",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(widget.order.GSTNo)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Organization Name:-",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(widget.order.OrgName)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Contact No:-",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(widget.order.MobileNumber),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Payment Status:-",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(widget.order.paymentStatus)
+                      ],
+                    )
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
