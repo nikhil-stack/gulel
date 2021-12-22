@@ -392,13 +392,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
                                     await http.patch(url,
                                         body: json.encode({
-                                          if (_NameController.text != "")
+                                          if (_NameController.text.trim() != "")
                                             "FullName": _NameController.text,
-                                          if (_emailController.text != "")
+                                          if (_emailController.text.trim() !=
+                                              "")
                                             'emailId': _emailController.text,
-                                          if (_AddressController.text != "")
+                                          if (_AddressController.text.trim() !=
+                                              "")
                                             'address': _AddressController.text,
-                                          if (_PincodeController.text != "")
+                                          if (_PincodeController.text.trim() !=
+                                              "")
                                             'PinCode': _PincodeController.text,
                                         }));
                                     Navigator.of(context).pop();
