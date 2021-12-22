@@ -11,15 +11,18 @@ class OrderItem {
   List<CartItem> Products;
   final DateTime time1;
   String address;
+  String Pincode;
   String paymentStatus;
-
+  String MobileNumber;
   OrderItem({
     this.Id,
     this.Amount,
     this.Products,
     this.time1,
     this.address,
+    this.Pincode,
     this.paymentStatus,
+    this.MobileNumber,
   });
 }
 
@@ -46,7 +49,10 @@ class Orders with ChangeNotifier {
         body: json.encode({
           'amount': total,
           'address': extractedData['address'],
+          'PinCode': extractedData['PinCode'],
+          'MobileNumber': extractedData['MobileNumber'],
           'time': timestamp.toIso8601String(),
+          'PaymentStatus': PaymentStatus,
           'Products': cartProduct
               .map((cp) => {
                     'id': cp.id,
@@ -64,8 +70,44 @@ class Orders with ChangeNotifier {
           time1: timestamp,
           Products: cartProduct,
           address: extractedData['address'],
+          Pincode: extractedData['PinCode'],
           paymentStatus: PaymentStatus,
+          MobileNumber: extractedData['MobileNumber'],
         ));
+    notifyListeners();
+  }
+
+  Future<void> getandset() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    final url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId.json');
+    final response = await http.get(url);
+    final List<OrderItem> loadedOrder = [];
+    final extracted_Data = json.decode(response.body) as Map<String, dynamic>;
+    if (extracted_Data == null) {
+      return;
+    }
+    extracted_Data.forEach((OrderId, OrderData) {
+      loadedOrder.add(OrderItem(
+          Id: OrderId,
+          address: OrderData['address'],
+          Amount: OrderData['amount'],
+          Pincode: OrderData['PinCode'],
+          paymentStatus: OrderData['PaymentStatus'],
+          MobileNumber: OrderData['MobileNumber'],
+          Products: (OrderData['Products'] as List<dynamic>)
+              .map((items) => CartItem(
+                    id: items['id'],
+                    price: items['price'],
+                    quantity: items['quantity'],
+                    title: items['title'],
+                  ))
+              .toList(),
+          time1: DateTime.parse(OrderData['time'])));
+    });
+    print(json.decode(response.body));
+    _Order = loadedOrder.reversed.toList();
     notifyListeners();
   }
 }

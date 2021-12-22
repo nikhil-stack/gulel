@@ -3,6 +3,7 @@ import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/user_Provider.dart';
 import 'package:gulel/models/signUpcontainer.dart';
 import 'package:gulel/screens/login_screen.dart';
+import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -229,13 +230,13 @@ class _SignUpState extends State<SignUp> {
               _OrgnameController.text,
               _AddressController.text,
               _PincodeController.text,
-              _MobileController.text);
+              "+91" + _MobileController.text);
           final mobile = "+91" + _MobileController.text.trim();
 
-          Provider.of<Auth_Provider>(context, listen: false)
-              .registerUser(mobile, context);
-          //Navigator.push(
-          //  context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          // Provider.of<Auth_Provider>(context, listen: false)
+          //   .registerUser(mobile, context);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => TabsScreen()));
         },
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

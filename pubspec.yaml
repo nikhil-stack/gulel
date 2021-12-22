@@ -41,6 +41,7 @@ dev_dependencies:
   shared_preferences: ^0.5.3+1
   razorpay_flutter: ^1.2.1
   toast: ^0.1.5
+  intl: ^0.17.0
 
 
 # For information on the generic Dart part of this file, see the
