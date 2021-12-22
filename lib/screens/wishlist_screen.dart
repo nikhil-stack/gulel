@@ -23,13 +23,12 @@ class _WishlistScreenState extends State<WishlistScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<CategoryItems_Provider>(context)
-          .fetchAndSetCategories()
+
+      Provider.of<Product>(context, listen: false)
+          .fetchAndSetWishlist()
           .then((_) {
-        Provider.of<Product>(context, listen: false).fetchAndSetWishlist().then((_) {
-          setState(() {
-            _isLoading = false;
-          });
+        setState(() {
+          _isLoading = false;
         });
       });
     }
@@ -54,20 +53,24 @@ class _WishlistScreenState extends State<WishlistScreen> {
               ? Center(
                   child: Text('No products found'),
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    itemCount: displayedProducts.length,
-                    itemBuilder: (context, index) =>
-                        ChangeNotifierProvider.value(
-                      value: displayedProducts[index],
-                      child: ProductItem(),
-                    ),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.9,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 3,
+              : RefreshIndicator(
+                  onRefresh: () => Provider.of<Product>(context, listen: false)
+                      .fetchAndSetWishlist(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.builder(
+                      itemCount: displayedProducts.length,
+                      itemBuilder: (context, index) =>
+                          ChangeNotifierProvider.value(
+                        value: displayedProducts[index],
+                        child: ProductItem(),
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.9,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 3,
+                      ),
                     ),
                   ),
                 ),

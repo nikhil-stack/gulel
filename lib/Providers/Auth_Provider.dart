@@ -22,7 +22,7 @@ class Auth_Provider with ChangeNotifier {
           _auth.signInWithCredential(authCredential).then(
             (AuthResult result) async {
               final prefs = await SharedPreferences.getInstance();
-              prefs.setString('userId', result.user.uid);  
+              prefs.setString('userId', result.user.uid);
               if (result.additionalUserInfo.isNewUser) {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -50,6 +50,11 @@ class Auth_Provider with ChangeNotifier {
           //This callback would gets called when verification is done auto maticlly
         },
         verificationFailed: (AuthException authException) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(authException.message),
+            ),
+          );
           print(authException.message);
         },
         codeSent: (String verificationId, [int forceResendingToken]) {
@@ -83,9 +88,10 @@ class Auth_Provider with ChangeNotifier {
                         auth
                             .signInWithCredential(_credential)
                             .then((AuthResult result) async {
-final prefs = await SharedPreferences.getInstance();
-              
-              prefs.setString('userId', result.user.uid);                          if (result.additionalUserInfo.isNewUser) {
+                          final prefs = await SharedPreferences.getInstance();
+
+                          prefs.setString('userId', result.user.uid);
+                          if (result.additionalUserInfo.isNewUser) {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
