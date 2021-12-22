@@ -60,19 +60,20 @@ class _EditProductsScreenState extends State<EditProductsScreen> {
       appBar: AppBar(
         title: Text('Edit Products'),
       ),
-      body: availableProducts.length == 0
+      body: _isLoading
           ? Center(
-              child: Text('No Products Found!'),
+              child: CircularProgressIndicator(),
             )
-          : _isLoading
+          : availableProducts.length == 0
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('No Products Found!'),
                 )
               : ListView.builder(
                   itemBuilder: (ctx, index) => EditProduct(
                     productKey: displayedProducts[index].id,
                     title: displayedProducts[index].title,
                     imageUrl: displayedProducts[index].imageUrl,
+                    category1: displayedProducts[index].category1,
                   ),
                   itemCount: displayedProducts.length,
                 ),

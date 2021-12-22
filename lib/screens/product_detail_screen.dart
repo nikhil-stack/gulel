@@ -46,8 +46,8 @@ class _ProductDetailState extends State<ProductDetail> {
           ModalRoute.of(context).settings.arguments as Map<String, String>;
 
       final id = routeArgs['id'];
-        displayedProduct =
-            availableProducts.firstWhere((element) => element.id == id, orElse: () => null);
+      displayedProduct = availableProducts
+          .firstWhere((element) => element.id == id, orElse: () => null);
     });
     return Scaffold(
       body: _isLoading
@@ -194,8 +194,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                                "The almond is the edible kernel of the fruit of the sweet almond tree. It is a bright white fruit wrapped in a reddish brown cover. It is consumed as dry fruit, fried and/or salted."),
+                            Text(displayedProduct.description),
                             SizedBox(
                               height: 300,
                             ),

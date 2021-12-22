@@ -26,6 +26,10 @@ class EditProduct extends StatelessWidget {
         backgroundImage: NetworkImage(imageUrl),
       ),
       title: Text(title),
+      onTap: () => Navigator.of(context).pushNamed('/add-product', arguments: {
+        'productId': productKey,
+        'categoryId': category1,
+      }),
     );
   }
 }

@@ -82,6 +82,7 @@ class _MyAppState extends State<MyApp> {
           },
         ),
         routes: {
+          '/tabs-screen': (ctx) => TabsScreen(),
           '/products-screen': (ctx) => ProductScreen(),
           '/product-details': (ctx) => ProductDetail(),
           '/add-category': (ctx) => AddCategoryScreen(),
