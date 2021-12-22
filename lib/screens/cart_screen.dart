@@ -40,6 +40,7 @@ class _CartScreenState extends State<CartScreen> {
         }
       });
     }
+
     _isInit = false;
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
