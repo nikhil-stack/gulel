@@ -13,6 +13,7 @@ class OrderItem1 extends StatefulWidget {
 }
 
 class _OrderItem1State extends State<OrderItem1> {
+  final ScrollController _controllerOne = ScrollController();
   var expand = false;
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,7 @@ class _OrderItem1State extends State<OrderItem1> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Scrollbar(
+                              controller: _controllerOne,
                               isAlwaysShown: true,
                               showTrackOnHover: true,
                               child: ListView(
