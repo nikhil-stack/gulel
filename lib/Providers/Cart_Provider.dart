@@ -12,14 +12,17 @@ class CartItem {
   int quantity;
   double price;
   String fireId;
+  double discount;
 
-  CartItem(
-      {@required this.id,
-      @required this.title,
-      this.imageUrl,
-      @required this.quantity,
-      @required this.price,
-      this.fireId});
+  CartItem({
+    @required this.id,
+    @required this.title,
+    this.imageUrl,
+    @required this.quantity,
+    @required this.price,
+    this.fireId,
+    this.discount,
+  });
 }
 
 class Cart_Provider with ChangeNotifier {
@@ -32,6 +35,14 @@ class Cart_Provider with ChangeNotifier {
     var total = 0.0;
     _items.forEach((key, CartItem) {
       total += CartItem.price * CartItem.quantity;
+    });
+    return total;
+  }
+
+  double get totalDiscount {
+    var total = 0.0;
+    _items.forEach((key, CartItem) {
+      total += CartItem.discount;
     });
     return total;
   }
@@ -68,7 +79,7 @@ class Cart_Provider with ChangeNotifier {
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     final Map<String, CartItem> loadedCartItems = {};
-    //print(extractedData);
+    print('data     ' + extractedData.toString());
     if (extractedData == null) {
       return;
     }
@@ -82,6 +93,7 @@ class Cart_Provider with ChangeNotifier {
           imageUrl: itemData['imageUrl'],
           quantity: itemData['quantity'],
           price: itemData['price'],
+          discount: itemData['discount'],
         );
       });
     });
@@ -89,12 +101,14 @@ class Cart_Provider with ChangeNotifier {
       _items.putIfAbsent(
         value.id,
         () => CartItem(
-            id: value.id,
-            imageUrl: value.imageUrl,
-            price: value.price,
-            quantity: value.quantity,
-            title: value.title,
-            fireId: key),
+          id: value.id,
+          imageUrl: value.imageUrl,
+          price: value.price,
+          quantity: value.quantity,
+          title: value.title,
+          fireId: key,
+          discount: value.discount,
+        ),
       );
     });
     print(_items);
@@ -107,12 +121,13 @@ class Cart_Provider with ChangeNotifier {
     double Price,
     String imageUrl,
     int quantity,
+    Map<String, double> discount,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
+    var discount1 = 0.0;
     if (_items.containsKey(ProductID)) {
       final fireId = _items[ProductID].fireId;
-      print(fireId);
       final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId/$fireId.json',
       );
@@ -121,6 +136,25 @@ class Cart_Provider with ChangeNotifier {
         ProductID,
         (exCartItem) {
           newQuantity = exCartItem.quantity + quantity;
+
+          if (newQuantity >= 5 && newQuantity < 10) {
+            discount1 = discount['five'];
+          } else if (newQuantity >= 10 && newQuantity < 20) {
+            discount1 = discount['ten'];
+          } else if (newQuantity >= 20 && newQuantity < 30) {
+            discount1 = discount['twenty'];
+          } else if (newQuantity >= 30 && newQuantity < 50) {
+            discount1 = discount['thirty'];
+          } else if (newQuantity >= 50 && newQuantity < 75) {
+            discount1 = discount['fifty'];
+          } else if (newQuantity >= 75 && newQuantity < 100) {
+            discount1 = discount['seventyFive'];
+          } else if (newQuantity >= 100) {
+            discount1 = discount['hundred'];
+          }
+          print(discount1.toString() + '%%');
+          print('Discount' +
+              ((exCartItem.price * newQuantity * discount1) / 100).toString());
           return CartItem(
             id: exCartItem.id,
             imageUrl: exCartItem.imageUrl,
@@ -128,21 +162,45 @@ class Cart_Provider with ChangeNotifier {
             title: exCartItem.title,
             quantity: quantity + exCartItem.quantity,
             fireId: exCartItem.fireId,
+            discount: (exCartItem.price * newQuantity * discount1) / 100,
           );
         },
       );
-      await http.patch(url,
-          body: json.encode({
+
+      await http.patch(
+        url,
+        body: json.encode(
+          {
             'title': title,
             'price': Price,
             'quantity': newQuantity,
             'imageUrl': imageUrl,
             'id': ProductID,
-          }));
+            'discount': (discount1 * newQuantity * Price) / 100,
+          },
+        ),
+      );
     } else {
       final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId.json',
       );
+      if (quantity >= 5 && quantity < 10) {
+        discount1 = discount['five'];
+      } else if (quantity >= 10 && quantity < 20) {
+        discount1 = discount['ten'];
+      } else if (quantity >= 20 && quantity < 30) {
+        discount1 = discount['twenty'];
+      } else if (quantity >= 20 && quantity < 30) {
+        discount1 = discount['twenty'];
+      } else if (quantity >= 30 && quantity < 50) {
+        discount1 = discount['thirty'];
+      } else if (quantity >= 50 && quantity < 75) {
+        discount1 = discount['fifty'];
+      } else if (quantity >= 75 && quantity < 100) {
+        discount1 = discount['seventyFive'];
+      } else if (quantity >= 100) {
+        discount1 = discount['hundred'];
+      }
       final response = await http.post(
         url,
         body: json.encode(
@@ -152,9 +210,11 @@ class Cart_Provider with ChangeNotifier {
             'quantity': quantity,
             'imageUrl': imageUrl,
             'id': ProductID,
+            'discount': (Price * quantity * discount1) / 100,
           },
         ),
       );
+      print('Doscount' + ((Price * quantity * discount1) / 100).toString());
       _items.putIfAbsent(
         ProductID,
         () => CartItem(
@@ -164,6 +224,7 @@ class Cart_Provider with ChangeNotifier {
           quantity: quantity,
           title: title,
           fireId: json.decode(response.body)['name'],
+          discount: (Price * quantity * discount1) / 100,
         ),
       );
     }
