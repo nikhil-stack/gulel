@@ -21,6 +21,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _AddressController = TextEditingController();
   final _MobileController = TextEditingController();
   final _PincodeController = TextEditingController();
+  final _GstController = TextEditingController();
+  final _OrganController = TextEditingController();
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -269,6 +271,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: _OrganController,
                                 // onSubmitted: (value) async {},
                                 obscureText: false ? showPassword : false,
                                 decoration: InputDecoration(
@@ -300,6 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: _GstController,
                                 // onSubmitted: (value) async {},
                                 obscureText: false ? showPassword : false,
                                 decoration: InputDecoration(
@@ -397,9 +401,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           if (_emailController.text.trim() !=
                                               "")
                                             'emailId': _emailController.text,
+                                          if (_GstController.text.trim() !=
+                                                  "" &&
+                                              _GstController.text
+                                                      .trim()
+                                                      .length ==
+                                                  15)
+                                            "GstNumber":
+                                                _GstController.text.trim(),
+                                          if (_OrganController.text.trim() !=
+                                              "")
+                                            "Organame":
+                                                _OrganController.text.trim(),
                                           if (_AddressController.text.trim() !=
                                               "")
                                             'address': _AddressController.text,
+                                          if (_MobileController.text
+                                                  .trim()
+                                                  .length ==
+                                              10)
+                                            'MobileNumber':
+                                                _MobileController.text.trim(),
                                           if (_PincodeController.text.trim() !=
                                               "")
                                             'PinCode': _PincodeController.text,
