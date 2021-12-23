@@ -259,8 +259,22 @@ class _CartScreenState extends State<CartScreen> {
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            Text(
-                                                "\Rs.${cartitems.values.toList()[index].price * cartitems.values.toList()[index].quantity}"),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                      "\Rs.${cartitems.values.toList()[index].price * cartitems.values.toList()[index].quantity}"),
+                                                  Text(
+                                                      "${cartitems.values.toList()[index].price}"
+                                                      "x${cartitems.values.toList()[index].quantity}")
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       )
@@ -296,13 +310,31 @@ class _CartScreenState extends State<CartScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Total Amount",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text('\Rs.Z',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text(
+                                "Delivery Charge",
+                                // style:
+                                //   TextStyle(fontWeight: FontWeight.bold)
+                              ),
+                              Text(
+                                '\Rs.${cart.DeliveryAmount.toStringAsFixed(2)}',
+                                // style:
+                                //   TextStyle(fontWeight: FontWeight.bold)
+                              ),
                             ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Total Amount",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                Text('\Rs.Z',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ],
+                            ),
                           ),
                           Container(
                             width: double.infinity,
