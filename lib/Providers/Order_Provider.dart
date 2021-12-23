@@ -132,13 +132,16 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> UpdateDeliveryStatus(String Status, String OrderId) async {
+    // print(OrderId);
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
+    // print(userId);
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
-    http.patch(url, body: {
-      'DeliveryStatus': Status,
-    });
+    await http.patch(url,
+        body: json.encode({
+          'DeliveryStatus': Status,
+        }));
     notifyListeners();
   }
 }

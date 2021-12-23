@@ -173,7 +173,7 @@ class _OrderItem1State extends State<OrderItem1> {
                       Row(
                         children: [
                           Text(
-                            "Payment Status:-",
+                            "Delivery Status:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(widget.order.DeliveryStatus),
