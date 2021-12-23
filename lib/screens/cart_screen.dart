@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/Order_Provider.dart';
+import 'package:gulel/Providers/user_Provider.dart';
 import 'package:gulel/models/address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -384,13 +385,25 @@ class _CartScreenState extends State<CartScreen> {
                                     child: FlatButton(
                                       onPressed: () {
                                         //  opencheckout();
-                                        Provider.of<Orders>(context,
+                                        var val = Provider.of<user_provider>(
+                                                context,
                                                 listen: false)
-                                            .addItem(
-                                                cart.items.values.toList(),
-                                                finalCartTotal,
-                                                "Cash on Delivery");
-                                        cart.clearCart();
+                                            .validate();
+                                        if (val == 1) {
+                                          Provider.of<Orders>(context,
+                                                  listen: false)
+                                              .addItem(
+                                                  cart.items.values.toList(),
+                                                  finalCartTotal,
+                                                  "Cash on Delivery");
+                                          cart.clearCart();
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                                "Please Provide Complete User Details First"),
+                                          ));
+                                        }
                                       },
                                       child: Text("Cash On Delivery"),
                                       color: Theme.of(context).accentColor,
@@ -402,7 +415,19 @@ class _CartScreenState extends State<CartScreen> {
                                   Expanded(
                                     child: FlatButton(
                                       onPressed: () {
-                                        opencheckout();
+                                        var val = Provider.of<user_provider>(
+                                                context,
+                                                listen: false)
+                                            .validate();
+                                        if (val == 1) {
+                                          opencheckout();
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                                "Please Provide Complete User Details First"),
+                                          ));
+                                        }
                                       },
                                       child: Text("Pay Now"),
                                       color: Theme.of(context).accentColor,

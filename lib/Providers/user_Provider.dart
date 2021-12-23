@@ -98,5 +98,23 @@ class user_provider with ChangeNotifier {
     // print(json.decode(response.body));*/
   }
 
-  
+  Future<int> validate() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    final prefs1 = await SharedPreferences.getInstance();
+    final userIdtoken = prefs1.getString('userIdtoken');
+    // print(userIdtoken);
+    var url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
+    final response = await http.get(url);
+    var extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedData['FullName'].toString().trim().isEmpty) return -1;
+    if (extractedData['emailId'].toString().trim().isEmpty) return -1;
+    if (extractedData['GstNumber'].toString().trim().isEmpty) return -1;
+    if (extractedData['Organame'].toString().trim().isEmpty) return -1;
+    if (extractedData['PinCode'].toString().trim().isEmpty) return -1;
+    if (extractedData['address'].toString().trim().isEmpty) return -1;
+    if (extractedData['MobileNumber'].toString().trim().isEmpty) return -1;
+    return 1;
+  }
 }
