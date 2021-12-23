@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Order_Provider.dart';
 import 'package:gulel/screens/Help_Screen.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class OrderItem1 extends StatefulWidget {
   final OrderItem order;
@@ -228,6 +227,11 @@ class _OrderItem1State extends State<OrderItem1> {
                                               ],
                                             );
                                           });
+                                    } else {
+                                      Provider.of<Orders>(context,
+                                              listen: false)
+                                          .UpdateDeliveryStatus(
+                                              "Cancelled", widget.order.Id);
                                     }
                                   },
                                   child: Text("Cancel")))
