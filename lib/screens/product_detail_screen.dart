@@ -109,6 +109,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             Row(
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
@@ -120,7 +121,117 @@ class _ProductDetailState extends State<ProductDetail> {
                                             displayedProduct.price.toString())
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
                                     Text("Offers"),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (displayedProduct.five > 0)
+                                          Row(
+                                            children: [
+                                              Text('5kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.five
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          ),
+                                        if (displayedProduct.ten > 0)
+                                          Row(
+                                            children: [
+                                              Text('10kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.ten
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          ),
+                                        if (displayedProduct.twenty > 0)
+                                          Row(
+                                            children: [
+                                              Text('20kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.twenty
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          ),
+                                        if (displayedProduct.thirty > 0)
+                                          Row(
+                                            children: [
+                                              Text('30kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.thirty
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          ),
+                                        if (displayedProduct.fifty > 0)
+                                          Row(
+                                            children: [
+                                              Text('50kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.fifty
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          ),
+                                        if (displayedProduct.seventyFive > 0)
+                                          Row(
+                                            children: [
+                                              Text('75kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.seventyFive
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          ),
+                                        if (displayedProduct.hundred > 0)
+                                          Row(
+                                            children: [
+                                              Text('100kg'),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                displayedProduct.hundred
+                                                        .toString() +
+                                                    '% off',
+                                              ),
+                                            ],
+                                          )
+                                      ],
+                                    )
                                   ],
                                 ),
                                 Text("Qty. Available " +

@@ -19,6 +19,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     imageUrl: '',
     stockAvailable: null,
     category1: '',
+    five: null,
+    ten: null,
+    twenty: null,
+    thirty: null,
+    fifty: null,
+    seventyFive: null,
+    hundred: null,
   );
   //final _imageUrlController = TextEditingController();
   var _isInit = true;
@@ -31,6 +38,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'price': '',
     'imageUrl': '',
     'stockAvailable': '',
+    'five': '',
+    'ten': '',
+    'twenty': '',
+    'thirty': '',
+    'fifty': '',
+    'seventyFive': '',
+    'hundred': '',
   };
 
   Future<void> _saveForm() async {
@@ -76,6 +90,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
           'price': double.tryParse(_newProduct.price.toString()),
           'imageUrl': _newProduct.imageUrl,
           'stockAvailable': int.tryParse(_newProduct.stockAvailable.toString()),
+          'five': _newProduct.five == 0 ? '' : _newProduct.five,
+          'ten': _newProduct.ten == 0 ? '' : _newProduct.ten,
+          'twenty': _newProduct.twenty == 0 ? '' : _newProduct.twenty,
+          'thirty': _newProduct.thirty == 0 ? '' : _newProduct.thirty,
+          'fifty': _newProduct.fifty == 0 ? '' : _newProduct.fifty,
+          'seventyFive':
+              _newProduct.seventyFive == 0 ? '' : _newProduct.seventyFive,
+          'hundred': _newProduct.hundred == 0 ? '' : _newProduct.hundred,
         };
         //print('priceeeeeeeee' + _initValues['price']);
       }
@@ -227,6 +249,191 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           category1: _newProduct.category1,
                           isFavourite: _newProduct.isFavourite,
                           description: _newProduct.description,
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Text(
+                        'Discount(in %)',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['five'].toString(),
+                      decoration: InputDecoration(labelText: '5kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: value.isEmpty ? 0 : double.tryParse(value),
+                          ten: _newProduct.ten,
+                          twenty: _newProduct.twenty,
+                          thirty: _newProduct.thirty,
+                          fifty: _newProduct.fifty,
+                          seventyFive: _newProduct.seventyFive,
+                          hundred: _newProduct.hundred,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['ten'].toString(),
+                      decoration: InputDecoration(labelText: '10kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: _newProduct.five,
+                          ten: value.isEmpty ? 0 : double.tryParse(value),
+                          twenty: _newProduct.twenty,
+                          thirty: _newProduct.thirty,
+                          fifty: _newProduct.fifty,
+                          seventyFive: _newProduct.seventyFive,
+                          hundred: _newProduct.hundred,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['twenty'].toString(),
+                      decoration: InputDecoration(labelText: '20kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: _newProduct.five,
+                          ten: _newProduct.ten,
+                          twenty: value.isEmpty ? 0 : double.tryParse(value),
+                          thirty: _newProduct.thirty,
+                          fifty: _newProduct.fifty,
+                          seventyFive: _newProduct.seventyFive,
+                          hundred: _newProduct.hundred,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['thirty'].toString(),
+                      decoration: InputDecoration(labelText: '30kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: _newProduct.five,
+                          ten: _newProduct.ten,
+                          twenty: _newProduct.twenty,
+                          thirty: value.isEmpty ? 0 : double.tryParse(value),
+                          fifty: _newProduct.fifty,
+                          seventyFive: _newProduct.seventyFive,
+                          hundred: _newProduct.hundred,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['fifty'].toString(),
+                      decoration: InputDecoration(labelText: '50kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: _newProduct.five,
+                          ten: _newProduct.ten,
+                          twenty: _newProduct.twenty,
+                          thirty: _newProduct.thirty,
+                          fifty: value.isEmpty ? 0 : double.tryParse(value),
+                          seventyFive: _newProduct.seventyFive,
+                          hundred: _newProduct.hundred,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['seventyFive'].toString(),
+                      decoration: InputDecoration(labelText: '75kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: _newProduct.five,
+                          ten: _newProduct.ten,
+                          twenty: _newProduct.twenty,
+                          thirty: _newProduct.thirty,
+                          fifty: _newProduct.fifty,
+                          seventyFive:
+                              value.isEmpty ? 0 : double.tryParse(value),
+                          hundred: _newProduct.hundred,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['hundred'].toString(),
+                      decoration: InputDecoration(labelText: '100kg'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          price: _newProduct.price,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          five: _newProduct.five,
+                          ten: _newProduct.ten,
+                          twenty: _newProduct.twenty,
+                          thirty: _newProduct.thirty,
+                          fifty: _newProduct.fifty,
+                          seventyFive: _newProduct.seventyFive,
+                          hundred: value.isEmpty ? 0 : double.tryParse(value),
                         );
                       },
                     ),

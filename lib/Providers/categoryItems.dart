@@ -74,18 +74,33 @@ class CategoryItems_Provider with ChangeNotifier {
           'stock': product.stockAvailable,
           'category1': product.category1,
           'description': product.description,
+          'five': product.five,
+          'ten': product.ten,
+          'twenty': product.twenty,
+          'thirty': product.thirty,
+          'fifty': product.fifty,
+          'seventyFive': product.seventyFive,
+          'hundred': product.hundred,
         },
       ),
     );
     final newProduct = Product(
-        id: json.decode(response.body)['name'],
-        title: product.title,
-        price: product.price,
-        imageUrl: product.imageUrl,
-        stockAvailable: product.stockAvailable,
-        category1: product.category1,
-        isFavourite: product.isFavourite,
-        description: product.description);
+      id: json.decode(response.body)['name'],
+      title: product.title,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      stockAvailable: product.stockAvailable,
+      category1: product.category1,
+      isFavourite: product.isFavourite,
+      description: product.description,
+      five: product.five,
+      ten: product.ten,
+      twenty: product.twenty,
+      thirty: product.thirty,
+      fifty: product.fifty,
+      seventyFive: product.seventyFive,
+      hundred: product.hundred,
+    );
     _items.add(newProduct);
     notifyListeners();
   }
@@ -119,6 +134,13 @@ class CategoryItems_Provider with ChangeNotifier {
             isFavourite:
                 favoriteData == null ? false : favoriteData[prodId] ?? false,
             description: prodData['description'],
+            five: prodData['five'],
+            ten: prodData['ten'],
+            twenty: prodData['twenty'],
+            thirty: prodData['thirty'],
+            fifty: prodData['fifty'],
+            seventyFive: prodData['seventyFive'],
+            hundred: prodData['hundred'],
           ),
         );
       });
@@ -185,6 +207,13 @@ class CategoryItems_Provider with ChangeNotifier {
             'imageUrl': newProduct.imageUrl,
             'stock': newProduct.stockAvailable,
             'category1': newProduct.category1,
+            'five': newProduct.five,
+            'ten': newProduct.ten,
+            'twenty': newProduct.twenty,
+            'thirty': newProduct.thirty,
+            'fifty': newProduct.fifty,
+            'seventyFive': newProduct.seventyFive,
+            'hundred': newProduct.hundred,
           },
         ),
       );

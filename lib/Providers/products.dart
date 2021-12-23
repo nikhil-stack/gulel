@@ -16,17 +16,32 @@ class Product with ChangeNotifier {
   bool isFavourite;
   String favoriteId;
   String description;
-  Product(
-      {this.id,
-      this.title,
-      this.price,
-      this.imageUrl,
-      this.stockAvailable,
-      this.category1,
-      this.fireId,
-      this.isFavourite = false,
-      this.favoriteId,
-      this.description});
+  double five;
+  double ten;
+  double twenty;
+  double thirty;
+  double fifty;
+  double seventyFive;
+  double hundred;
+  Product({
+    this.id,
+    this.title,
+    this.price,
+    this.imageUrl,
+    this.stockAvailable,
+    this.category1,
+    this.fireId,
+    this.isFavourite = false,
+    this.favoriteId,
+    this.description,
+    this.ten = 0,
+    this.five = 0,
+    this.twenty = 0,
+    this.thirty = 0,
+    this.fifty = 0,
+    this.seventyFive = 0,
+    this.hundred = 0,
+  });
 
   List<Product> _items = [];
   List<Product> get items {
@@ -82,6 +97,13 @@ class Product with ChangeNotifier {
                   stockAvailable: data[key]['stockAvailable'],
                   category1: data[key]['category1'],
                   isFavourite: true,
+                  five: data[key]['five'],
+                  ten: data[key]['ten'],
+                  twenty: data[key]['twenty'],
+                  thirty: data[key]['thirty'],
+                  fifty: data[key]['fifty'],
+                  seventyFive: data[key]['seventyFive'],
+                  hundred: data[key]['hundred'],
                 ),
               );
             }
