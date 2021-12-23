@@ -77,11 +77,12 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   var finalamount;
+  var finalCartTotal;
   Cart_Provider cart;
   void opencheckout() async {
     var options = {
       'key': 'rzp_test_Dw8hG1B0QNLueE',
-      'amount': num.parse(finalamount.toString()) * 100,
+      'amount': num.parse(finalCartTotal.toString()) * 100,
       'name': 'Gulel',
       'description': "Payment of the added products",
       "prefill": {
@@ -120,6 +121,11 @@ class _CartScreenState extends State<CartScreen> {
     var cartitems = Provider.of<Cart_Provider>(context).items;
     cart = Provider.of<Cart_Provider>(context);
     finalamount = cart.totalAmount;
+
+    final finalDiscount = cart.totalDiscount;
+    finalCartTotal = finalamount - finalDiscount;
+    print('hereeeee');
+    print(finalDiscount);
     return Scaffold(
       /*appBar: AppBar(
         title: Text("Your Cart"),
@@ -288,7 +294,7 @@ class _CartScreenState extends State<CartScreen> {
                           Row(
                             children: [
                               Text('Discount on MRP'),
-                              Text('\Rs.-Y',
+                              Text('\Rs.-' + finalDiscount.toString(),
                                   style: TextStyle(color: Colors.green))
                             ],
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -299,7 +305,7 @@ class _CartScreenState extends State<CartScreen> {
                               Text("Total Amount",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
-                              Text('\Rs.Z',
+                              Text((finalCartTotal).toString(),
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ],

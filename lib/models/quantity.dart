@@ -8,11 +8,25 @@ class SelectQuantity extends StatefulWidget {
   String title;
   double Price;
   String imageUrl;
+  double five;
+  double ten;
+  double twenty;
+  double thirty;
+  double fifty;
+  double seventyFive;
+  double hundred;
   SelectQuantity(
-    @required this.ProductID,
-    @required this.title,
-    @required this.Price,
-    @required this.imageUrl,
+    this.ProductID,
+    this.title,
+    this.Price,
+    this.imageUrl,
+    this.five,
+    this.ten,
+    this.twenty,
+    this.thirty,
+    this.fifty,
+    this.seventyFive,
+    this.hundred,
   );
   @override
   _SelectQuantityState createState() => _SelectQuantityState();
@@ -26,13 +40,25 @@ class _SelectQuantityState extends State<SelectQuantity> {
     if (enteredQuantity.isEmpty || int.tryParse(enteredQuantity) <= 0) {
       return;
     }
+    double discount = 0;
+    if (double.tryParse(enteredQuantity) >= 5 &&
+        double.tryParse(enteredQuantity) < 10) {
+      discount = widget.five;
+    }
     Provider.of<Cart_Provider>(context, listen: false).addItem(
-      widget.ProductID,
-      widget.title,
-      widget.Price,
-      widget.imageUrl,
-      int.tryParse(enteredQuantity),
-    );
+        widget.ProductID,
+        widget.title,
+        widget.Price,
+        widget.imageUrl,
+        int.tryParse(enteredQuantity), {
+      'five': widget.five,
+      'ten': widget.ten,
+      'twenty': widget.twenty,
+      'thirty': widget.thirty,
+      'fifty': widget.fifty,
+      'seventyFive': widget.seventyFive,
+      'hundred': widget.hundred,
+    });
     Navigator.of(context).pop();
   }
 

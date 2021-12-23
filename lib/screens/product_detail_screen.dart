@@ -97,6 +97,14 @@ class _ProductDetailState extends State<ProductDetail> {
                                                 displayedProduct.title,
                                                 displayedProduct.price,
                                                 displayedProduct.imageUrl,
+                                                displayedProduct.five,
+                                                displayedProduct.ten,
+                                                displayedProduct.twenty,
+                                                displayedProduct.thirty,
+                                                displayedProduct.fifty,
+                                                displayedProduct.seventyFive,
+                                                displayedProduct.hundred,
+
                                               ),
                                               behavior: HitTestBehavior.opaque,
                                             );
@@ -260,6 +268,13 @@ class _ProductDetailState extends State<ProductDetail> {
                                                 displayedProduct.title,
                                                 displayedProduct.price,
                                                 displayedProduct.imageUrl,
+                                                displayedProduct.five,
+                                                displayedProduct.ten,
+                                                displayedProduct.twenty,
+                                                displayedProduct.thirty,
+                                                displayedProduct.fifty,
+                                                displayedProduct.seventyFive,
+                                                displayedProduct.hundred,
                                               ),
                                               behavior: HitTestBehavior.opaque,
                                             );
