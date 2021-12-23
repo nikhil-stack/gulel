@@ -310,110 +310,114 @@ class _CartScreenState extends State<CartScreen> {
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
                       elevation: 7,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Price Details",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: [
-                              Text('Total MRP'),
-                              Text('\Rs.${cart.totalAmount.toStringAsFixed(2)}')
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          ),
-                          Row(
-                            children: [
-                              Text('Discount on MRP'),
-                              Text('\Rs.-' + finalDiscount.toString(),
-                                  style: TextStyle(color: Colors.green))
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Delivery Charge",
-                                // style:
-                                //   TextStyle(fontWeight: FontWeight.bold)
-                              ),
-                              Text(
-                                '\Rs.${cart.DeliveryAmount.toStringAsFixed(2)}',
-                                // style:
-                                //   TextStyle(fontWeight: FontWeight.bold)
-                              ),
-                            ],
-                          ),
-                          /*Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Row(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Price Details",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Row(
+                              children: [
+                                Text('Total MRP'),
+                                Text(
+                                    '\Rs.${cart.totalAmount.toStringAsFixed(2)}')
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            Row(
+                              children: [
+                                Text('Discount on MRP'),
+                                Text('\Rs.-' + finalDiscount.toString(),
+                                    style: TextStyle(color: Colors.green))
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Delivery Charge",
+                                  // style:
+                                  //   TextStyle(fontWeight: FontWeight.bold)
+                                ),
+                                Text(
+                                  '\Rs.${cart.DeliveryAmount.toStringAsFixed(2)}',
+                                  // style:
+                                  //   TextStyle(fontWeight: FontWeight.bold)
+                                ),
+                              ],
+                            ),
+                            /*Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Total Amount",
+                                        style:
+                                            TextStyle(fontWeight: FontWeight.bold)),
+                                    Text('\Rs.Z',
+                                        style:
+                                            TextStyle(fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),*/
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Total Amount",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
-                                Text('\Rs.Z',
+                                Text((finalCartTotal).toString(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
-                          ),*/
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Total Amount",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text((finalCartTotal).toString(),
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          Container(
-                            width: double.infinity,
-                            child: Card(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        //  opencheckout();
-                                        Provider.of<Orders>(context,
-                                                listen: false)
-                                            .addItem(
-                                                cart.items.values.toList(),
-                                                finalCartTotal,
-                                                "Cash on Delivery");
-                                        cart.clearCart();
-                                      },
-                                      child: Text("Cash On Delivery"),
-                                      color: Theme.of(context).accentColor,
+                            Container(
+                              width: double.infinity,
+                              child: Card(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: FlatButton(
+                                        onPressed: () {
+                                          //  opencheckout();
+                                          Provider.of<Orders>(context,
+                                                  listen: false)
+                                              .addItem(
+                                                  cart.items.values.toList(),
+                                                  finalCartTotal,
+                                                  "Cash on Delivery");
+                                          cart.clearCart();
+                                        },
+                                        child: Text("Cash On Delivery"),
+                                        color: Theme.of(context).accentColor,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 2,
-                                  ),
-                                  Expanded(
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        opencheckout();
-                                      },
-                                      child: Text("Pay Now"),
-                                      color: Theme.of(context).accentColor,
+                                    SizedBox(
+                                      width: 2,
                                     ),
-                                  ),
-                                ],
+                                    Expanded(
+                                      child: FlatButton(
+                                        onPressed: () {
+                                          opencheckout();
+                                        },
+                                        child: Text("Pay Now"),
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                elevation: 4,
                               ),
-                              elevation: 4,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
