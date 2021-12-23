@@ -35,6 +35,10 @@ class user_provider with ChangeNotifier {
       OrganName: null,
       address: null,
       MobileNumber: null);*/
+  user get userss {
+    return users;
+  }
+
   Future<void> addUser(FullName, emailId, GstNumber, OrganName, address,
       Pincode, MobileNumber) async {
     final prefs = await SharedPreferences.getInstance();
@@ -74,11 +78,9 @@ class user_provider with ChangeNotifier {
         'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
     final response = await http.get(url);
     var extractedData = json.decode(response.body) as Map<String, dynamic>;
+    //if (extractedData == null) return;
     //  print(extracted_data);
     user loadedUsers;
-    print(userIdtoken);
-    print(userId);
-    print(extractedData);
     /*userdata.FullName = extracted_data["FullName"];
     userdata.emailId = extracted_data["emailId"];
     userdata.GstNumber = extracted_data["GstNumber"];
@@ -98,7 +100,7 @@ class user_provider with ChangeNotifier {
     // print(json.decode(response.body));*/
   }
 
-  Future<int> validate() async {
+  /* Future<void> validate() async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     final prefs1 = await SharedPreferences.getInstance();
@@ -116,5 +118,5 @@ class user_provider with ChangeNotifier {
     if (extractedData['address'].toString().trim().isEmpty) return -1;
     if (extractedData['MobileNumber'].toString().trim().isEmpty) return -1;
     return 1;
-  }
+  }*/
 }

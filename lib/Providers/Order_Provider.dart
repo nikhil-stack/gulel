@@ -41,7 +41,10 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addItem(
-      List<CartItem> cartProduct, double total, String PaymentStatus) async {
+    List<CartItem> cartProduct,
+    double total,
+    String PaymentStatus,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     final prefs1 = await SharedPreferences.getInstance();
@@ -81,21 +84,64 @@ class Orders with ChangeNotifier {
       ),
     );
     _Order.insert(
-        0,
-        OrderItem(
-          Name: extractedData['FullName'],
-          GSTNo: extractedData['GstNumber'],
-          OrgName: extractedData['Organame'],
-          Id: json.decode(response.body)['name'],
-          Amount: total,
-          time1: timestamp,
-          Products: cartProduct,
-          address: extractedData['address'],
-          Pincode: extractedData['PinCode'],
-          paymentStatus: PaymentStatus,
-          MobileNumber: extractedData['MobileNumber'],
-          DeliveryStatus: extractedData['DeliveryStatus'],
-        ));
+      0,
+      OrderItem(
+        Name: extractedData['FullName'],
+        GSTNo: extractedData['GstNumber'],
+        OrgName: extractedData['Organame'],
+        Id: json.decode(response.body)['name'],
+        Amount: total,
+        time1: timestamp,
+        Products: cartProduct,
+        address: extractedData['address'],
+        Pincode: extractedData['PinCode'],
+        paymentStatus: PaymentStatus,
+        MobileNumber: extractedData['MobileNumber'],
+        DeliveryStatus: extractedData['DeliveryStatus'],
+      ),
+    );
+    List<String> ids = [];
+    cartProduct.forEach((element) {
+      ids.add(element.id);
+    });
+
+    final url1 = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
+    );
+    final response1 = await http.get(url1);
+    final respnseData1 = json.decode(response1.body) as Map<String, dynamic>;
+    //print(respnseData1.values);
+    respnseData1.values.forEach((element) {
+      final element1 = element as Map<String, dynamic>;
+      element1.keys.forEach((element2) {
+        ids.forEach((element3) {
+          if (element2 == element3) {
+            final quantityOrdered = cartProduct
+                .firstWhere((element4) => element4.id == element2)
+                .quantity;
+            final elementDetails = element1[element2];
+            //print('category ' + category);
+            final category = elementDetails['category1'];
+            print('category ' + category.toString());
+            print('product ' + element2);
+            final url2 = Uri.parse(
+              'https://gulel-ab427-default-rtdb.firebaseio.com/products/$category/$element2.json',
+            );
+            http.patch(
+              url2,
+              body: json.encode(
+                {
+                  'stock': int.tryParse(
+                        elementDetails['stock'].toString(),
+                      ) -
+                      quantityOrdered,
+                },
+              ),
+            );
+          }
+        });
+      });
+    });
     notifyListeners();
   }
 

@@ -87,7 +87,18 @@ class _ProductDetailState extends State<ProductDetail> {
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      showModalBottomSheet(
+                                      if (displayedProduct.stockAvailable <=
+                                          0) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Sorry, this product is currently out of stock',
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        showModalBottomSheet(
                                           context: context,
                                           builder: (_) {
                                             return GestureDetector(
@@ -104,11 +115,12 @@ class _ProductDetailState extends State<ProductDetail> {
                                                 displayedProduct.fifty,
                                                 displayedProduct.seventyFive,
                                                 displayedProduct.hundred,
-
                                               ),
                                               behavior: HitTestBehavior.opaque,
                                             );
-                                          });
+                                          },
+                                        );
+                                      }
                                     },
                                     child: Text("Add To Cart")),
                               ],
@@ -272,33 +284,46 @@ class _ProductDetailState extends State<ProductDetail> {
                                   width: MediaQuery.of(context).size.width / 2,
                                   child: FlatButton(
                                     onPressed: () async {
-                                      await showModalBottomSheet(
-                                          context: context,
-                                          builder: (_) {
-                                            return GestureDetector(
-                                              onTap: () {},
-                                              child: SelectQuantity(
-                                                displayedProduct.id,
-                                                displayedProduct.title,
-                                                displayedProduct.price,
-                                                displayedProduct.imageUrl,
-                                                displayedProduct.five,
-                                                displayedProduct.ten,
-                                                displayedProduct.twenty,
-                                                displayedProduct.thirty,
-                                                displayedProduct.fifty,
-                                                displayedProduct.seventyFive,
-                                                displayedProduct.hundred,
-                                              ),
-                                              behavior: HitTestBehavior.opaque,
-                                            );
-                                          });
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => CartScreen(),
-                                        ),
-                                      );
+                                      if (displayedProduct.stockAvailable <=
+                                          0) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Sorry, this product is currently out of stock',
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        await showModalBottomSheet(
+                                            context: context,
+                                            builder: (_) {
+                                              return GestureDetector(
+                                                onTap: () {},
+                                                child: SelectQuantity(
+                                                  displayedProduct.id,
+                                                  displayedProduct.title,
+                                                  displayedProduct.price,
+                                                  displayedProduct.imageUrl,
+                                                  displayedProduct.five,
+                                                  displayedProduct.ten,
+                                                  displayedProduct.twenty,
+                                                  displayedProduct.thirty,
+                                                  displayedProduct.fifty,
+                                                  displayedProduct.seventyFive,
+                                                  displayedProduct.hundred,
+                                                ),
+                                                behavior:
+                                                    HitTestBehavior.opaque,
+                                              );
+                                            });
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => CartScreen(),
+                                          ),
+                                        );
+                                      }
                                     },
                                     child: Text(
                                       "BUY NOW",
