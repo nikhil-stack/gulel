@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Order_Provider.dart';
+import 'package:gulel/screens/Help_Screen.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class OrderItem1 extends StatefulWidget {
   final OrderItem order;
@@ -21,7 +26,7 @@ class _OrderItem1State extends State<OrderItem1> {
       duration: Duration(milliseconds: 300),
       curve: Curves.easeIn,
       height:
-          expand ? min(widget.order.Products.length * 20.0 + 400, 1500) : 250,
+          expand ? min((widget.order.Products.length) * 20.0 + 400, 1500) : 450,
       child: Card(
         margin: EdgeInsets.all(10),
         child: Column(
@@ -170,6 +175,62 @@ class _OrderItem1State extends State<OrderItem1> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(widget.order.paymentStatus)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Payment Status:-",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(widget.order.DeliveryStatus),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: FlatButton(
+                                color: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(HelpScreen.routeName);
+                                },
+                                child: Text("Help")),
+                            width: MediaQuery.of(context).size.width / 2.2,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Expanded(
+                              child: FlatButton(
+                                  color: Theme.of(context).primaryColor,
+                                  onPressed: () {
+                                    var timedifference = DateTime.now()
+                                        .difference(widget.order.time1)
+                                        .inHours;
+                                    print(timedifference);
+                                    if (timedifference >= 1) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) {
+                                            return AlertDialog(
+                                              title: Text("Sorry!"),
+                                              content: Text(
+                                                  "your Order Cant be cancelled"),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text("Ok"))
+                                              ],
+                                            );
+                                          });
+                                    }
+                                  },
+                                  child: Text("Cancel")))
                         ],
                       )
                     ],

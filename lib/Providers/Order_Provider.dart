@@ -17,6 +17,7 @@ class OrderItem {
   String Pincode;
   String paymentStatus;
   String MobileNumber;
+  String DeliveryStatus;
   OrderItem({
     this.Name,
     this.GSTNo,
@@ -29,6 +30,7 @@ class OrderItem {
     this.Pincode,
     this.paymentStatus,
     this.MobileNumber,
+    this.DeliveryStatus,
   });
 }
 
@@ -62,6 +64,7 @@ class Orders with ChangeNotifier {
           'MobileNumber': extractedData['MobileNumber'],
           'time': timestamp.toIso8601String(),
           'PaymentStatus': PaymentStatus,
+          'DeliveryStatus': "Delivery in 10 working days!!",
           'Products': cartProduct
               .map((cp) => {
                     'id': cp.id,
@@ -85,6 +88,7 @@ class Orders with ChangeNotifier {
           Pincode: extractedData['PinCode'],
           paymentStatus: PaymentStatus,
           MobileNumber: extractedData['MobileNumber'],
+          DeliveryStatus: extractedData['DeliveryStatus'],
         ));
     notifyListeners();
   }
@@ -111,6 +115,7 @@ class Orders with ChangeNotifier {
           Pincode: OrderData['PinCode'],
           paymentStatus: OrderData['PaymentStatus'],
           MobileNumber: OrderData['MobileNumber'],
+          DeliveryStatus: OrderData['DeliveryStatus'],
           Products: (OrderData['Products'] as List<dynamic>)
               .map((items) => CartItem(
                     id: items['id'],
