@@ -388,7 +388,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 listen: false)
                                             .addItem(
                                                 cart.items.values.toList(),
-                                                finalamount,
+                                                finalCartTotal,
                                                 "Cash on Delivery");
                                         cart.clearCart();
                                       },
