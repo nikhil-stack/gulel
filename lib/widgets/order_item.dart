@@ -63,11 +63,7 @@ class _OrderItem1State extends State<OrderItem1> {
                                   BorderRadius.all(Radius.circular(4))),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Scrollbar(
-                              controller: _controllerOne,
-                              isAlwaysShown: true,
-                              showTrackOnHover: true,
-                              child: ListView(
+                            child: ListView(
                                   children: widget.order.Products
                                       .map((pro) => Column(
                                             children: [
@@ -84,7 +80,7 @@ class _OrderItem1State extends State<OrderItem1> {
                                             ],
                                           ))
                                       .toList()),
-                            ),
+                          
                           ),
                         ),
                       ),
