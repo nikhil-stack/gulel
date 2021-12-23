@@ -123,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
     finalamount = cart.totalAmount;
 
     final finalDiscount = cart.totalDiscount;
-    finalCartTotal = finalamount - finalDiscount;
+    finalCartTotal = finalamount - finalDiscount + cart.DeliveryAmount;
     print('hereeeee');
     print(finalDiscount);
     return Scaffold(
@@ -258,15 +258,47 @@ class _CartScreenState extends State<CartScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              cartitems.values
-                                                  .toList()[index]
-                                                  .title,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  cartitems.values
+                                                      .toList()[index]
+                                                      .title,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      Provider.of<Cart_Provider>(
+                                                              context,
+                                                              listen: false)
+                                                          .deleteItem(cartitems
+                                                              .keys
+                                                              .toList()[index]);
+                                                    },
+                                                    icon: Icon(Icons.delete)),
+                                              ],
                                             ),
-                                            Text(
-                                                "\Rs.${cartitems.values.toList()[index].price * cartitems.values.toList()[index].quantity}"),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                      "\Rs.${cartitems.values.toList()[index].price * cartitems.values.toList()[index].quantity}"),
+                                                  Text(
+                                                      "${cartitems.values.toList()[index].price}"
+                                                      "x${cartitems.values.toList()[index].quantity}")
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       )
@@ -299,6 +331,35 @@ class _CartScreenState extends State<CartScreen> {
                             ],
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Delivery Charge",
+                                // style:
+                                //   TextStyle(fontWeight: FontWeight.bold)
+                              ),
+                              Text(
+                                '\Rs.${cart.DeliveryAmount.toStringAsFixed(2)}',
+                                // style:
+                                //   TextStyle(fontWeight: FontWeight.bold)
+                              ),
+                            ],
+                          ),
+                          /*Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Total Amount",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                Text('\Rs.Z',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),*/
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

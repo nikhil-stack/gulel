@@ -47,6 +47,14 @@ class Cart_Provider with ChangeNotifier {
     return total;
   }
 
+  double get DeliveryAmount {
+    var DeliveryCharge = 0.0;
+    _items.forEach((key, CartItem) {
+      DeliveryCharge += 10 * CartItem.quantity;
+    });
+    return DeliveryCharge;
+  }
+
   Future<void> deleteItem(String ProductId) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
