@@ -55,7 +55,9 @@ class ProductItem extends StatelessWidget {
                         children: [
                           Text(
                             product.title,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).cardColor),
                           ),
                           Consumer<Product>(
                             builder: (ctx, product, child) => IconButton(
@@ -76,8 +78,14 @@ class ProductItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('Price'),
-                        Text(product.price.toString()),
+                        Text(
+                          'Price',
+                          style: TextStyle(color: Theme.of(context).cardColor),
+                        ),
+                        Text(
+                          product.price.toString(),
+                          style: TextStyle(color: Theme.of(context).cardColor),
+                        ),
                       ],
                     )
                   ],

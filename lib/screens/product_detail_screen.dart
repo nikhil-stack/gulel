@@ -124,7 +124,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                     SizedBox(
                                       height: 20,
                                     ),
-                                    Text("Offers"),
+                                    Text(
+                                      "Offers:-",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     SizedBox(
                                       height: 8,
                                     ),
@@ -135,10 +139,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.five > 0)
                                           Row(
                                             children: [
-                                              Text('5kg'),
+                                              Text('On 5kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.five
                                                         .toString() +
@@ -149,10 +154,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.ten > 0)
                                           Row(
                                             children: [
-                                              Text('10kg'),
+                                              Text('On 10kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.ten
                                                         .toString() +
@@ -163,10 +169,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.twenty > 0)
                                           Row(
                                             children: [
-                                              Text('20kg'),
+                                              Text('On 20kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.twenty
                                                         .toString() +
@@ -177,10 +184,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.thirty > 0)
                                           Row(
                                             children: [
-                                              Text('30kg'),
+                                              Text('On 30kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.thirty
                                                         .toString() +
@@ -191,10 +199,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.fifty > 0)
                                           Row(
                                             children: [
-                                              Text('50kg'),
+                                              Text('On 50kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.fifty
                                                         .toString() +
@@ -205,10 +214,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.seventyFive > 0)
                                           Row(
                                             children: [
-                                              Text('75kg'),
+                                              Text('On 75kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.seventyFive
                                                         .toString() +
@@ -219,10 +229,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         if (displayedProduct.hundred > 0)
                                           Row(
                                             children: [
-                                              Text('100kg'),
+                                              Text('On 100kg'),
                                               SizedBox(
-                                                width: 10,
+                                                width: 5,
                                               ),
+                                              Text("flat "),
                                               Text(
                                                 displayedProduct.hundred
                                                         .toString() +
@@ -234,10 +245,13 @@ class _ProductDetailState extends State<ProductDetail> {
                                     )
                                   ],
                                 ),
-                                Text("Qty. Available " +
-                                    displayedProduct.stockAvailable.toString()),
+                                // Text("Qty. Available " +
+                                //   displayedProduct.stockAvailable.toString()),
                               ],
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                             Row(
                               children: [
