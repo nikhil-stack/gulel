@@ -252,12 +252,30 @@ class _CartScreenState extends State<CartScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              cartitems.values
-                                                  .toList()[index]
-                                                  .title,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  cartitems.values
+                                                      .toList()[index]
+                                                      .title,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      Provider.of<Cart_Provider>(
+                                                              context,
+                                                              listen: false)
+                                                          .deleteItem(cartitems
+                                                              .keys
+                                                              .toList()[index]);
+                                                    },
+                                                    icon: Icon(Icons.delete)),
+                                              ],
                                             ),
                                             Padding(
                                               padding:
