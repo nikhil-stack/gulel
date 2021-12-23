@@ -155,7 +155,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             "Contact No:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(widget.order.MobileNumber),
+                          Text(
+                            widget.order.MobileNumber,
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -176,7 +178,14 @@ class _OrderItem1State extends State<OrderItem1> {
                             "Delivery Status:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(widget.order.DeliveryStatus),
+                          Text(
+                            widget.order.DeliveryStatus,
+                            style: TextStyle(
+                              color: widget.order.DeliveryStatus == 'Cancelled'
+                                  ? Colors.red
+                                  : Colors.black,
+                            ),
+                          ),
                         ],
                       ),
                       Row(

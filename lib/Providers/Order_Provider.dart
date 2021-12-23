@@ -144,10 +144,16 @@ class Orders with ChangeNotifier {
     // print(userId);
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
-    await http.patch(url,
-        body: json.encode({
+    await http.patch(
+      url,
+      body: json.encode(
+        {
           'DeliveryStatus': Status,
-        }));
+        },
+      ),
+    );
+    final order = _Order.firstWhere((element) => element.Id == OrderId);
+    order.DeliveryStatus = Status;
     notifyListeners();
   }
 }
