@@ -85,18 +85,30 @@ class user_provider with ChangeNotifier {
     userdata.OrganName = extracted_data["OrganName"];
     userdata.address = extracted_data["address"];
     userdata.MobileNumber = extracted_data["MobileNumber"];*/
-    loadedUsers = user(
+    if (extractedData == null) {
+      loadedUsers = user(
+        FullName: '',
+        emailId: '',
+        GstNumber: '',
+        OrganName: '',
+        Pincode: '',
+        address: '',
+        MobileNumber: '',
+      );
+    } else {
+      loadedUsers = user(
         FullName: extractedData['FullName'],
         emailId: extractedData['emailId'],
         GstNumber: extractedData['GstNumber'],
         OrganName: extractedData['Organame'],
         Pincode: extractedData['PinCode'],
         address: extractedData['address'],
-        MobileNumber: extractedData['MobileNumber']);
+        MobileNumber: extractedData['MobileNumber'],
+      );
+    }
     users = loadedUsers;
     notifyListeners();
+
     // print(json.decode(response.body));*/
   }
-
-  
 }
