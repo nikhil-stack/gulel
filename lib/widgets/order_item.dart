@@ -63,23 +63,22 @@ class _OrderItem1State extends State<OrderItem1> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListView(
-                                  children: widget.order.Products
-                                      .map((pro) => Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(pro.title),
-                                                  Text(
-                                                      '${pro.quantity}x${pro.price}')
-                                                ],
-                                              ),
-                                            ],
-                                          ))
-                                      .toList()),
-                          
+                                children: widget.order.Products
+                                    .map((pro) => Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(pro.title),
+                                                Text(
+                                                    '${pro.quantity}x${pro.price}')
+                                              ],
+                                            ),
+                                          ],
+                                        ))
+                                    .toList()),
                           ),
                         ),
                       ),
@@ -227,7 +226,9 @@ class _OrderItem1State extends State<OrderItem1> {
                                       Provider.of<Orders>(context,
                                               listen: false)
                                           .UpdateDeliveryStatus(
-                                              "Cancelled", widget.order.Id);
+                                        "Cancelled",
+                                        widget.order.Id,
+                                      );
                                     }
                                   },
                                   child: Text("Cancel")))

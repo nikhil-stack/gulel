@@ -53,8 +53,10 @@ class Orders with ChangeNotifier {
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId.json');
     final timestamp = DateTime.now();
-    final response = await http.post(url,
-        body: json.encode({
+    final response = await http.post(
+      url,
+      body: json.encode(
+        {
           'FullName': extractedData['FullName'],
           'GstNumber': extractedData['GstNumber'],
           'Organame': extractedData['Organame'],
@@ -66,14 +68,18 @@ class Orders with ChangeNotifier {
           'PaymentStatus': PaymentStatus,
           'DeliveryStatus': "Delivery in 10 working days!!",
           'Products': cartProduct
-              .map((cp) => {
-                    'id': cp.id,
-                    'title': cp.title,
-                    'price': cp.price,
-                    'quantity': cp.quantity,
-                  })
+              .map(
+                (cp) => {
+                  'id': cp.id,
+                  'title': cp.title,
+                  'price': cp.price,
+                  'quantity': cp.quantity,
+                },
+              )
               .toList(),
-        }));
+        },
+      ),
+    );
     _Order.insert(
         0,
         OrderItem(
@@ -131,14 +137,18 @@ class Orders with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> UpdateDeliveryStatus(String Status, String OrderId) async {
+  Future<void> UpdateDeliveryStatus(String Status, OrderId) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
+    print('cancel');
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
-    http.patch(url, body: {
-      'DeliveryStatus': Status,
-    });
+    await http.patch(url,
+        body: json.encode(
+          {
+            'DeliveryStatus': Status,
+          },
+        ));
     notifyListeners();
   }
 }
