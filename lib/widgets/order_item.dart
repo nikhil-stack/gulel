@@ -17,7 +17,6 @@ class OrderItem1 extends StatefulWidget {
 }
 
 class _OrderItem1State extends State<OrderItem1> {
-  final ScrollController _controllerOne = ScrollController();
   var expand = false;
   @override
   Widget build(BuildContext context) {
@@ -62,28 +61,23 @@ class _OrderItem1State extends State<OrderItem1> {
                                   BorderRadius.all(Radius.circular(4))),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Scrollbar(
-                              controller: _controllerOne,
-                              isAlwaysShown: true,
-                              showTrackOnHover: true,
-                              child: ListView(
-                                  children: widget.order.Products
-                                      .map((pro) => Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(pro.title),
-                                                  Text(
-                                                      '${pro.quantity}x${pro.price}')
-                                                ],
-                                              ),
-                                            ],
-                                          ))
-                                      .toList()),
-                            ),
+                            child: ListView(
+                                children: widget.order.Products
+                                    .map((pro) => Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(pro.title),
+                                                Text(
+                                                    '${pro.quantity}x${pro.price}')
+                                              ],
+                                            ),
+                                          ],
+                                        ))
+                                    .toList()),
                           ),
                         ),
                       ),
