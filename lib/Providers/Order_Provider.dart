@@ -137,18 +137,17 @@ class Orders with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> UpdateDeliveryStatus(String Status, OrderId) async {
+  Future<void> UpdateDeliveryStatus(String Status, String OrderId) async {
+    // print(OrderId);
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
-    print('cancel');
+    // print(userId);
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
     await http.patch(url,
-        body: json.encode(
-          {
-            'DeliveryStatus': Status,
-          },
-        ));
+        body: json.encode({
+          'DeliveryStatus': Status,
+        }));
     notifyListeners();
   }
 }
