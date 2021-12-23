@@ -130,4 +130,15 @@ class Orders with ChangeNotifier {
     _Order = loadedOrder.reversed.toList();
     notifyListeners();
   }
+
+  Future<void> UpdateDeliveryStatus(String Status, String OrderId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    final url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
+    http.patch(url, body: {
+      'DeliveryStatus': Status,
+    });
+    notifyListeners();
+  }
 }
