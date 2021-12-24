@@ -447,7 +447,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             }));
                                         Navigator.of(context).pop();
                                       },
-                                      color: Colors.green,
+                                      color: Theme.of(context).accentColor,
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 50),
                                       elevation: 2,

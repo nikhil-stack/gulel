@@ -272,8 +272,13 @@ class _SignUpState extends State<SignUp> {
 
           // Provider.of<Auth_Provider>(context, listen: false)
           //   .registerUser(mobile, context);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TabsScreen()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TabsScreen(),
+            ),
+            (route) => false,
+          );
         },
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

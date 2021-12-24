@@ -69,8 +69,8 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Gulel',
         theme: ThemeData(
-          primarySwatch: Colors.amber,
-          accentColor: Colors.black54,
+          primarySwatch: Colors.teal,
+          accentColor: Colors.orangeAccent,
           cardColor: Colors.white,
         ),
         //home: LoginScreen(),
