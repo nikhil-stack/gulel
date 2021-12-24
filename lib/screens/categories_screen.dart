@@ -3,6 +3,7 @@ import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:gulel/widgets/category_item.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoriesScreen extends StatefulWidget {
   //const CategoriesScreen({ Key? key }) : super(key: key);
@@ -15,9 +16,10 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   bool _isInit = true;
   bool _isLoading = false;
+  bool _isAdmin = false;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       if (mounted) {
         setState(() {
@@ -35,7 +37,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       });
     }
     _isInit = false;
+    final prefs = await SharedPreferences.getInstance();
 
+    if (prefs.getString('userId') == 'admin') {
+      _isAdmin = true;
+    }
     super.didChangeDependencies();
   }
 
@@ -58,10 +64,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 crossAxisSpacing: 20,
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.category),
-        onPressed: () => Navigator.of(context).pushNamed('/edit-category'),
-      ),
+      floatingActionButton: _isAdmin
+          ? FloatingActionButton(
+              child: Icon(Icons.category),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed('/edit-category'),
+            )
+          : null,
     );
   }
 }

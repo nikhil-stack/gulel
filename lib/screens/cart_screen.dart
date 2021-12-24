@@ -51,13 +51,13 @@ class _CartScreenState extends State<CartScreen> {
         'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
     final response = await http.get(url);
     var extracted_data = json.decode(response.body) as Map<String, dynamic>;
-    contactNo = extracted_data['MobileNumber'];
-    emailiduser = extracted_data['emailId'];
+    if (extracted_data != null) contactNo = extracted_data['MobileNumber'];
+    if (extracted_data != null) emailiduser = extracted_data['emailId'];
     print(userIdtoken);
     print(userId);
     print(extracted_data);
     setState(() {
-      address = extracted_data['address'];
+      if (extracted_data != null) address = extracted_data['address'];
     });
     super.didChangeDependencies();
   }

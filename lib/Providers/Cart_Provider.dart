@@ -73,6 +73,7 @@ class Cart_Provider with ChangeNotifier {
   Future<void> fetchAndSetCart() async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
+    print('idddddd ' + userId.toString());
     final url = Uri.parse(
       'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId.json',
     );

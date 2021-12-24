@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(this.submitfn, this._IsLoading);
@@ -19,16 +20,26 @@ class _AuthFormState extends State<AuthForm> {
   String userId = '';
   String password = '';
 
-  void _submit() {
+  void _submit() async {
     final isValid = _formkey.currentState.validate();
     FocusScope.of(context).unfocus();
 
     if (isValid) {
       _formkey.currentState.save();
       widget.submitfn(
-          emailId.trim(), userId.trim(), password.trim(), _IsLogin, context);
+        emailId.trim(),
+        userId.trim(),
+        password.trim(),
+        _IsLogin,
+        context,
+      );
+
       Navigator.of(context).pushNamedAndRemoveUntil(
-          '/tabs-screen', (Route<dynamic> route) => false);
+        '/tabs-screen',
+        (Route<dynamic> route) => false,
+      );
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('userId', 'admin');
     }
   }
 

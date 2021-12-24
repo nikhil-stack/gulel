@@ -56,6 +56,9 @@ class Orders with ChangeNotifier {
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId.json');
     final timestamp = DateTime.now();
+    final url2 = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin.json',
+    );
     final response = await http.post(
       url,
       body: json.encode(
@@ -83,6 +86,7 @@ class Orders with ChangeNotifier {
         },
       ),
     );
+
     _Order.insert(
       0,
       OrderItem(
@@ -142,43 +146,112 @@ class Orders with ChangeNotifier {
         });
       });
     });
+    await http.post(
+      url2,
+      body: json.encode(
+        {
+          'FullName': extractedData['FullName'],
+          'GstNumber': extractedData['GstNumber'],
+          'Organame': extractedData['Organame'],
+          'amount': total,
+          'address': extractedData['address'],
+          'PinCode': extractedData['PinCode'],
+          'MobileNumber': extractedData['MobileNumber'],
+          'time': timestamp.toIso8601String(),
+          'PaymentStatus': PaymentStatus,
+          'DeliveryStatus': "Delivery in 10 working days!!",
+          'Products': cartProduct
+              .map(
+                (cp) => {
+                  'id': cp.id,
+                  'title': cp.title,
+                  'price': cp.price,
+                  'quantity': cp.quantity,
+                },
+              )
+              .toList(),
+        },
+      ),
+    );
     notifyListeners();
   }
 
   Future<void> getandset() async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
-    final url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId.json');
-    final response = await http.get(url);
     final List<OrderItem> loadedOrder = [];
-    final extracted_Data = json.decode(response.body) as Map<String, dynamic>;
-    if (extracted_Data == null) {
-      return;
+    if (userId == 'admin') {
+      final url = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin.json',
+      );
+      final response = await http.get(url);
+
+      final extracted_Data = json.decode(response.body) as Map<String, dynamic>;
+      if (extracted_Data == null) {
+        return;
+      }
+      extracted_Data.forEach(
+        (OrderId, OrderData) {
+          loadedOrder.add(
+            OrderItem(
+              Name: OrderData['FullName'],
+              GSTNo: OrderData['GstNumber'],
+              OrgName: OrderData['Organame'],
+              Id: OrderId,
+              address: OrderData['address'],
+              Amount: OrderData['amount'],
+              Pincode: OrderData['PinCode'],
+              paymentStatus: OrderData['PaymentStatus'],
+              MobileNumber: OrderData['MobileNumber'],
+              DeliveryStatus: OrderData['DeliveryStatus'],
+              Products: (OrderData['Products'] as List<dynamic>)
+                  .map((items) => CartItem(
+                        id: items['id'],
+                        price: items['price'],
+                        quantity: items['quantity'],
+                        title: items['title'],
+                      ))
+                  .toList(),
+              time1: DateTime.parse(
+                OrderData['time'],
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      final url = Uri.parse(
+          'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId.json');
+      final response = await http.get(url);
+
+      final extracted_Data = json.decode(response.body) as Map<String, dynamic>;
+      if (extracted_Data == null) {
+        return;
+      }
+      extracted_Data.forEach((OrderId, OrderData) {
+        loadedOrder.add(OrderItem(
+            Name: OrderData['FullName'],
+            GSTNo: OrderData['GstNumber'],
+            OrgName: OrderData['Organame'],
+            Id: OrderId,
+            address: OrderData['address'],
+            Amount: OrderData['amount'],
+            Pincode: OrderData['PinCode'],
+            paymentStatus: OrderData['PaymentStatus'],
+            MobileNumber: OrderData['MobileNumber'],
+            DeliveryStatus: OrderData['DeliveryStatus'],
+            Products: (OrderData['Products'] as List<dynamic>)
+                .map((items) => CartItem(
+                      id: items['id'],
+                      price: items['price'],
+                      quantity: items['quantity'],
+                      title: items['title'],
+                    ))
+                .toList(),
+            time1: DateTime.parse(OrderData['time'])));
+      });
     }
-    extracted_Data.forEach((OrderId, OrderData) {
-      loadedOrder.add(OrderItem(
-          Name: OrderData['FullName'],
-          GSTNo: OrderData['GstNumber'],
-          OrgName: OrderData['Organame'],
-          Id: OrderId,
-          address: OrderData['address'],
-          Amount: OrderData['amount'],
-          Pincode: OrderData['PinCode'],
-          paymentStatus: OrderData['PaymentStatus'],
-          MobileNumber: OrderData['MobileNumber'],
-          DeliveryStatus: OrderData['DeliveryStatus'],
-          Products: (OrderData['Products'] as List<dynamic>)
-              .map((items) => CartItem(
-                    id: items['id'],
-                    price: items['price'],
-                    quantity: items['quantity'],
-                    title: items['title'],
-                  ))
-              .toList(),
-          time1: DateTime.parse(OrderData['time'])));
-    });
-    print(json.decode(response.body));
+    //print(json.decode(response.body));
     _Order = loadedOrder.reversed.toList();
     notifyListeners();
   }
