@@ -195,7 +195,10 @@ class _OrderItem1State extends State<OrderItem1> {
                             style: TextStyle(
                               color: widget.order.DeliveryStatus == 'Cancelled'
                                   ? Colors.red
-                                  : Colors.black,
+                                  : widget.order.DeliveryStatus ==
+                                          'Item Shipped'
+                                      ? Colors.green
+                                      : Colors.black,
                             ),
                           ),
                         ],
@@ -264,10 +267,16 @@ class _OrderItem1State extends State<OrderItem1> {
                               child: FlatButton(
                                 color: Theme.of(context).primaryColor,
                                 onPressed: () {
-                                  Provider.of<Orders>(context);
+                                  Provider.of<Orders>(
+                                    context,
+                                    listen: false,
+                                  ).UpdateDeliveryStatus(
+                                    'Item Shipped',
+                                    widget.order.Id,
+                                  );
                                 },
                                 child: Text(
-                                  "Packed",
+                                  "Shipped",
                                 ),
                               ),
                               // width: MediaQuery.of(context).size.width / 2.2,
