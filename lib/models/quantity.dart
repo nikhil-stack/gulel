@@ -59,6 +59,11 @@ class _SelectQuantityState extends State<SelectQuantity> {
       'seventyFive': widget.seventyFive,
       'hundred': widget.hundred,
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Item successfully added to cart!'),
+      ),
+    );
     Navigator.of(context).pop();
   }
 
