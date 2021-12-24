@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gulel/ClientPart/ClientLogin.dart';
 import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/models/signincontainer.dart';
 import 'package:gulel/screens/signup_screen.dart';
@@ -156,7 +157,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         _usernameWidget(),
                         SizedBox(height: 20),
                         _submitButton(),
-                        
+                        SizedBox(
+                          height: 40,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(ClientAuthScreen.routeName);
+                            },
+                            child: Text("Login as Admin"))
                       ],
                     ),
                   ),

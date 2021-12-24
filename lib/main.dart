@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gulel/ClientPart/ClientLogin.dart';
+import 'package:gulel/ClientPart/Providers/Client_Auth_Provider.dart';
 import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:gulel/Providers/Order_Provider.dart';
@@ -61,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: Orders(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -77,7 +79,7 @@ class _MyAppState extends State<MyApp> {
           stream: FirebaseAuth.instance.onAuthStateChanged,
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
-              //  print(snapshot.data);
+              print("SnapShotEmail" + snapshot.data.toString());
               return TabsScreen();
             }
             return LoginScreen();
@@ -98,6 +100,7 @@ class _MyAppState extends State<MyApp> {
           EditProfilePage.routeName: (ctx) => EditProfilePage(),
           '/wishlist': (ctx) => WishlistScreen(),
           HelpScreen.routeName: (ctx) => HelpScreen(),
+          ClientAuthScreen.routeName: (ctx) => ClientAuthScreen(),
         },
       ),
     );
