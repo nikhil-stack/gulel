@@ -394,32 +394,28 @@ class _CartScreenState extends State<CartScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.2,
-                                      child: FlatButton(
-                                        onPressed: () {
-                                          //  opencheckout();
-                                          var val = validate();
-                                          if (val == 1) {
-                                            Provider.of<Orders>(context,
-                                                    listen: false)
-                                                .addItem(
-                                                    cart.items.values.toList(),
-                                                    finalCartTotal,
-                                                    "Cash on Delivery");
-                                            cart.clearCart();
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  "Please Provide Complete User Details"),
-                                            ));
-                                          }
-                                        },
-                                        child: Text("Cash On Delivery"),
-                                        color: Theme.of(context).accentColor,
-                                      ),
+                                    FlatButton(
+                                      onPressed: () {
+                                        //  opencheckout();
+                                        var val = validate();
+                                        if (val == 1) {
+                                          Provider.of<Orders>(context,
+                                                  listen: false)
+                                              .addItem(
+                                                  cart.items.values.toList(),
+                                                  finalCartTotal,
+                                                  "Cash on Delivery");
+                                          cart.clearCart();
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                                "Please Provide Complete User Details"),
+                                          ));
+                                        }
+                                      },
+                                      child: Text("Cash On Delivery"),
+                                      color: Theme.of(context).accentColor,
                                     ),
                                     SizedBox(
                                       width: 2,
