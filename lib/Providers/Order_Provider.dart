@@ -261,16 +261,30 @@ class Orders with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     // print(userId);
-    final url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
-    await http.patch(
-      url,
-      body: json.encode(
-        {
-          'DeliveryStatus': Status,
-        },
-      ),
-    );
+    var url;
+    if (userId == 'admin') {
+      url = Uri.parse(
+          'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin/$OrderId.json');
+      await http.patch(
+        url,
+        body: json.encode(
+          {
+            'DeliveryStatus': Status,
+          },
+        ),
+      );
+    } else {
+      url = Uri.parse(
+          'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
+      await http.patch(
+        url,
+        body: json.encode(
+          {
+            'DeliveryStatus': Status,
+          },
+        ),
+      );
+    }
     final order = _Order.firstWhere((element) => element.Id == OrderId);
     order.DeliveryStatus = Status;
     notifyListeners();
