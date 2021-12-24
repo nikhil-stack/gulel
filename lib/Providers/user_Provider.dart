@@ -39,8 +39,15 @@ class user_provider with ChangeNotifier {
     return users;
   }
 
-  Future<void> addUser(FullName, emailId, GstNumber, OrganName, address,
-      Pincode, MobileNumber) async {
+  Future<void> addUser(
+    FullName,
+    emailId,
+    GstNumber,
+    OrganName,
+    address,
+    Pincode,
+    MobileNumber,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     var url = Uri.parse(
@@ -62,6 +69,15 @@ class user_provider with ChangeNotifier {
 
     pref1.setString('userIdtoken', json.decode(response.body)['name']);
     // print(json.decode(response.body)['name']);
+    users = user(
+      FullName: FullName,
+      emailId: emailId,
+      GstNumber: GstNumber,
+      OrganName: OrganName,
+      address: address,
+      Pincode: Pincode,
+      MobileNumber: MobileNumber,
+    );
 
     notifyListeners();
   }

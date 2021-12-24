@@ -5,6 +5,7 @@ import 'package:gulel/Providers/Order_Provider.dart';
 import 'package:gulel/screens/Help_Screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderItem1 extends StatefulWidget {
   final OrderItem order;
@@ -16,6 +17,17 @@ class OrderItem1 extends StatefulWidget {
 
 class _OrderItem1State extends State<OrderItem1> {
   var expand = false;
+  bool _isAdmin = false;
+  @override
+  void didChangeDependencies() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('userId') == 'admin') {
+      _isAdmin = true;
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
@@ -37,7 +49,7 @@ class _OrderItem1State extends State<OrderItem1> {
                       expand = !expand;
                     });
                   },
-                  icon: Icon(expand ? Icons.expand_less : Icons.more)),
+                  icon: Icon(expand ? Icons.expand_more : Icons.expand_less)),
             ),
             Expanded(
               child: AnimatedContainer(
@@ -197,47 +209,65 @@ class _OrderItem1State extends State<OrderItem1> {
                                       .pushNamed(HelpScreen.routeName);
                                 },
                                 child: Text("Help")),
-                            width: MediaQuery.of(context).size.width / 2.2,
+                            //width: MediaQuery.of(context).size.width / 2.2,
                           ),
                           SizedBox(
                             width: 2,
                           ),
                           Expanded(
+                            child: FlatButton(
+                              color: Theme.of(context).primaryColor,
+                              onPressed: () {
+                                var timedifference = DateTime.now()
+                                    .difference(widget.order.time1)
+                                    .inHours;
+                                print(timedifference);
+                                if (timedifference >= 1) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) {
+                                        return AlertDialog(
+                                          title: Text("Sorry!"),
+                                          content: Text(
+                                            "your Order Cant be cancelled",
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text(
+                                                "Ok",
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      });
+                                } else {
+                                  Provider.of<Orders>(context, listen: false)
+                                      .UpdateDeliveryStatus(
+                                    "Cancelled",
+                                    widget.order.Id,
+                                  );
+                                }
+                              },
+                              child: Text("Cancel"),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          if (_isAdmin)
+                            Container(
                               child: FlatButton(
                                   color: Theme.of(context).primaryColor,
                                   onPressed: () {
-                                    var timedifference = DateTime.now()
-                                        .difference(widget.order.time1)
-                                        .inHours;
-                                    print(timedifference);
-                                    if (timedifference >= 1) {
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) {
-                                            return AlertDialog(
-                                              title: Text("Sorry!"),
-                                              content: Text(
-                                                  "your Order Cant be cancelled"),
-                                              actions: [
-                                                TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: Text("Ok"))
-                                              ],
-                                            );
-                                          });
-                                    } else {
-                                      Provider.of<Orders>(context,
-                                              listen: false)
-                                          .UpdateDeliveryStatus(
-                                        "Cancelled",
-                                        widget.order.Id,
-                                      );
-                                    }
+                                    Navigator.of(context)
+                                        .pushNamed(HelpScreen.routeName);
                                   },
-                                  child: Text("Cancel")))
+                                  child: Text("Packed")),
+                              // width: MediaQuery.of(context).size.width / 2.2,
+                            )
                         ],
                       )
                     ],
