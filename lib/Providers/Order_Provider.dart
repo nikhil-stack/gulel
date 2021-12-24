@@ -131,6 +131,14 @@ class Orders with ChangeNotifier {
             final url2 = Uri.parse(
               'https://gulel-ab427-default-rtdb.firebaseio.com/products/$category/$element2.json',
             );
+            if (int.tryParse(elementDetails['stock'].toString()) <
+                quantityOrdered) {
+              var orderid = json.decode(response.body)['name'];
+              final delurl = Uri.parse(
+                  'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$orderid.json');
+              http.delete(delurl);
+              return;
+            }
             http.patch(
               url2,
               body: json.encode(
