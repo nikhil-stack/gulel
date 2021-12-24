@@ -338,9 +338,15 @@ class _ProductDetailState extends State<ProductDetail> {
                                           color: Colors.black, width: 1),
                                     ),
                                     child: FlatButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Provider.of<Product>(context,
+                                                listen: false)
+                                            .toggleFavourites(
+                                          displayedProduct,
+                                        );
+                                      },
                                       child: Text(
-                                        "WISHLIST",
+                                        "Wishlist",
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),

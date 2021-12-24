@@ -51,9 +51,10 @@ class Product with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     isFavourite = !isFavourite;
+    final productId = product.id;
     notifyListeners();
     final url2 = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavouritesStatus/$userId/$id.json',
+      'https://gulel-ab427-default-rtdb.firebaseio.com/userFavouritesStatus/$userId/$productId.json',
     );
     await http.put(url2, body: json.encode(isFavourite));
     notifyListeners();
