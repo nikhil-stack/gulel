@@ -87,23 +87,7 @@ class Orders with ChangeNotifier {
       ),
     );
 
-    _Order.insert(
-      0,
-      OrderItem(
-        Name: extractedData['FullName'],
-        GSTNo: extractedData['GstNumber'],
-        OrgName: extractedData['Organame'],
-        Id: json.decode(response.body)['name'],
-        Amount: total,
-        time1: timestamp,
-        Products: cartProduct,
-        address: extractedData['address'],
-        Pincode: extractedData['PinCode'],
-        paymentStatus: PaymentStatus,
-        MobileNumber: extractedData['MobileNumber'],
-        DeliveryStatus: extractedData['DeliveryStatus'],
-      ),
-    );
+    
     List<String> ids = [];
     cartProduct.forEach((element) {
       ids.add(element.id);
@@ -171,6 +155,23 @@ class Orders with ChangeNotifier {
               )
               .toList(),
         },
+      ),
+    );
+    _Order.insert(
+      0,
+      OrderItem(
+        Name: extractedData['FullName'],
+        GSTNo: extractedData['GstNumber'],
+        OrgName: extractedData['Organame'],
+        Id: json.decode(response.body)['name'],
+        Amount: total,
+        time1: timestamp,
+        Products: cartProduct,
+        address: extractedData['address'],
+        Pincode: extractedData['PinCode'],
+        paymentStatus: PaymentStatus,
+        MobileNumber: extractedData['MobileNumber'],
+        DeliveryStatus: extractedData['DeliveryStatus'],
       ),
     );
     notifyListeners();

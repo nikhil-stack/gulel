@@ -22,7 +22,9 @@ class _OrderItem1State extends State<OrderItem1> {
   void didChangeDependencies() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('userId') == 'admin') {
-      _isAdmin = true;
+      setState(() {
+        _isAdmin = true;
+      });
     }
 
     super.didChangeDependencies();
@@ -260,12 +262,14 @@ class _OrderItem1State extends State<OrderItem1> {
                           if (_isAdmin)
                             Container(
                               child: FlatButton(
-                                  color: Theme.of(context).primaryColor,
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed(HelpScreen.routeName);
-                                  },
-                                  child: Text("Packed")),
+                                color: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  Provider.of<Orders>(context);
+                                },
+                                child: Text(
+                                  "Packed",
+                                ),
+                              ),
                               // width: MediaQuery.of(context).size.width / 2.2,
                             )
                         ],
