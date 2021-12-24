@@ -87,7 +87,23 @@ class Orders with ChangeNotifier {
       ),
     );
 
-    
+    _Order.insert(
+      0,
+      OrderItem(
+        Name: extractedData['FullName'],
+        GSTNo: extractedData['GstNumber'],
+        OrgName: extractedData['Organame'],
+        Id: json.decode(response.body)['name'],
+        Amount: total,
+        time1: timestamp,
+        Products: cartProduct,
+        address: extractedData['address'],
+        Pincode: extractedData['PinCode'],
+        paymentStatus: PaymentStatus,
+        MobileNumber: extractedData['MobileNumber'],
+        DeliveryStatus: extractedData['DeliveryStatus'],
+      ),
+    );
     List<String> ids = [];
     cartProduct.forEach((element) {
       ids.add(element.id);
@@ -115,14 +131,6 @@ class Orders with ChangeNotifier {
             final url2 = Uri.parse(
               'https://gulel-ab427-default-rtdb.firebaseio.com/products/$category/$element2.json',
             );
-            if (int.tryParse(elementDetails['stock'].toString()) <
-                quantityOrdered) {
-              var orderid = json.decode(response.body)['name'];
-              final delurl = Uri.parse(
-                  'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$orderid.json');
-              http.delete(delurl);
-              return;
-            }
             http.patch(
               url2,
               body: json.encode(
@@ -163,23 +171,6 @@ class Orders with ChangeNotifier {
               )
               .toList(),
         },
-      ),
-    );
-    _Order.insert(
-      0,
-      OrderItem(
-        Name: extractedData['FullName'],
-        GSTNo: extractedData['GstNumber'],
-        OrgName: extractedData['Organame'],
-        Id: json.decode(response.body)['name'],
-        Amount: total,
-        time1: timestamp,
-        Products: cartProduct,
-        address: extractedData['address'],
-        Pincode: extractedData['PinCode'],
-        paymentStatus: PaymentStatus,
-        MobileNumber: extractedData['MobileNumber'],
-        DeliveryStatus: extractedData['DeliveryStatus'],
       ),
     );
     notifyListeners();
