@@ -391,10 +391,13 @@ class _CartScreenState extends State<CartScreen> {
                               width: double.infinity,
                               child: Card(
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  //mainAxisAlignment:
+                                  //  MainAxisAlignment.spaceBetween,
                                   children: [
                                     FlatButton(
+                                      minWidth:
+                                          MediaQuery.of(context).size.width /
+                                              2.2,
                                       onPressed: () {
                                         //  opencheckout();
                                         var val = validate();

@@ -107,6 +107,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                                 displayedProduct.id,
                                                 displayedProduct.title,
                                                 displayedProduct.price,
+                                                displayedProduct.stockAvailable,
                                                 displayedProduct.imageUrl,
                                                 displayedProduct.five,
                                                 displayedProduct.ten,
@@ -304,6 +305,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                                   displayedProduct.id,
                                                   displayedProduct.title,
                                                   displayedProduct.price,
+                                                  displayedProduct
+                                                      .stockAvailable,
                                                   displayedProduct.imageUrl,
                                                   displayedProduct.five,
                                                   displayedProduct.ten,

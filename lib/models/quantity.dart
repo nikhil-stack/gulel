@@ -7,6 +7,7 @@ class SelectQuantity extends StatefulWidget {
   String ProductID;
   String title;
   double Price;
+  int AvailableQuantity;
   String imageUrl;
   double five;
   double ten;
@@ -19,6 +20,7 @@ class SelectQuantity extends StatefulWidget {
     this.ProductID,
     this.title,
     this.Price,
+    this.AvailableQuantity,
     this.imageUrl,
     this.five,
     this.ten,
@@ -34,7 +36,7 @@ class SelectQuantity extends StatefulWidget {
 
 class _SelectQuantityState extends State<SelectQuantity> {
   final Quantitycontroller = TextEditingController();
-  void SubmitData() {
+  void SubmitData(int AvailableQuantity) {
     final enteredQuantity = Quantitycontroller.text.trim();
     //final enteredamount = double.parse(amountcontroller.text);
     if (enteredQuantity.isEmpty || int.tryParse(enteredQuantity) <= 0) {
@@ -45,26 +47,34 @@ class _SelectQuantityState extends State<SelectQuantity> {
         double.tryParse(enteredQuantity) < 10) {
       discount = widget.five;
     }
-    Provider.of<Cart_Provider>(context, listen: false).addItem(
-        widget.ProductID,
-        widget.title,
-        widget.Price,
-        widget.imageUrl,
-        int.tryParse(enteredQuantity), {
-      'five': widget.five,
-      'ten': widget.ten,
-      'twenty': widget.twenty,
-      'thirty': widget.thirty,
-      'fifty': widget.fifty,
-      'seventyFive': widget.seventyFive,
-      'hundred': widget.hundred,
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Item successfully added to cart!'),
-      ),
-    );
-    Navigator.of(context).pop();
+    print("The Quantity is" + enteredQuantity);
+    if (int.parse(enteredQuantity) <= AvailableQuantity) {
+      Provider.of<Cart_Provider>(context, listen: false).addItem(
+          widget.ProductID,
+          widget.title,
+          widget.Price,
+          widget.imageUrl,
+          int.tryParse(enteredQuantity), {
+        'five': widget.five,
+        'ten': widget.ten,
+        'twenty': widget.twenty,
+        'thirty': widget.thirty,
+        'fifty': widget.fifty,
+        'seventyFive': widget.seventyFive,
+        'hundred': widget.hundred,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Item successfully added to cart!'),
+        ),
+      );
+      Navigator.of(context).pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Sorry the Entered Quantity is Currently Unavailable"),
+      ));
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -86,7 +96,7 @@ class _SelectQuantityState extends State<SelectQuantity> {
                     InputDecoration(labelText: "Quantity", hintText: "In Kg"),
                 controller: Quantitycontroller,
                 keyboardType: TextInputType.number,
-                onSubmitted: (_) => SubmitData(),
+                onSubmitted: (_) => SubmitData(widget.AvailableQuantity),
               ),
               FlatButton(
                 color: Theme.of(context).accentColor,
@@ -94,7 +104,7 @@ class _SelectQuantityState extends State<SelectQuantity> {
                   "Add Product",
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () => SubmitData(),
+                onPressed: () => SubmitData(widget.AvailableQuantity),
               ),
             ],
           ),
