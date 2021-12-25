@@ -56,9 +56,7 @@ class Orders with ChangeNotifier {
     final url = Uri.parse(
         'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId.json');
     final timestamp = DateTime.now();
-    final url2 = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin.json',
-    );
+
     final response = await http.post(
       url,
       body: json.encode(
@@ -87,7 +85,6 @@ class Orders with ChangeNotifier {
       ),
     );
 
-    
     List<String> ids = [];
     cartProduct.forEach((element) {
       ids.add(element.id);
@@ -130,7 +127,11 @@ class Orders with ChangeNotifier {
         });
       });
     });
-    await http.post(
+    final orId = json.decode(response.body)['name'];
+    final url2 = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin/$orId.json',
+    );
+    await http.put(
       url2,
       body: json.encode(
         {
@@ -154,6 +155,7 @@ class Orders with ChangeNotifier {
                 },
               )
               .toList(),
+          'userId': userId,
         },
       ),
     );
@@ -265,7 +267,8 @@ class Orders with ChangeNotifier {
     var url;
     if (userId == 'admin') {
       url = Uri.parse(
-          'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin/$OrderId.json');
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin/$OrderId.json',
+      );
       await http.patch(
         url,
         body: json.encode(
@@ -274,11 +277,37 @@ class Orders with ChangeNotifier {
           },
         ),
       );
+      final response = await http.get(url);
+      final responseData = json.decode(response.body) as Map<String, dynamic>;
+      final uid = responseData['userId'];
+      final url2 = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$uid/$OrderId.json',
+      );
+      await http.patch(
+        url2,
+        body: json.encode(
+          {
+            'DeliveryStatus': Status,
+          },
+        ),
+      );
     } else {
       url = Uri.parse(
-          'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json');
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/$userId/$OrderId.json',
+      );
       await http.patch(
         url,
+        body: json.encode(
+          {
+            'DeliveryStatus': Status,
+          },
+        ),
+      );
+      final url2 = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/Orders/admin/$OrderId.json',
+      );
+      await http.patch(
+        url2,
         body: json.encode(
           {
             'DeliveryStatus': Status,

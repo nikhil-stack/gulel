@@ -263,24 +263,25 @@ class _OrderItem1State extends State<OrderItem1> {
                             width: 2,
                           ),
                           if (_isAdmin)
-                            Container(
-                              child: FlatButton(
-                                color: Theme.of(context).primaryColor,
-                                onPressed: () {
-                                  Provider.of<Orders>(
-                                    context,
-                                    listen: false,
-                                  ).UpdateDeliveryStatus(
-                                    'Item Shipped',
-                                    widget.order.Id,
-                                  );
-                                },
-                                child: Text(
-                                  "Shipped",
+                            if (widget.order.DeliveryStatus != 'Cancelled')
+                              Container(
+                                child: FlatButton(
+                                  color: Theme.of(context).primaryColor,
+                                  onPressed: () {
+                                    Provider.of<Orders>(
+                                      context,
+                                      listen: false,
+                                    ).UpdateDeliveryStatus(
+                                      'Item Shipped',
+                                      widget.order.Id,
+                                    );
+                                  },
+                                  child: Text(
+                                    "Shipped",
+                                  ),
                                 ),
-                              ),
-                              // width: MediaQuery.of(context).size.width / 2.2,
-                            )
+                                // width: MediaQuery.of(context).size.width / 2.2,
+                              )
                         ],
                       )
                     ],

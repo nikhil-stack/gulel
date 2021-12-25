@@ -47,7 +47,7 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Center(
           child: Text('Gulel'),
         ),
-        /* actions: [
+        /*actions: [
           IconButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);
