@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: InkWell(
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      SnackBar(duration: Duration(seconds: 6),
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
