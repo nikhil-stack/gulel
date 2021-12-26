@@ -71,7 +71,12 @@ class _SelectQuantityState extends State<SelectQuantity> {
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Sorry the Entered Quantity is Currently Unavailable"),
+        content: Text(
+          "Sorry the Entered Quantity is Currently Unavailable",
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ),
       ));
       Navigator.of(context).pop();
     }

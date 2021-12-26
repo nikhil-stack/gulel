@@ -94,6 +94,9 @@ class _ProductDetailState extends State<ProductDetail> {
                                           SnackBar(
                                             content: Text(
                                               'Sorry, this product is currently out of stock',
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
                                             ),
                                           ),
                                         );

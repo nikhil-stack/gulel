@@ -2,7 +2,7 @@
     package="com.example.gulel">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="gulel"
+        android:label="Gulel"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

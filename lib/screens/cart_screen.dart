@@ -103,7 +103,7 @@ class _CartScreenState extends State<CartScreen> {
 
   void handlerPaymentSucess() {
     print("Payment Successfull");
-    Toast.show("Pament success", context);
+    Toast.show("Payment success", context);
     Provider.of<Orders>(context, listen: false)
         .addItem(cart.items.values.toList(), finalamount, "Successful");
     cart.clearCart();
@@ -400,6 +400,7 @@ class _CartScreenState extends State<CartScreen> {
                                               2.2,
                                       onPressed: () {
                                         //  opencheckout();
+
                                         var val = validate();
                                         if (val == 1) {
                                           Provider.of<Orders>(context,
@@ -408,7 +409,16 @@ class _CartScreenState extends State<CartScreen> {
                                                   cart.items.values.toList(),
                                                   finalCartTotal,
                                                   "Cash on Delivery");
+
                                           cart.clearCart();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Order Placed Successfully',
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(

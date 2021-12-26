@@ -121,7 +121,7 @@ class _SignUpState extends State<SignUp> {
             return null;
           },
           decoration: InputDecoration(
-            labelText: 'GstNumber',
+            labelText: 'GstNumber/Udhyog Adhaar number',
             labelStyle: TextStyle(
                 color: Color.fromRGBO(226, 222, 211, 1),
                 fontWeight: FontWeight.w500,
@@ -253,6 +253,7 @@ class _SignUpState extends State<SignUp> {
     // if (!_formKey.currentState.validate()) {
     // return Text("hi");
     // }
+    
     return Align(
       alignment: Alignment.centerRight,
       child: InkWell(

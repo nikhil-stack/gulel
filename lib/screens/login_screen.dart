@@ -46,6 +46,17 @@ class _LoginScreenState extends State<LoginScreen> {
       alignment: Alignment.centerRight,
       child: InkWell(
         onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Waiting To Auto-Detect The OTP'),
+            CircularProgressIndicator(),
+          ],
+        ),
+      ),
+    );
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => SignUpPage()));
           final mobile = "+91" + _phoneController.text.trim();

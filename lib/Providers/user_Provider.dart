@@ -91,7 +91,8 @@ class user_provider with ChangeNotifier {
     final userIdtoken = prefs1.getString('userIdtoken');
     // print(userIdtoken);
     var url = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
+      'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json',
+    );
     final response = await http.get(url);
     var extractedData = json.decode(response.body) as Map<String, dynamic>;
     //if (extractedData == null) return;
