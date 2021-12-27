@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.teal,
           accentColor: Colors.orangeAccent,
-          cardColor: Colors.black,
+          cardColor: Colors.white,
         ),
         //home: LoginScreen(),
         //TabsScreen(), //CategoriesScreen(),

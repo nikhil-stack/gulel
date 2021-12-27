@@ -120,6 +120,13 @@ class Auth_Provider with ChangeNotifier {
                             ),
                           );*/
                         }).catchError((e) {
+                          if (e
+                              .toString()
+                              .contains('ERROR_INVALID_VERIFICATION_CODE')) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Invalid OTP!"),
+                            ));
+                          }
                           print(e);
                         });
                       },

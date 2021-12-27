@@ -105,7 +105,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             "Name:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(widget.order.Name)
+                          Text(widget.order.Name != Null
+                              ? widget.order.Name
+                              : "-")
                         ],
                       ),
                       Container(
@@ -118,7 +120,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             ),
                             Flexible(
                               child: Text(
-                                widget.order.address,
+                                widget.order.address != Null
+                                    ? widget.order.address
+                                    : "-",
                                 softWrap: true,
                               ),
                             ),
@@ -134,7 +138,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             "Pin Code:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(widget.order.Pincode),
+                          Text(widget.order.Pincode != Null
+                              ? widget.order.Pincode
+                              : "-"),
                         ],
                       ),
                       SizedBox(
@@ -146,7 +152,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             "GST No:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(widget.order.GSTNo)
+                          Text(widget.order.GSTNo != Null
+                              ? widget.order.GSTNo
+                              : "-")
                         ],
                       ),
                       SizedBox(
@@ -158,7 +166,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             "Organization Name:-",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(widget.order.OrgName)
+                          Text(widget.order.OrgName != Null
+                              ? widget.order.OrgName
+                              : "-")
                         ],
                       ),
                       SizedBox(
@@ -171,7 +181,9 @@ class _OrderItem1State extends State<OrderItem1> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            widget.order.MobileNumber,
+                            widget.order.MobileNumber != Null
+                                ? widget.order.MobileNumber
+                                : "-",
                           ),
                         ],
                       ),

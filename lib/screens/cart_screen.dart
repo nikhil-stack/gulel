@@ -119,13 +119,14 @@ class _CartScreenState extends State<CartScreen> {
 
   int validate() {
     var userdata = Provider.of<user_provider>(context, listen: false).userss;
+    print(userdata.address == null);
     if (userdata.FullName.toString().trim().isEmpty) return -1;
     if (userdata.emailId.toString().trim().isEmpty) return -1;
-    if (userdata.address.toString().trim().isEmpty) return -1;
-    if (userdata.Pincode.toString().trim().isEmpty) return -1;
-    if (userdata.GstNumber.toString().trim().isEmpty) return -1;
-    if (userdata.OrganName.toString().trim().isEmpty) return -1;
-    if (userdata.MobileNumber.toString().trim().isEmpty) return -1;
+    if (userdata.address == null) return -1;
+    if (userdata.Pincode == null) return -1;
+    if (userdata.GstNumber == null) return -1;
+    if (userdata.OrganName == null) return -1;
+    if (userdata.MobileNumber == null) return -1;
     return 1;
   }
 
@@ -398,10 +399,10 @@ class _CartScreenState extends State<CartScreen> {
                                       minWidth:
                                           MediaQuery.of(context).size.width /
                                               2.2,
-                                      onPressed: () {
+                                      onPressed: () async {
                                         //  opencheckout();
 
-                                        var val = validate();
+                                        var val = await validate();
                                         if (val == 1) {
                                           Provider.of<Orders>(context,
                                                   listen: false)
