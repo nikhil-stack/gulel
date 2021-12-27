@@ -101,7 +101,7 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
-  void handlerPaymentSucess() {
+  void handlerPaymentSucess(PaymentSuccessResponse response) {
     print("Payment Successfull");
     Toast.show("Payment success", context);
     Provider.of<Orders>(context, listen: false)
@@ -109,11 +109,11 @@ class _CartScreenState extends State<CartScreen> {
     cart.clearCart();
   }
 
-  void handlerErrorPaymentfailed() {
+  void handlerErrorPaymentfailed(PaymentFailureResponse Failure) {
     print("error");
   }
 
-  void handlerExternalwallet() {
+  void handlerExternalwallet(ExternalWalletResponse wallet) {
     print("External Wallet");
   }
 
