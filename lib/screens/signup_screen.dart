@@ -378,23 +378,6 @@ class _SignUpState extends State<SignUp> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: height * .4),
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.of(context).pushReplacementNamed(
-                                '/tabs-screen',
-                              ),
-                              child: Text(
-                                'Skip for now',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
                             _nameWidget(),
                             SizedBox(height: 20),
                             _emailWidget(),
@@ -412,6 +395,23 @@ class _SignUpState extends State<SignUp> {
                             _submitButton(),
                             SizedBox(height: height * .050),
                             _createLoginLabel(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.of(context).pushReplacementNamed(
+                                '/tabs-screen',
+                              ),
+                              child: Text(
+                                'Skip for now',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
