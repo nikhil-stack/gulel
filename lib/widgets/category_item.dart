@@ -58,7 +58,10 @@ class CategoryItem extends StatelessWidget {
                         child: Text(
                           title,
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Theme.of(context).cardColor),
+                          style: TextStyle(
+                            color: Theme.of(context).cardColor,
+                            fontSize: 22,
+                          ),
                         ),
                       ),
                       decoration: BoxDecoration(

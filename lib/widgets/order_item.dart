@@ -42,6 +42,7 @@ class _OrderItem1State extends State<OrderItem1> {
         child: Column(
           children: [
             ListTile(
+              tileColor: Colors.white,
               title: Text('\Rs.${widget.order.Amount}'),
               subtitle: Text(
                   DateFormat('dd/MM/yyyy hh:mm').format(widget.order.time1)),
@@ -55,6 +56,7 @@ class _OrderItem1State extends State<OrderItem1> {
             ),
             Expanded(
               child: AnimatedContainer(
+                color: Colors.white,
                 duration: Duration(milliseconds: 300),
                 curve: Curves.easeIn,
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
@@ -62,6 +64,7 @@ class _OrderItem1State extends State<OrderItem1> {
                     ? min(widget.order.Products.length * 20.0 + 250, 1500)
                     : 0,
                 child: Container(
+                  color: Colors.white,
                   child: Column(
                     children: [
                       Expanded(
