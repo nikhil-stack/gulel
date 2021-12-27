@@ -33,7 +33,9 @@ class _SignUpState extends State<SignUp> {
   Widget _backButton() {
     return InkWell(
       onTap: () {
-        Navigator.pop(context);
+        Navigator.of(context).pushReplacementNamed(
+          '/login-screen',
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -253,7 +255,7 @@ class _SignUpState extends State<SignUp> {
     // if (!_formKey.currentState.validate()) {
     // return Text("hi");
     // }
-    
+
     return Align(
       alignment: Alignment.centerRight,
       child: InkWell(
@@ -330,52 +332,96 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SizedBox(
-        height: height,
-        child: Stack(
-          children: [
-            Positioned(
-              height: MediaQuery.of(context).size.height * 1,
-              child: SignUpContainer(),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    //margin: EdgeInsets.symmetric(vertical: 60),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          SizedBox(height: height * .4),
-                          _nameWidget(),
-                          SizedBox(height: 20),
-                          _emailWidget(),
-                          SizedBox(height: 20),
-                          _GstNumberWidget(),
-                          SizedBox(height: 20),
-                          _OrganizationnameWidget(),
-                          SizedBox(height: 20),
-                          _AddressWidget(),
-                          SizedBox(height: 20),
-                          _PincodeWidget(),
-                          SizedBox(height: 20),
-                          _MobileNumberWidget(),
-                          SizedBox(height: 80),
-                          _submitButton(),
-                          SizedBox(height: height * .050),
-                          _createLoginLabel(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+    return WillPopScope(
+      onWillPop: () => showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            'Warning',
+          ),
+          content: Text(
+            'Do you really want to go back?',
+          ),
+          actions: [
+            FlatButton(
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(ctx, '/login-screen'),
+              child: Text(
+                'Yes',
               ),
             ),
-            Positioned(top: 30, left: 0, child: _backButton()),
+            FlatButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text('No'),
+            )
           ],
+        ),
+      ),
+      child: Scaffold(
+        body: SizedBox(
+          height: height,
+          child: Stack(
+            children: [
+              Positioned(
+                height: MediaQuery.of(context).size.height * 1,
+                child: SignUpContainer(),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      //margin: EdgeInsets.symmetric(vertical: 60),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: height * .4),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.of(context).pushReplacementNamed(
+                                '/tabs-screen',
+                              ),
+                              child: Text(
+                                'Skip for now',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            _nameWidget(),
+                            SizedBox(height: 20),
+                            _emailWidget(),
+                            SizedBox(height: 20),
+                            _GstNumberWidget(),
+                            SizedBox(height: 20),
+                            _OrganizationnameWidget(),
+                            SizedBox(height: 20),
+                            _AddressWidget(),
+                            SizedBox(height: 20),
+                            _PincodeWidget(),
+                            SizedBox(height: 20),
+                            _MobileNumberWidget(),
+                            SizedBox(height: 80),
+                            _submitButton(),
+                            SizedBox(height: height * .050),
+                            _createLoginLabel(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(top: 30, left: 0, child: _backButton()),
+            ],
+          ),
         ),
       ),
     );

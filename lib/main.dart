@@ -101,6 +101,7 @@ class _MyAppState extends State<MyApp> {
           '/wishlist': (ctx) => WishlistScreen(),
           HelpScreen.routeName: (ctx) => HelpScreen(),
           ClientAuthScreen.routeName: (ctx) => ClientAuthScreen(),
+          '/login-screen': (ctx) => LoginScreen(),
         },
       ),
     );
