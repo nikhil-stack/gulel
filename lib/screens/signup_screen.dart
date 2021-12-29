@@ -397,7 +397,16 @@ class _SignUpState extends State<SignUp> {
                             SizedBox(height: 20),
                             _OrganizationnameWidget(),
                             SizedBox(height: 20),
-                            SelectCity(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "City:-",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                SelectCity(),
+                              ],
+                            ),
                             SizedBox(height: 20),
                             _AddressWidget(),
                             SizedBox(height: 20),
@@ -413,6 +422,7 @@ class _SignUpState extends State<SignUp> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
+                                      title: Text("Please Select Your City"),
                                       content: StatefulBuilder(
                                         builder: (BuildContext context,
                                             StateSetter setState) {
