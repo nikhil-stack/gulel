@@ -4,6 +4,7 @@ import 'package:gulel/Providers/products.dart';
 import 'package:gulel/widgets/Product_item.dart';
 import 'package:gulel/widgets/product_grid.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductScreen extends StatefulWidget {
   /*final List<Product> availableProducts;
@@ -17,9 +18,10 @@ class _ProductScreenState extends State<ProductScreen> {
   List<Product> availableProducts;
   bool _isInit = true;
   bool _isLoading = false;
-
+  String city;
+  double productPrice;
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryy = routeArgs['id'];
@@ -36,6 +38,9 @@ class _ProductScreenState extends State<ProductScreen> {
         });
       });
     }
+    final prefs = await SharedPreferences.getInstance();
+    city = prefs.getString('city');
+
     _isInit = false;
 
     super.didChangeDependencies();
@@ -58,7 +63,18 @@ class _ProductScreenState extends State<ProductScreen> {
 
       displayedProducts = availableProducts
           .where(
-            (element) => element.category1.contains(categoryy),
+            (element) =>
+                element.category1.contains(categoryy) && city == 'Bikaner'
+                    ? element.bikanerPrice > 0
+                    : true && city == 'Delhi NCR'
+                        ? element.delhiPrice > 0
+                        : true && city == 'Varanasi'
+                            ? element.varanasiPrice > 0
+                            : true && city == 'Hyderabad'
+                                ? element.hyderabadPrice > 0
+                                : true && city == 'Kolkata'
+                                    ? element.kolkataPrice > 0
+                                    : true,
           )
           .toList();
     });

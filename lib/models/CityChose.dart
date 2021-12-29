@@ -48,13 +48,14 @@ class _SelectCityState extends State<SelectCity> {
           var url = Uri.parse(
               'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
 
-          await http.patch(url,
-              body: json.encode({
-                'city': newValue,
-              }));
+          
 
           final prefs3 = await SharedPreferences.getInstance();
           prefs3.setString('city', newValue);
+          await http.patch(url,
+              body: json.encode({
+                'city': newValue,
+              },),);
         },
         items: _locations.map((location) {
           return DropdownMenuItem(

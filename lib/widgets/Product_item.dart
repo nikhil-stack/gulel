@@ -52,7 +52,7 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return product == null ? Center(child: CircularProgressIndicator(),) : Padding(
+    return product == null ? Center(child: CircularProgressIndicator(),) :  Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Container(
         decoration: BoxDecoration(
