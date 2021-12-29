@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/Auth_Provider.dart';
 import 'package:gulel/Providers/user_Provider.dart';
+import 'package:gulel/models/CityChose.dart';
 import 'package:gulel/models/signUpcontainer.dart';
 import 'package:gulel/screens/login_screen.dart';
 import 'package:gulel/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   static const routeName = '\SignUp-Screen';
@@ -49,6 +51,14 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  String city;
+  void didChangeDependencies() async {
+    final prefs = await SharedPreferences.getInstance();
+    city = prefs.getString('city') == null ? '' : prefs.getString('city');
+
+    super.didChangeDependencies();
   }
 
   Widget _nameWidget() {
@@ -270,7 +280,8 @@ class _SignUpState extends State<SignUp> {
               _OrgnameController.text,
               _AddressController.text,
               _PincodeController.text,
-              "+91" + _MobileController.text);
+              "+91" + _MobileController.text,
+              city);
           final mobile = "+91" + _MobileController.text.trim();
 
           // Provider.of<Auth_Provider>(context, listen: false)
@@ -385,6 +396,8 @@ class _SignUpState extends State<SignUp> {
                             _GstNumberWidget(),
                             SizedBox(height: 20),
                             _OrganizationnameWidget(),
+                            SizedBox(height: 20),
+                            SelectCity(),
                             SizedBox(height: 20),
                             _AddressWidget(),
                             SizedBox(height: 20),

@@ -14,6 +14,7 @@ class user {
   String address;
   String Pincode;
   String MobileNumber;
+  String city;
 
   user({
     @required this.FullName,
@@ -23,6 +24,7 @@ class user {
     @required this.address,
     @required this.Pincode,
     @required this.MobileNumber,
+    @required this.city,
   });
 }
 
@@ -47,6 +49,7 @@ class user_provider with ChangeNotifier {
     address,
     Pincode,
     MobileNumber,
+    city,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
@@ -63,6 +66,7 @@ class user_provider with ChangeNotifier {
             'address': address,
             'PinCode': Pincode,
             'MobileNumber': MobileNumber,
+            'city': city,
           },
         ));
     final pref1 = await SharedPreferences.getInstance();
@@ -77,6 +81,7 @@ class user_provider with ChangeNotifier {
       address: address,
       Pincode: Pincode,
       MobileNumber: MobileNumber,
+      city: city,
     );
 
     notifyListeners();
@@ -113,6 +118,7 @@ class user_provider with ChangeNotifier {
         Pincode: '',
         address: '',
         MobileNumber: '',
+        city: '',
       );
     } else {
       loadedUsers = user(
@@ -123,6 +129,7 @@ class user_provider with ChangeNotifier {
         Pincode: extractedData['PinCode'],
         address: extractedData['address'],
         MobileNumber: extractedData['MobileNumber'],
+        city: extractedData['city'],
       );
     }
     users = loadedUsers;
