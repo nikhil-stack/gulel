@@ -27,8 +27,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           _isLoading = true;
         });
       }
-      Provider.of<CategoryItems_Provider>(context).fetchAndSetCategories();
-      Provider.of<user_provider>(context).fetchandset().then((_) {
+      Provider.of<CategoryItems_Provider>(context,listen: false).fetchAndSetCategories();
+      Provider.of<user_provider>(context,listen: false).getCurrentCity();
+      Provider.of<user_provider>(context,listen: false).fetchandset().then((_) {
         if (mounted) {
           setState(() {
             _isLoading = false;
