@@ -15,7 +15,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   var _newProduct = Product(
     id: '',
     title: '',
-    price: null,
     imageUrl: '',
     stockAvailable: null,
     category1: '',
@@ -26,6 +25,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     fifty: null,
     seventyFive: null,
     hundred: null,
+    delhiPrice: null,
+    bikanerPrice: null,
+    kolkataPrice: null,
+    varanasiPrice: null,
+    hyderabadPrice: null,
   );
   //final _imageUrlController = TextEditingController();
   var _isInit = true;
@@ -35,7 +39,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Map<String, dynamic> _initValues = {
     'title': '',
     'description': '',
-    'price': '',
     'imageUrl': '',
     'stockAvailable': '',
     'five': '',
@@ -45,6 +48,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'fifty': '',
     'seventyFive': '',
     'hundred': '',
+    'DelhiNCR': '',
+    'Hyderabad': '',
+    'Bikaner': '',
+    'Varanasi': '',
+    'Kolkata': '',
   };
 
   Future<void> _saveForm() async {
@@ -87,7 +95,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
         _initValues = {
           'title': _newProduct.title,
           'description': _newProduct.description,
-          'price': double.tryParse(_newProduct.price.toString()),
           'imageUrl': _newProduct.imageUrl,
           'stockAvailable': int.tryParse(_newProduct.stockAvailable.toString()),
           'five': _newProduct.five == 0 ? '' : _newProduct.five,
@@ -98,6 +105,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
           'seventyFive':
               _newProduct.seventyFive == 0 ? '' : _newProduct.seventyFive,
           'hundred': _newProduct.hundred == 0 ? '' : _newProduct.hundred,
+          'DelhiNCR': double.tryParse( _newProduct.delhiPrice.toString()),
+          'Hyderabad': double.tryParse( _newProduct.hyderabadPrice.toString()),
+          'Varanasi': double.tryParse( _newProduct.varanasiPrice.toString()),
+          'Bikaner': double.tryParse( _newProduct.bikanerPrice.toString()),
+          'Kolkata': double.tryParse( _newProduct.kolkataPrice.toString()),
         };
         //print('priceeeeeeeee' + _initValues['price']);
       }
@@ -146,12 +158,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: value,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: categoryId,
                           isFavourite: _newProduct.isFavourite,
                           description: _newProduct.description,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -171,18 +187,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: categoryId,
                           isFavourite: _newProduct.isFavourite,
                           description: value,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
+                    
                     TextFormField(
-                      initialValue: _initValues['price'].toString(),
-                      decoration: InputDecoration(labelText: 'Price'),
+                      initialValue: _initValues['DelhiNCR'].toString(),
+                      decoration: InputDecoration(labelText: 'Price for Delhi NCR'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -195,12 +216,128 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: double.tryParse(value),
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
                           isFavourite: _newProduct.isFavourite,
                           description: _newProduct.description,
+                          delhiPrice: double.tryParse(value),
+                          kolkataPrice: _newProduct.kolkataPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['Bikaner'].toString(),
+                      decoration: InputDecoration(labelText: 'Price for Bikaner'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please provide Price';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          bikanerPrice: double.tryParse(value),
+                          kolkataPrice: _newProduct.kolkataPrice,
+                          delhiPrice: _newProduct.delhiPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['Varanasi'].toString(),
+                      decoration: InputDecoration(labelText: 'Price for Varanasi'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please provide Price';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          varanasiPrice: double.tryParse(value),
+                          kolkataPrice: _newProduct.kolkataPrice,
+                          delhiPrice: _newProduct.delhiPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['Hyderabad'].toString(),
+                      decoration: InputDecoration(labelText: 'Price for Hyderabad'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please provide Price';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          hyderabadPrice: double.tryParse(value),
+                          kolkataPrice: _newProduct.kolkataPrice,
+                          delhiPrice: _newProduct.delhiPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['Kolkata'].toString(),
+                      decoration: InputDecoration(labelText: 'Price for Kolkata'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please provide Price';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _newProduct = Product(
+                          id: _newProduct.id,
+                          title: _newProduct.title,
+                          imageUrl: _newProduct.imageUrl,
+                          stockAvailable: _newProduct.stockAvailable,
+                          category1: _newProduct.category1,
+                          isFavourite: _newProduct.isFavourite,
+                          description: _newProduct.description,
+                          kolkataPrice: double.tryParse(value),
+                          delhiPrice: _newProduct.delhiPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
                         );
                       },
                     ),
@@ -219,12 +356,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: value,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
                           isFavourite: _newProduct.isFavourite,
                           description: _newProduct.description,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -243,12 +384,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: int.tryParse(value),
                           category1: _newProduct.category1,
                           isFavourite: _newProduct.isFavourite,
                           description: _newProduct.description,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -270,7 +415,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -283,6 +427,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           fifty: _newProduct.fifty,
                           seventyFive: _newProduct.seventyFive,
                           hundred: _newProduct.hundred,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -295,7 +444,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -308,6 +456,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           fifty: _newProduct.fifty,
                           seventyFive: _newProduct.seventyFive,
                           hundred: _newProduct.hundred,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -320,7 +473,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -333,6 +485,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           fifty: _newProduct.fifty,
                           seventyFive: _newProduct.seventyFive,
                           hundred: _newProduct.hundred,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -345,7 +502,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -358,6 +514,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           fifty: _newProduct.fifty,
                           seventyFive: _newProduct.seventyFive,
                           hundred: _newProduct.hundred,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -370,7 +531,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -383,6 +543,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           fifty: value.isEmpty ? 0 : double.tryParse(value),
                           seventyFive: _newProduct.seventyFive,
                           hundred: _newProduct.hundred,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -395,7 +560,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -409,6 +573,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           seventyFive:
                               value.isEmpty ? 0 : double.tryParse(value),
                           hundred: _newProduct.hundred,
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),
@@ -421,7 +590,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
-                          price: _newProduct.price,
                           imageUrl: _newProduct.imageUrl,
                           stockAvailable: _newProduct.stockAvailable,
                           category1: _newProduct.category1,
@@ -434,6 +602,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           fifty: _newProduct.fifty,
                           seventyFive: _newProduct.seventyFive,
                           hundred: value.isEmpty ? 0 : double.tryParse(value),
+                          delhiPrice: _newProduct.delhiPrice,
+                          hyderabadPrice: _newProduct.hyderabadPrice,
+                          bikanerPrice: _newProduct.bikanerPrice,
+                          varanasiPrice: _newProduct.varanasiPrice,
+                          kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
                     ),

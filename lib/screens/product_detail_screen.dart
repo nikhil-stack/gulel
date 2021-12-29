@@ -109,7 +109,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                               child: SelectQuantity(
                                                 displayedProduct.id,
                                                 displayedProduct.title,
-                                                displayedProduct.price,
+                                                displayedProduct.delhiPrice,
                                                 displayedProduct.stockAvailable,
                                                 displayedProduct.imageUrl,
                                                 displayedProduct.five,
@@ -142,7 +142,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                           width: 10,
                                         ),
                                         Text("Rs. " +
-                                            displayedProduct.price.toString())
+                                            displayedProduct.delhiPrice.toString())
                                       ],
                                     ),
                                     SizedBox(
@@ -307,7 +307,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                                 child: SelectQuantity(
                                                   displayedProduct.id,
                                                   displayedProduct.title,
-                                                  displayedProduct.price,
+                                                  displayedProduct.delhiPrice,
                                                   displayedProduct
                                                       .stockAvailable,
                                                   displayedProduct.imageUrl,

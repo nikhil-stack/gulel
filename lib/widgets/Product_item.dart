@@ -83,7 +83,7 @@ class ProductItem extends StatelessWidget {
                           style: TextStyle(color: Theme.of(context).cardColor),
                         ),
                         Text(
-                          'Rs. ' + product.price.toString(),
+                          'Rs. ' + product.delhiPrice.toString(),
                           style: TextStyle(color: Theme.of(context).cardColor),
                         ),
                       ],

@@ -394,10 +394,6 @@ class _SignUpState extends State<SignUp> {
                             SizedBox(height: 80),
                             _submitButton(),
                             SizedBox(height: height * .050),
-                            _createLoginLabel(),
-                            SizedBox(
-                              height: 20,
-                            ),
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(context).pushReplacementNamed(
@@ -407,7 +403,7 @@ class _SignUpState extends State<SignUp> {
                                 'Skip for now',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 22,
+                                  fontSize: 15,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),

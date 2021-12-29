@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/models/category.dart';
@@ -69,7 +70,6 @@ class CategoryItems_Provider with ChangeNotifier {
       body: json.encode(
         {
           'title': product.title,
-          'price': product.price,
           'imageUrl': product.imageUrl,
           'stock': product.stockAvailable,
           'category1': product.category1,
@@ -81,13 +81,17 @@ class CategoryItems_Provider with ChangeNotifier {
           'fifty': product.fifty,
           'seventyFive': product.seventyFive,
           'hundred': product.hundred,
+          'DelhiNCR': product.delhiPrice,
+          'Bikaner': product.bikanerPrice,
+          'Varanasi': product.varanasiPrice,
+          'Hyderabad': product.hyderabadPrice,
+          'Kolkata': product.kolkataPrice,
         },
       ),
     );
     final newProduct = Product(
       id: json.decode(response.body)['name'],
       title: product.title,
-      price: product.price,
       imageUrl: product.imageUrl,
       stockAvailable: product.stockAvailable,
       category1: product.category1,
@@ -100,6 +104,11 @@ class CategoryItems_Provider with ChangeNotifier {
       fifty: product.fifty,
       seventyFive: product.seventyFive,
       hundred: product.hundred,
+      delhiPrice: product.delhiPrice,
+      bikanerPrice: product.bikanerPrice,
+      varanasiPrice: product.varanasiPrice,
+      hyderabadPrice: product.hyderabadPrice,
+      kolkataPrice: product.kolkataPrice,
     );
     _items.add(newProduct);
     notifyListeners();
@@ -127,7 +136,6 @@ class CategoryItems_Provider with ChangeNotifier {
           Product(
             title: prodData['title'],
             id: prodId,
-            price: prodData['price'],
             imageUrl: prodData['imageUrl'],
             stockAvailable: prodData['stock'],
             category1: prodData['category1'],
@@ -141,6 +149,11 @@ class CategoryItems_Provider with ChangeNotifier {
             fifty: prodData['fifty'],
             seventyFive: prodData['seventyFive'],
             hundred: prodData['hundred'],
+            delhiPrice: prodData['DelhiNCR'],
+            bikanerPrice: prodData['Bikaner'],
+            varanasiPrice: prodData['Varanasi'],
+            hyderabadPrice: prodData['Hyderabad'],
+            kolkataPrice: prodData['Kolkata'],
           ),
         );
       });
@@ -203,7 +216,6 @@ class CategoryItems_Provider with ChangeNotifier {
           {
             'title': newProduct.title,
             'description': newProduct.description,
-            'price': newProduct.price,
             'imageUrl': newProduct.imageUrl,
             'stock': newProduct.stockAvailable,
             'category1': newProduct.category1,
@@ -214,6 +226,11 @@ class CategoryItems_Provider with ChangeNotifier {
             'fifty': newProduct.fifty,
             'seventyFive': newProduct.seventyFive,
             'hundred': newProduct.hundred,
+            'DelhiNCR': newProduct.delhiPrice,
+            'Bikaner': newProduct.bikanerPrice,
+            'Varanasi': newProduct.varanasiPrice,
+            'Hyderabad': newProduct.hyderabadPrice,
+            'Kolkata': newProduct.kolkataPrice,
           },
         ),
       );
