@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/user_Provider.dart';
+import 'package:gulel/models/CityChose.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -23,8 +24,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _PincodeController = TextEditingController();
   final _GstController = TextEditingController();
   final _OrganController = TextEditingController();
+  String UpdatedCity;
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       if (mounted) {
         setState(() {
@@ -197,6 +199,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           color: Colors.black,
                                         )),
                                   ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SelectCity(),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -400,6 +406,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             .getInstance();
                                         final userIdtoken =
                                             prefs1.getString('userIdtoken');
+                                        final prefs3 = await SharedPreferences
+                                            .getInstance();
+                                        UpdatedCity = prefs3.getString('city');
                                         var url = Uri.parse(
                                             'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
                                         await http.patch(url,
@@ -444,6 +453,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                   "")
                                                 'PinCode':
                                                     _PincodeController.text,
+                                              'city': UpdatedCity,
                                             }));
                                         Navigator.of(context).pop();
                                       },

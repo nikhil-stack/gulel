@@ -14,13 +14,23 @@ class _SelectCityState extends State<SelectCity> {
     'Bikaner',
     'Kolkata'
   ];
+  void didChangeDependencies() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedLocation = prefs.getString('city');
+    });
+    super.didChangeDependencies();
+  }
+
   String _selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: DropdownButton(
         hint: Text(
-          'Please choose a location',
+          _selectedLocation == null
+              ? 'Please choose a location'
+              : _selectedLocation,
           style: TextStyle(color: Colors.white),
         ), // Not necessary for Option 1
         value: _selectedLocation,
