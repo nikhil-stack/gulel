@@ -2,26 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/products.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProductItem extends StatelessWidget {
-  /*final String id;
-  final String name;
-  final double price;
-  final int quantity;
-  final String imageUrl;
-  final String category;
-  ProductItem({
-    this.id,
-    this.name,
-    this.price,
-    this.quantity,
-    this.imageUrl,
-    this.category,
-  });*/
+class ProductItem extends StatefulWidget {
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  String currentCity;
+  double productPrice;
+  Product product;
+  @override
+  void didChangeDependencies() async {
+    final prefs = await SharedPreferences.getInstance();
+    currentCity = prefs.getString('city');
+    product = Provider.of<Product>(context, listen: false);
+    if (currentCity == 'Delhi NCR') {
+      setState(() {
+        productPrice = product.delhiPrice;
+      });
+    } else if (currentCity == 'Bikaner') {
+      setState(() {
+        
+      productPrice = product.bikanerPrice;
+            });
+
+    } else if (currentCity == 'Varanasi') {
+      setState(() {
+        
+      productPrice = product.varanasiPrice;
+            });
+
+    } else if (currentCity == 'Hyderabad') {
+      setState(() {
+        
+      productPrice = product.hyderabadPrice;
+            });
+
+    } else if (currentCity == 'Kolkata') {
+      setState(() {
+        
+     
+      productPrice = product.kolkataPrice;
+       });
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: false);
-    return Padding(
+    return product == null ? Center(child: CircularProgressIndicator(),) : Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Container(
         decoration: BoxDecoration(
@@ -83,8 +114,8 @@ class ProductItem extends StatelessWidget {
                           style: TextStyle(color: Colors.black),
                         ),
                         Text(
-                          'Rs. ' + product.price.toString(),
-                          style: TextStyle(color: Colors.black),
+                          'Rs. ' + productPrice.toString(),
+                          style: TextStyle(color: Theme.of(context).cardColor),
                         ),
                       ],
                     )

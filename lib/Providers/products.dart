@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 class Product with ChangeNotifier {
   String id;
   String title;
-  double price;
   String imageUrl;
   int stockAvailable;
   String category1;
@@ -22,10 +21,14 @@ class Product with ChangeNotifier {
   double fifty;
   double seventyFive;
   double hundred;
+  double delhiPrice;
+  double hyderabadPrice;
+  double varanasiPrice;
+  double bikanerPrice;
+  double kolkataPrice;
   Product({
     this.id,
     this.title,
-    this.price,
     this.imageUrl,
     this.stockAvailable,
     this.category1,
@@ -40,6 +43,11 @@ class Product with ChangeNotifier {
     this.fifty = 0,
     this.seventyFive = 0,
     this.hundred = 0,
+    this.delhiPrice = 0,
+    this.bikanerPrice = 0,
+    this.hyderabadPrice = 0,
+    this.kolkataPrice = 0,
+    this.varanasiPrice = 0,
   });
 
   List<Product> _items = [];
@@ -92,7 +100,6 @@ class Product with ChangeNotifier {
                 Product(
                   title: data[key]['title'],
                   id: key,
-                  price: data[key]['price'],
                   imageUrl: data[key]['imageUrl'],
                   stockAvailable: data[key]['stockAvailable'],
                   category1: data[key]['category1'],
@@ -104,6 +111,12 @@ class Product with ChangeNotifier {
                   fifty: data[key]['fifty'],
                   seventyFive: data[key]['seventyFive'],
                   hundred: data[key]['hundred'],
+                  delhiPrice: data[key]['DelhiNCR'],
+                  hyderabadPrice: data[key]['Hyderabad'],
+                  varanasiPrice: data[key]['Varanasi'],
+                  kolkataPrice: data[key]['Kolkata'],
+                  bikanerPrice: data[key]['Bikaner'],
+                  
                 ),
               );
             }
