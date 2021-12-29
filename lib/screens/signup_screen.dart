@@ -408,10 +408,37 @@ class _SignUpState extends State<SignUp> {
                             _submitButton(),
                             SizedBox(height: height * .030),
                             TextButton(
-                              onPressed: () =>
-                                  Navigator.of(context).pushReplacementNamed(
-                                '/tabs-screen',
-                              ),
+                              onPressed: () async {
+                                await showDialog<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: StatefulBuilder(
+                                        builder: (BuildContext context,
+                                            StateSetter setState) {
+                                          return Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                SelectCity(),
+                                              ]);
+                                        },
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TabsScreen()),
+                                                  (route) => false);
+                                            },
+                                            child: Text('Ok'))
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
                               child: Text(
                                 'Skip for now',
                                 style: TextStyle(

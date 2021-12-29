@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class SelectCity extends StatefulWidget {
   @override
@@ -39,7 +42,19 @@ class _SelectCityState extends State<SelectCity> {
             _selectedLocation = newValue;
           });
           final prefs = await SharedPreferences.getInstance();
-          prefs.setString('city', newValue);
+          final userId = prefs.getString('userId');
+          final prefs1 = await SharedPreferences.getInstance();
+          final userIdtoken = prefs1.getString('userIdtoken');
+          var url = Uri.parse(
+              'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
+
+          await http.patch(url,
+              body: json.encode({
+                'city': newValue,
+              }));
+
+          final prefs3 = await SharedPreferences.getInstance();
+          prefs3.setString('city', newValue);
         },
         items: _locations.map((location) {
           return DropdownMenuItem(
