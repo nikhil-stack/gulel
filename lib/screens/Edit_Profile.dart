@@ -202,7 +202,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: SelectCity(),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Your City:-"),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      SelectCity(),
+                                    ],
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
