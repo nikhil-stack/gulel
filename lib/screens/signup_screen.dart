@@ -393,7 +393,7 @@ class _SignUpState extends State<SignUp> {
                             _MobileNumberWidget(),
                             SizedBox(height: 80),
                             _submitButton(),
-                            SizedBox(height: height * .050),
+                            SizedBox(height: height * .030),
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(context).pushReplacementNamed(
@@ -403,11 +403,19 @@ class _SignUpState extends State<SignUp> {
                                 'Skip for now',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: 18,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+
+                            //  _createLoginLabel(),
+                            //SizedBox(
+                            //height: 20,
+                            //),
                           ],
                         ),
                       ),

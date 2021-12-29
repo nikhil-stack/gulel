@@ -57,7 +57,7 @@ class ProductItem extends StatelessWidget {
                             product.title,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context).cardColor),
+                                color: Colors.black),
                           ),
                           Consumer<Product>(
                             builder: (ctx, product, child) => IconButton(
@@ -80,7 +80,7 @@ class ProductItem extends StatelessWidget {
                       children: [
                         Text(
                           'Price',
-                          style: TextStyle(color: Theme.of(context).cardColor),
+                          style: TextStyle(color: Colors.black),
                         ),
                         Text(
                           'Rs. ' + product.delhiPrice.toString(),

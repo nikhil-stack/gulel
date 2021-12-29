@@ -59,7 +59,7 @@ class CategoryItem extends StatelessWidget {
                           title,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Theme.of(context).cardColor,
+                            color: Colors.black,
                             fontSize: 22,
                           ),
                         ),
