@@ -30,7 +30,7 @@ class _ProductDetailState extends State<ProductDetail> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<CategoryItems_Provider>(context)
+      Provider.of<CategoryItems_Provider>(context, listen: false,)
           .fetchAndSetProducts(categoryy)
           .then((_) {
         setState(() {
@@ -39,7 +39,7 @@ class _ProductDetailState extends State<ProductDetail> {
       });
     }
     setState(() {
-      availableProducts = Provider.of<CategoryItems_Provider>(context).items;
+      availableProducts = Provider.of<CategoryItems_Provider>(context, listen: false,).items;
       final routeArgs =
           ModalRoute.of(context).settings.arguments as Map<String, String>;
 
