@@ -4,6 +4,7 @@ import 'package:gulel/Providers/products.dart';
 import 'package:gulel/models/quantity.dart';
 import 'package:gulel/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductDetail extends StatefulWidget {
   @override
@@ -13,11 +14,17 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   bool _isInit = true;
   bool _isLoading = false;
+  Product displayedProduct;
+  List<Product> availableProducts;
+  String currentCity;
+  double productPrice;
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryy = routeArgs['category'];
+    final prefs = await SharedPreferences.getInstance();
+    currentCity = prefs.getString('city');
     //final upperTitle = routeArgs['title'];
     if (_isInit) {
       setState(() {
@@ -31,15 +38,6 @@ class _ProductDetailState extends State<ProductDetail> {
         });
       });
     }
-    _isInit = false;
-
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Product displayedProduct;
-    List<Product> availableProducts;
     setState(() {
       availableProducts = Provider.of<CategoryItems_Provider>(context).items;
       final routeArgs =
@@ -49,6 +47,34 @@ class _ProductDetailState extends State<ProductDetail> {
       displayedProduct = availableProducts
           .firstWhere((element) => element.id == id, orElse: () => null);
     });
+    if (currentCity == 'Delhi NCR') {
+      setState(() {
+        productPrice = displayedProduct.delhiPrice;
+      });
+    } else if (currentCity == 'Bikaner') {
+      setState(() {
+        productPrice = displayedProduct.bikanerPrice;
+      });
+    } else if (currentCity == 'Varanasi') {
+      setState(() {
+        productPrice = displayedProduct.varanasiPrice;
+      });
+    } else if (currentCity == 'Hyderabad') {
+      setState(() {
+        productPrice = displayedProduct.hyderabadPrice;
+      });
+    } else if (currentCity == 'Kolkata') {
+      setState(() {
+        productPrice = displayedProduct.kolkataPrice;
+      });
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
           ? Center(
@@ -109,7 +135,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                               child: SelectQuantity(
                                                 displayedProduct.id,
                                                 displayedProduct.title,
-                                                displayedProduct.delhiPrice,
+                                                productPrice,
                                                 displayedProduct.stockAvailable,
                                                 displayedProduct.imageUrl,
                                                 displayedProduct.five,
@@ -142,7 +168,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                           width: 10,
                                         ),
                                         Text("Rs. " +
-                                            displayedProduct.delhiPrice.toString())
+                                            productPrice
+                                                .toString())
                                       ],
                                     ),
                                     SizedBox(
@@ -307,7 +334,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                                 child: SelectQuantity(
                                                   displayedProduct.id,
                                                   displayedProduct.title,
-                                                  displayedProduct.delhiPrice,
+                                                  productPrice,
                                                   displayedProduct
                                                       .stockAvailable,
                                                   displayedProduct.imageUrl,
