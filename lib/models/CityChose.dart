@@ -30,13 +30,14 @@ class _SelectCityState extends State<SelectCity> {
   Widget build(BuildContext context) {
     return Container(
       child: DropdownButton(
+        value: null,
         hint: Text(
           _selectedLocation == null
               ? 'Please choose a location'
               : _selectedLocation,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ), // Not necessary for Option 1
-        value: _selectedLocation,
+        //  value: _selectedLocation,
         onChanged: (newValue) async {
           setState(() {
             _selectedLocation = newValue;
