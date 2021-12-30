@@ -214,6 +214,7 @@ class _SignUpState extends State<SignUp> {
           controller: _PincodeController,
           validator: (value) {
             if (value.trim().length != 6) return "Invalid Pin Code!";
+
             return null;
           },
           decoration: InputDecoration(
@@ -269,19 +270,35 @@ class _SignUpState extends State<SignUp> {
     return Align(
       alignment: Alignment.centerRight,
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           if (!_formKey.currentState.validate()) {
             return; //Text("hi");
           }
+          final response = await Provider.of<user_provider>(
+            context,
+            listen: false,
+          ).validateCity(
+            _PincodeController.text.trim(),
+            city,
+          );
+          if (!response) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Please Enter a valid pin code in your region!'),
+              ),
+            );
+            return;
+          }
           Provider.of<user_provider>(context, listen: false).addUser(
-              _NameController.text,
-              _EmailController.text,
-              _GstController.text,
-              _OrgnameController.text,
-              _AddressController.text,
-              _PincodeController.text,
-              "+91" + _MobileController.text,
-              city);
+            _NameController.text,
+            _EmailController.text,
+            _GstController.text,
+            _OrgnameController.text,
+            _AddressController.text,
+            _PincodeController.text,
+            "+91" + _MobileController.text,
+            city,
+          );
           final mobile = "+91" + _MobileController.text.trim();
 
           // Provider.of<Auth_Provider>(context, listen: false)

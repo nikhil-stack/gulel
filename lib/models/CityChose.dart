@@ -43,19 +43,20 @@ class _SelectCityState extends State<SelectCity> {
           });
           final prefs = await SharedPreferences.getInstance();
           final userId = prefs.getString('userId');
-          final prefs1 = await SharedPreferences.getInstance();
-          final userIdtoken = prefs1.getString('userIdtoken');
+          final userIdtoken = prefs.getString('userIdtoken');
           var url = Uri.parse(
-              'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
-
-          
-
+            'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json',
+          );
           final prefs3 = await SharedPreferences.getInstance();
           prefs3.setString('city', newValue);
-          await http.patch(url,
-              body: json.encode({
+          await http.patch(
+            url,
+            body: json.encode(
+              {
                 'city': newValue,
-              },),);
+              },
+            ),
+          );
         },
         items: _locations.map((location) {
           return DropdownMenuItem(

@@ -152,4 +152,26 @@ class user_provider with ChangeNotifier {
     prefs.setString('city', extractedData['city']);
     notifyListeners();
   }
+
+  Future<bool> validateCity(String pinCode, String selectedCity) async {
+    final url = Uri.parse(
+      'https://api.postalpincode.in/pincode/$pinCode',
+    );
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as List<dynamic>;
+    //print(extractedData);
+    //print(
+      //  'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
+    if (extractedData[0]['Status'] == 'Error') {
+      return false;
+    }
+    final cityData = extractedData[0]['PostOffice'][0]['District'] as String;
+    if (!cityData.contains(selectedCity)) {
+      return false;
+    }
+    
+
+    notifyListeners();
+    return true;
+  }
 }
