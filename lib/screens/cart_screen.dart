@@ -401,6 +401,7 @@ class _CartScreenState extends State<CartScreen> {
                                               2.2,
                                       onPressed: () async {
                                         //  opencheckout();
+                                        
 
                                         var val = await validate();
                                         if (val == 1) {
