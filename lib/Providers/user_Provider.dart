@@ -161,15 +161,25 @@ class user_provider with ChangeNotifier {
     final extractedData = json.decode(response.body) as List<dynamic>;
     //print(extractedData);
     //print(
-      //  'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
+     //   'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
     if (extractedData[0]['Status'] == 'Error') {
       return false;
     }
     final cityData = extractedData[0]['PostOffice'][0]['District'] as String;
-    if (!cityData.contains(selectedCity)) {
-      return false;
+
+    if (selectedCity == 'Delhi NCR') {
+      if (cityData != 'Ghaziabad' &&
+          cityData != 'Gautam Buddha Nagar' &&
+          cityData != 'Meerut' &&
+          cityData != 'Gurgaon' &&
+          !cityData.contains('Delhi')) {
+        return false;
+      }
+    } else {
+      if (!cityData.contains(selectedCity)) {
+        return false;
+      }
     }
-    
 
     notifyListeners();
     return true;

@@ -72,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           : Container(
               child: Consumer<user_provider>(
                 builder: (ctx, userdata, _) {
-                 final String initialCity = userdata.users.city;
+                  final String initialCity = userdata.users.city;
                   return Padding(
                     padding: EdgeInsets.all(8),
                     child: Column(
@@ -370,6 +370,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       ),
                                       RaisedButton(
                                         onPressed: () async {
+                                          setState(() {
+                                            _isLoading = true;
+                                          });
                                           final prefs = await SharedPreferences
                                               .getInstance();
                                           final userId =
@@ -382,6 +385,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               .getInstance();
                                           UpdatedCity =
                                               prefs3.getString('city');
+
                                           final response =
                                               await Provider.of<user_provider>(
                                             context,
@@ -396,6 +400,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             UpdatedCity,
                                           );
                                           if (!response) {
+                                            setState(() {
+                                              _isLoading = false;
+                                            });
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -427,7 +434,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           }
                                           var url = Uri.parse(
                                               'https://gulel-ab427-default-rtdb.firebaseio.com/users/$userId/$userIdtoken.json');
-                                          await http.patch(
+                                          await http
+                                              .patch(
                                             url,
                                             body: json.encode(
                                               {
@@ -477,8 +485,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                 'city': UpdatedCity,
                                               },
                                             ),
-                                          );
-                                          Navigator.of(context).pop();
+                                          )
+                                              .then((value) {
+                                            setState(() {
+                                              _isLoading = false;
+                                            });
+                                            Navigator.of(context).pop();
+                                          });
                                         },
                                         color: Theme.of(context).accentColor,
                                         padding: EdgeInsets.symmetric(
