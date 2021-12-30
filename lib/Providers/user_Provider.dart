@@ -149,11 +149,16 @@ class user_provider with ChangeNotifier {
     );
     final response = await http.get(url);
     var extractedData = json.decode(response.body) as Map<String, dynamic>;
-    prefs.setString('city', extractedData['city']);
+    if (extractedData != null) {
+      prefs.setString('city', extractedData['city']);
+    } else {
+      return;
+    }
     notifyListeners();
   }
 
   Future<bool> validateCity(String pinCode, String selectedCity) async {
+    if (pinCode.trim().isEmpty) return false;
     final url = Uri.parse(
       'https://api.postalpincode.in/pincode/$pinCode',
     );
