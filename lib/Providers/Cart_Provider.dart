@@ -245,11 +245,24 @@ class Cart_Provider with ChangeNotifier {
     notifyListeners();
   }
 
-  var Producttitle;
-  var productquantity;
-  bool validateKey;
+  String _productTitle;
+  int _productQuantity;
+  bool _validateKey;
+
+  String get productTitle {
+    return _productTitle;
+  }
+
+  int get productQuantity {
+    return _productQuantity;
+  }
+
+  bool get validateKey {
+    return _validateKey;
+  }
+
   Future<void> validateCartProducts() async {
-    validateKey = true;
+    _validateKey = true;
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     // print('idddddd ' + userId.toString());
@@ -267,8 +280,8 @@ class Cart_Provider with ChangeNotifier {
     extractedData.forEach((keycart, valuecart) async {
       final value = valuecart as Map<String, dynamic>;
       var productkey = value['id'];
-      productquantity = value['quantity'];
-      Producttitle = value['title'];
+      _productQuantity = value['quantity'];
+      _productTitle = value['title'];
       print("KeyCart" + productkey.toString());
 
       responseData3.forEach((element) {
@@ -278,11 +291,11 @@ class Cart_Provider with ChangeNotifier {
           print(key);
           if (key == productkey) {
             print("Your Stock:----" + element3['stock'].toString());
-            print("Your Quantity is :---" + productquantity.toString());
+            print("Your Quantity is :---" + _productQuantity.toString());
             if (int.tryParse(element3['stock'].toString()) <
-                int.tryParse(productquantity.toString())) {
+                int.tryParse(_productQuantity.toString())) {
               print('hereeeeeeeeee');
-              validateKey = false;
+              _validateKey = false;
               notifyListeners();
               return;
             }
