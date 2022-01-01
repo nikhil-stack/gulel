@@ -131,51 +131,6 @@ class _CartScreenState extends State<CartScreen> {
     return 1;
   }
 
-  var CartResult;
-  var Producttitle;
-  var productquantity;
-  Future<bool> validateCartProducts() async {
-    setState(() {
-      CartResult = true;
-    });
-    final prefs = await SharedPreferences.getInstance();
-    final userId = prefs.getString('userId');
-    // print('idddddd ' + userId.toString());
-    final url = Uri.parse(
-      'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId.json',
-    );
-    final response = await http.get(url);
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    extractedData.forEach((keycart, valuecart) async {
-      final value = valuecart as Map<String, dynamic>;
-      var productkey = value['id'];
-      productquantity = value['quantity'];
-      Producttitle = value['title'];
-      print("KeyCart" + keycart.toString());
-      final url2 = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
-      );
-      final response2 = await http.get(url2);
-      final responseData2 = json.decode(response2.body) as Map<String, dynamic>;
-      final responseData3 = responseData2.values;
-      responseData3.forEach((element) {
-        var element2 = element as Map<String, dynamic>;
-        element2.forEach((key, value) {
-          var element3 = value as Map<String, dynamic>;
-          print(key);
-          if (key == productkey) {
-            print("Your Stock:----" + element3['stock'].toString());
-            print("Your Quantity is :---" + productquantity.toString());
-            if (int.tryParse(element3['stock'].toString()) <
-                int.tryParse(productquantity.toString())) return false;
-          } else {
-            print("Nothing");
-          }
-        });
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var cartitems = Provider.of<Cart_Provider>(context).items;
@@ -469,21 +424,60 @@ class _CartScreenState extends State<CartScreen> {
                                                   finalCartTotal,
                                                   "Cash on Delivery");
 
-                                          cart.clearCart();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Order Placed Successfully',
+                                        await Provider.of<Cart_Provider>(
+                                                context,
+                                                listen: false)
+                                            .validateCartProducts();
+                                        final bool res =
+                                            Provider.of<Cart_Provider>(context,
+                                                    listen: false)
+                                                .validateKey;
+                                        print('Resultttttt' + res.toString());
+                                        if (res != null) {
+                                          print("Your result:----" +
+                                              res.toString());
+                                          if (res == false) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content: Text("The Added Product " +
+                                                  Provider.of<Cart_Provider>(
+                                                          context,
+                                                          listen: false)
+                                                      .Producttitle +
+                                                  " quantity is not available,Please Select Quantity Less Than " +
+                                                  Provider.of<Cart_Provider>(
+                                                          context,
+                                                          listen: false)
+                                                      .productquantity
+                                                      .toString()),
+                                            ));
+                                            return;
+                                          }
+                                          var val = await validate();
+                                          if (val == 1) {
+                                            Provider.of<Orders>(context,
+                                                    listen: false)
+                                                .addItem(
+                                                    cart.items.values.toList(),
+                                                    finalCartTotal,
+                                                    "Cash on Delivery");
+
+                                            cart.clearCart();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Order Placed Successfully',
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(
-                                                "Please Provide Complete User Details"),
-                                          ));
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  "Please Provide Complete User Details"),
+                                            ));
+                                          }
                                         }
                                       },
                                       child: Text("Cash On Delivery"),
