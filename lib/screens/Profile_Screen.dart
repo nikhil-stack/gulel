@@ -76,6 +76,23 @@ class Profile extends StatelessWidget {
               Navigator.of(context).pushNamed(LogoutScreen.routeName);
             },
           ),
+          SizedBox(
+            height: 340,
+          ),
+          Text(
+            'Developed By - Nikhil Singhal, Vikas Pandey',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            'Contact No. - 8875871480',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.grey,
+            ),
+          )
         ],
       ),
     );
