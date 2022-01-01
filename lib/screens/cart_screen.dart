@@ -110,6 +110,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void handlerErrorPaymentfailed(PaymentFailureResponse Failure) {
+    Toast.show("Payment Failed", context);
     print("error");
   }
 
