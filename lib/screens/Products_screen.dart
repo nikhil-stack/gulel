@@ -90,27 +90,31 @@ class _ProductScreenState extends State<ProductScreen> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : availableProducts.length == 0
+          : city == null
               ? Center(
-                  child: Text('No products found'),
+                  child: Text("Please Choose a City"),
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    itemCount: displayedProducts.length,
-                    itemBuilder: (context, index) =>
-                        ChangeNotifierProvider.value(
-                      value: displayedProducts[index],
-                      child: ProductItem(),
+              : availableProducts.length == 0
+                  ? Center(
+                      child: Text('No products found'),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GridView.builder(
+                        itemCount: displayedProducts.length,
+                        itemBuilder: (context, index) =>
+                            ChangeNotifierProvider.value(
+                          value: displayedProducts[index],
+                          child: ProductItem(),
+                        ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.9,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 3,
+                        ),
+                      ),
                     ),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.9,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 3,
-                    ),
-                  ),
-                ),
     );
   }
 }
