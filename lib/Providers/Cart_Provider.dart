@@ -263,7 +263,8 @@ class Cart_Provider with ChangeNotifier {
   }
 
   Future<void> validateCartProducts() async {
-    _validateKey = true;
+    int counter = 0;
+    int len;
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     // print('idddddd ' + userId.toString());
@@ -272,40 +273,56 @@ class Cart_Provider with ChangeNotifier {
     );
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    extractedData.forEach((keycart, valuecart) async {
-      final value = valuecart as Map<String, dynamic>;
-      var productkey = value['id'];
-      _productQuantity = value['quantity'];
-      _productTitle = value['title'];
-      print("KeyCart" + productkey.toString());
-      final url2 = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
-      );
-      final response2 = await http.get(url2);
-      final responseData2 = json.decode(response2.body) as Map<String, dynamic>;
-      final responseData3 = responseData2.values;
-      responseData3.forEach((element) {
-        var element2 = element as Map<String, dynamic>;
-        element2.forEach((key, value) {
-          var element3 = value as Map<String, dynamic>;
-          print(key);
-          if (key == productkey) {
-            print("Your Stock:----" + element3['stock'].toString());
-            print("Your Quantity is :---" + _productQuantity.toString());
-            if (int.tryParse(element3['stock'].toString()) <
-                int.tryParse(_productQuantity.toString())) {
-              print('hereeeeeeeeee');
-              _validateKey = false;
-              print('csnc ' + _validateKey.toString());
-              notifyListeners();
-              return;
-            }
-          }
-        });
-        if (_validateKey == false) return;
-      });
-      if (_validateKey == false) return;
-    });
-    print('Keyyyyyyy' + _validateKey.toString());
+    extractedData.forEach(
+      (keycart, valuecart) async {
+        if (valuecart != null) {
+          final value = valuecart as Map<String, dynamic>;
+          var productkey = value['id'];
+          _productQuantity = value['quantity'];
+          _productTitle = value['title'];
+          print("KeyCart" + productkey.toString());
+          final url2 = Uri.parse(
+            'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
+          );
+         
+          final response2 = await http.get(url2).then((value)  {
+          final responseData2 =
+              json.decode(value.body) as Map<String, dynamic>;
+          final responseData3 = responseData2.values;
+          print(responseData3);
+          len = responseData3.length;
+          responseData3.forEach((element) {
+            var element2 = element as Map<String, dynamic>;
+            element2.forEach((key, value) {
+              var element3 = value as Map<String, dynamic>;
+              print(key);
+              if (key == productkey) {
+                print("Your Stock:----" + element3['stock'].toString());
+                print("Your Quantity is :---" + _productQuantity.toString());
+                if (int.tryParse(element3['stock'].toString()) <
+                    int.tryParse(_productQuantity.toString())) {
+                  print('hereeeeeeeeee');
+                  _validateKey = false;
+                  print('csnc ' + _validateKey.toString());
+                  notifyListeners();
+                  return;
+                }
+              }
+            });
+            if (_validateKey == false) return;
+            counter++;
+          });
+          if (_validateKey == false) return;
+          });
+        }
+      },
+    );
+    print('counter ' + counter.toString());
+    print('len ' + len.toString());
+    if (counter == len) {
+      _validateKey = true;
+      print('Keyyyyyyy' + _validateKey.toString());
+    }
+    
   }
 }

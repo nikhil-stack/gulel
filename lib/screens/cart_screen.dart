@@ -405,24 +405,32 @@ class _CartScreenState extends State<CartScreen> {
                                         var validateCart =
                                             Provider.of<Cart_Provider>(context,
                                                 listen: false);
-                                        await validateCart.validateCartProducts();
+                                        await validateCart
+                                            .validateCartProducts();
                                         final bool res =
                                             validateCart.validateKey;
                                         print("Your result:----" +
                                             res.toString());
-                                        if (res == false) {
+                                        if (res == false || res == null) {
                                           ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text("The Added Product " +
-                                                validateCart.productTitle +
-                                                " quantity is not available,Please Select Quantity Less Than " +
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
                                                 validateCart.productQuantity
-                                                    .toString()),
-                                          ));
+                                                        .toString() +
+                                                    'kg of ' +
+                                                    validateCart.productTitle +
+                                                    ' is currently not available!',
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ),
+                                          );
                                           return;
                                         }
 
-                                        if (res != null) {
+                                        if (res != null && res == true) {
                                           var val = validate();
                                           if (val == 1) {
                                             Provider.of<Orders>(context,
