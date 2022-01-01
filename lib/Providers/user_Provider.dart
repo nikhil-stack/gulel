@@ -158,7 +158,7 @@ class user_provider with ChangeNotifier {
   }
 
   Future<bool> validateCity(String pinCode, String selectedCity) async {
-    if (pinCode.trim().isEmpty) return false;
+    if (pinCode == null) return false;
     final url = Uri.parse(
       'https://api.postalpincode.in/pincode/$pinCode',
     );

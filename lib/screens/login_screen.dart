@@ -47,16 +47,17 @@ class _LoginScreenState extends State<LoginScreen> {
       child: InkWell(
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(duration: Duration(seconds: 6),
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Waiting To Auto-Detect The OTP'),
-            CircularProgressIndicator(),
-          ],
-        ),
-      ),
-    );
+            SnackBar(
+              duration: Duration(seconds: 6),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Waiting To Auto-Detect The OTP'),
+                  CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          );
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => SignUpPage()));
           final mobile = "+91" + _phoneController.text.trim();
