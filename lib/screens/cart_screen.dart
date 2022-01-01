@@ -405,7 +405,8 @@ class _CartScreenState extends State<CartScreen> {
                                         var validateCart =
                                             Provider.of<Cart_Provider>(context,
                                                 listen: false);
-                                        await validateCart.validateCartProducts();
+                                        await validateCart
+                                            .validateCartProducts();
                                         final bool res =
                                             validateCart.validateKey;
                                         print("Your result:----" +
@@ -414,9 +415,9 @@ class _CartScreenState extends State<CartScreen> {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content: Text("The Added Product " +
-                                                validateCart.productTitle +
+                                                validateCart.Producttitle +
                                                 " quantity is not available,Please Select Quantity Less Than " +
-                                                validateCart.productQuantity
+                                                validateCart.productquantity
                                                     .toString()),
                                           ));
                                           return;

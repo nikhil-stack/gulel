@@ -245,25 +245,11 @@ class Cart_Provider with ChangeNotifier {
     notifyListeners();
   }
 
-  String _productTitle;
-  int _productQuantity;
-
-  String get productTitle {
-    return _productTitle;
-  }
-
-  int get productQuantity {
-    return _productQuantity;
-  }
-
-  bool _validateKey;
-
-  bool get validateKey {
-    return _validateKey;
-  }
-
+  var Producttitle;
+  var productquantity;
+  bool validateKey;
   Future<void> validateCartProducts() async {
-    _validateKey = true;
+    validateKey = true;
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     // print('idddddd ' + userId.toString());
@@ -272,18 +258,19 @@ class Cart_Provider with ChangeNotifier {
     );
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final url2 = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
+    );
+    final response2 = await http.get(url2);
+    final responseData2 = json.decode(response2.body) as Map<String, dynamic>;
+    final responseData3 = responseData2.values;
     extractedData.forEach((keycart, valuecart) async {
       final value = valuecart as Map<String, dynamic>;
       var productkey = value['id'];
-      _productQuantity = value['quantity'];
-      _productTitle = value['title'];
+      productquantity = value['quantity'];
+      Producttitle = value['title'];
       print("KeyCart" + productkey.toString());
-      final url2 = Uri.parse(
-        'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
-      );
-      final response2 = await http.get(url2);
-      final responseData2 = json.decode(response2.body) as Map<String, dynamic>;
-      final responseData3 = responseData2.values;
+
       responseData3.forEach((element) {
         var element2 = element as Map<String, dynamic>;
         element2.forEach((key, value) {
@@ -291,21 +278,20 @@ class Cart_Provider with ChangeNotifier {
           print(key);
           if (key == productkey) {
             print("Your Stock:----" + element3['stock'].toString());
-            print("Your Quantity is :---" + _productQuantity.toString());
+            print("Your Quantity is :---" + productquantity.toString());
             if (int.tryParse(element3['stock'].toString()) <
-                int.tryParse(_productQuantity.toString())) {
+                int.tryParse(productquantity.toString())) {
               print('hereeeeeeeeee');
-              _validateKey = false;
-              print('csnc ' + _validateKey.toString());
+              validateKey = false;
               notifyListeners();
               return;
             }
           }
         });
-        if (_validateKey == false) return;
       });
-      if (_validateKey == false) return;
+      print("The 1st Loop!!------");
     });
-    print('Keyyyyyyy' + _validateKey.toString());
+    print('Keyyyyyyy' + validateKey.toString());
+    notifyListeners();
   }
 }
