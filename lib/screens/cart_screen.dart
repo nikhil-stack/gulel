@@ -34,14 +34,13 @@ class _CartScreenState extends State<CartScreen> {
         });
       }
       Provider.of<Cart_Provider>(context).fetchAndSetCart();
-      Provider.of<user_provider>(context).fetchandset() .then((_) {
+      Provider.of<user_provider>(context).fetchandset().then((_) {
         if (mounted) {
           setState(() {
             _isLoading = false;
           });
         }
       });
-
     }
 
     _isInit = false;
@@ -78,8 +77,6 @@ class _CartScreenState extends State<CartScreen> {
     super.dispose();
     razorpay.clear();
   }
-
-  
 
   var finalamount;
   var finalCartTotal;
@@ -414,15 +411,15 @@ class _CartScreenState extends State<CartScreen> {
                                         });
                                         await validateCart
                                             .validateCartProducts();
-                                        
+
                                         final bool res =
                                             validateCart.validateKey;
                                         print("Your result:----" +
                                             res.toString());
                                         if (res == false || res == null) {
                                           setState(() {
-                                          _isLoading = false;
-                                        });
+                                            _isLoading = false;
+                                          });
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
@@ -456,8 +453,8 @@ class _CartScreenState extends State<CartScreen> {
 
                                             cart.clearCart();
                                             setState(() {
-                                          _isLoading = false;
-                                        });
+                                              _isLoading = false;
+                                            });
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -467,6 +464,9 @@ class _CartScreenState extends State<CartScreen> {
                                               ),
                                             );
                                           } else {
+                                            setState(() {
+                                              _isLoading = false;
+                                            });
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
                                               content: Text(
