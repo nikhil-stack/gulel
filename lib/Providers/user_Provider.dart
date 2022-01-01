@@ -158,7 +158,7 @@ class user_provider with ChangeNotifier {
   }
 
   Future<bool> validateCity(String pinCode, String selectedCity) async {
-    if (pinCode.trim().isEmpty) return false;
+    if (pinCode == null) return false;
     final url = Uri.parse(
       'https://api.postalpincode.in/pincode/$pinCode',
     );
@@ -166,11 +166,7 @@ class user_provider with ChangeNotifier {
     final extractedData = json.decode(response.body) as List<dynamic>;
     //print(extractedData);
     //print(
-<<<<<<< HEAD
-    //  'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
-=======
-     //   'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
->>>>>>> f411bae4bfa405536e78bbc5bf8a93df9ec5b0e1
+    //   'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
     if (extractedData[0]['Status'] == 'Error') {
       return false;
     }

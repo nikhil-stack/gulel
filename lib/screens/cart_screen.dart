@@ -446,9 +446,7 @@ class _CartScreenState extends State<CartScreen> {
                                               2.2,
                                       onPressed: () async {
                                         //  opencheckout();
-                                        var res;
-                                        validateCartProducts()
-                                            .then((value) => res = value);
+                                        var res = await validateCartProducts();
                                         print("Your result:----" +
                                             res.toString());
                                         if (res == false) {
@@ -461,7 +459,7 @@ class _CartScreenState extends State<CartScreen> {
                                           ));
                                           return;
                                         }
-                                        var val = await validate();
+                                        var val = validate();
                                         if (val == 1) {
                                           Provider.of<Orders>(context,
                                                   listen: false)
