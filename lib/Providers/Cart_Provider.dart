@@ -244,4 +244,52 @@ class Cart_Provider with ChangeNotifier {
     _items = {};
     notifyListeners();
   }
+
+  var Producttitle;
+  var productquantity;
+  bool validateKey;
+  Future<void> validateCartProducts() async {
+    validateKey = true;
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    // print('idddddd ' + userId.toString());
+    final url = Uri.parse(
+      'https://gulel-ab427-default-rtdb.firebaseio.com/cart/$userId.json',
+    );
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    extractedData.forEach((keycart, valuecart) async {
+      final value = valuecart as Map<String, dynamic>;
+      var productkey = value['id'];
+      productquantity = value['quantity'];
+      Producttitle = value['title'];
+      print("KeyCart" + productkey.toString());
+      final url2 = Uri.parse(
+        'https://gulel-ab427-default-rtdb.firebaseio.com/products.json',
+      );
+      final response2 = await http.get(url2);
+      final responseData2 = json.decode(response2.body) as Map<String, dynamic>;
+      final responseData3 = responseData2.values;
+      responseData3.forEach((element) {
+        var element2 = element as Map<String, dynamic>;
+        element2.forEach((key, value) {
+          var element3 = value as Map<String, dynamic>;
+          print(key);
+          if (key == productkey) {
+            print("Your Stock:----" + element3['stock'].toString());
+            print("Your Quantity is :---" + productquantity.toString());
+            if (int.tryParse(element3['stock'].toString()) <
+                int.tryParse(productquantity.toString())) {
+              print('hereeeeeeeeee');
+              validateKey = false;
+              notifyListeners();
+              return;
+            }
+          }
+        });
+      });
+    });
+    print('Keyyyyyyy' + validateKey.toString());
+    notifyListeners();
+  }
 }

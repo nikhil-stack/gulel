@@ -166,7 +166,7 @@ class user_provider with ChangeNotifier {
     final extractedData = json.decode(response.body) as List<dynamic>;
     //print(extractedData);
     //print(
-     //   'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
+    //   'district ' + extractedData[0]['PostOffice'][0]['District'].toString());
     if (extractedData[0]['Status'] == 'Error') {
       return false;
     }
@@ -189,4 +189,6 @@ class user_provider with ChangeNotifier {
     notifyListeners();
     return true;
   }
+
+  
 }
