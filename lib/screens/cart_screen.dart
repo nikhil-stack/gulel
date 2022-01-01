@@ -401,58 +401,28 @@ class _CartScreenState extends State<CartScreen> {
                                               2.2,
                                       onPressed: () async {
                                         //  opencheckout();
-                                        var res = await validateCartProducts();
+                                        var validateCart =
+                                            Provider.of<Cart_Provider>(context,
+                                                listen: false);
+                                        await validateCart.validateCartProducts();
+                                        final bool res =
+                                            validateCart.validateKey;
                                         print("Your result:----" +
                                             res.toString());
                                         if (res == false) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content: Text("The Added Product " +
-                                                Producttitle +
+                                                validateCart.productTitle +
                                                 " quantity is not available,Please Select Quantity Less Than " +
-                                                productquantity.toString()),
+                                                validateCart.productQuantity
+                                                    .toString()),
                                           ));
                                           return;
                                         }
-                                        var val = validate();
-                                        if (val == 1) {
-                                          Provider.of<Orders>(context,
-                                                  listen: false)
-                                              .addItem(
-                                                  cart.items.values.toList(),
-                                                  finalCartTotal,
-                                                  "Cash on Delivery");
 
-                                        await Provider.of<Cart_Provider>(
-                                                context,
-                                                listen: false)
-                                            .validateCartProducts();
-                                        final bool res =
-                                            Provider.of<Cart_Provider>(context,
-                                                    listen: false)
-                                                .validateKey;
-                                        print('Resultttttt' + res.toString());
                                         if (res != null) {
-                                          print("Your result:----" +
-                                              res.toString());
-                                          if (res == false) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text("The Added Product " +
-                                                  Provider.of<Cart_Provider>(
-                                                          context,
-                                                          listen: false)
-                                                      .Producttitle +
-                                                  " quantity is not available,Please Select Quantity Less Than " +
-                                                  Provider.of<Cart_Provider>(
-                                                          context,
-                                                          listen: false)
-                                                      .productquantity
-                                                      .toString()),
-                                            ));
-                                            return;
-                                          }
-                                          var val = await validate();
+                                          var val = validate();
                                           if (val == 1) {
                                             Provider.of<Orders>(context,
                                                     listen: false)
