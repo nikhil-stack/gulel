@@ -405,8 +405,14 @@ class _CartScreenState extends State<CartScreen> {
                                         var validateCart =
                                             Provider.of<Cart_Provider>(context,
                                                 listen: false);
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
                                         await validateCart
                                             .validateCartProducts();
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
                                         final bool res =
                                             validateCart.validateKey;
                                         print("Your result:----" +
@@ -420,7 +426,10 @@ class _CartScreenState extends State<CartScreen> {
                                                         .toString() +
                                                     'kg of ' +
                                                     validateCart.productTitle +
-                                                    ' is currently not available!',
+                                                    ' is currently not available! Please order less than ' +
+                                                    validateCart.productStock
+                                                        .toString() +
+                                                    'kg for this product.',
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                 ),
@@ -466,16 +475,50 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                     Expanded(
                                       child: FlatButton(
-                                        onPressed: () {
-                                          var val = validate();
-                                          if (val == 1) {
-                                            opencheckout();
-                                          } else {
+                                        onPressed: () async {
+                                          var validateCart =
+                                              Provider.of<Cart_Provider>(
+                                                  context,
+                                                  listen: false);
+                                          await validateCart
+                                              .validateCartProducts();
+                                          final bool res =
+                                              validateCart.validateKey;
+                                          print("Your result:----" +
+                                              res.toString());
+                                          if (res == false || res == null) {
                                             ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  "Please Provide Complete User Details"),
-                                            ));
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  validateCart.productQuantity
+                                                          .toString() +
+                                                      'kg of ' +
+                                                      validateCart
+                                                          .productTitle +
+                                                      ' is currently not available! Please order less than ' +
+                                                      validateCart.productStock
+                                                          .toString() +
+                                                      ' for this product.',
+                                                  style: TextStyle(
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                            return;
+                                          }
+                                          if (res != null && res == true) {
+                                            var val = validate();
+                                            if (val == 1) {
+                                              opencheckout();
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Please Provide Complete User Details"),
+                                              ));
+                                            }
                                           }
                                         },
                                         child: Text("Pay Now"),

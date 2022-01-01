@@ -245,20 +245,26 @@ class Cart_Provider with ChangeNotifier {
     notifyListeners();
   }
 
-  String _productTitle;
   int _productQuantity;
   bool _validateKey;
+  String _productTitleFinal;
+  int _productQuantityFinal;
+  int _productStockFinal;
 
   String get productTitle {
-    return _productTitle;
+    return _productTitleFinal;
   }
 
   int get productQuantity {
-    return _productQuantity;
+    return _productQuantityFinal;
   }
 
   bool get validateKey {
     return _validateKey;
+  }
+
+  int get productStock {
+    return _productStockFinal;
   }
 
   Future<void> validateCartProducts() async {
@@ -281,7 +287,7 @@ class Cart_Provider with ChangeNotifier {
       final value = valuecart as Map<String, dynamic>;
       var productkey = value['id'];
       _productQuantity = value['quantity'];
-      _productTitle = value['title'];
+      //_productTitleFinal = value['title'];
       print("KeyCart" + productkey.toString());
 
       responseData3.forEach((element) {
@@ -295,14 +301,19 @@ class Cart_Provider with ChangeNotifier {
             if (int.tryParse(element3['stock'].toString()) <
                 int.tryParse(_productQuantity.toString())) {
               print('hereeeeeeeeee');
+              _productTitleFinal = element3['title'];
+              _productQuantityFinal = _productQuantity;
+              _productStockFinal = element3['stock'];
               _validateKey = false;
               notifyListeners();
               return;
             }
           }
         });
+        if (_validateKey == false) return;
       });
       print("The 1st Loop!!------");
+      if (_validateKey == false) return;
     });
     print('Keyyyyyyy' + validateKey.toString());
     notifyListeners();
