@@ -33,13 +33,15 @@ class _CartScreenState extends State<CartScreen> {
           _isLoading = true;
         });
       }
-      Provider.of<Cart_Provider>(context).fetchAndSetCart().then((_) {
+      Provider.of<Cart_Provider>(context).fetchAndSetCart();
+      Provider.of<user_provider>(context).fetchandset() .then((_) {
         if (mounted) {
           setState(() {
             _isLoading = false;
           });
         }
       });
+
     }
 
     _isInit = false;
@@ -76,6 +78,8 @@ class _CartScreenState extends State<CartScreen> {
     super.dispose();
     razorpay.clear();
   }
+
+  
 
   var finalamount;
   var finalCartTotal;
@@ -410,14 +414,15 @@ class _CartScreenState extends State<CartScreen> {
                                         });
                                         await validateCart
                                             .validateCartProducts();
-                                        setState(() {
-                                          _isLoading = false;
-                                        });
+                                        
                                         final bool res =
                                             validateCart.validateKey;
                                         print("Your result:----" +
                                             res.toString());
                                         if (res == false || res == null) {
+                                          setState(() {
+                                          _isLoading = false;
+                                        });
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
@@ -450,6 +455,9 @@ class _CartScreenState extends State<CartScreen> {
                                                     "Cash on Delivery");
 
                                             cart.clearCart();
+                                            setState(() {
+                                          _isLoading = false;
+                                        });
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(

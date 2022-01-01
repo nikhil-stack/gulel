@@ -55,6 +55,7 @@ class _SelectCityState extends State<SelectCity> {
             body: json.encode(
               {
                 'city': newValue,
+                'PinCode': null,
               },
             ),
           );
