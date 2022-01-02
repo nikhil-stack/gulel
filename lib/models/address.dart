@@ -13,15 +13,15 @@ class Address extends StatefulWidget {
 
 class _AddressState extends State<Address> {
   final _addressController = TextEditingController();
-  final _Pincodecontroller = TextEditingController();
+  // final _Pincodecontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   Future<void> submitdata() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     final enteredAddress = _addressController.text.trim();
-    final enteredPinCode = _Pincodecontroller.text.trim();
-    if ((enteredPinCode.isNotEmpty && (enteredPinCode.length == 6)) &&
+    // final enteredPinCode = _Pincodecontroller.text.trim();
+    if (/*(enteredPinCode.isNotEmpty && (enteredPinCode.length == 6)) &&*/
         (enteredAddress.isNotEmpty)) {
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getString('userId');
@@ -34,7 +34,7 @@ class _AddressState extends State<Address> {
         body: json.encode(
           {
             'address': enteredAddress,
-            'PinCode': enteredPinCode,
+            //'PinCode': enteredPinCode,
           },
         ),
       );
@@ -71,7 +71,7 @@ class _AddressState extends State<Address> {
                         },
                         //onSubmitted: (_) {},
                       ),
-                      TextFormField(
+                      /* TextFormField(
                         decoration: InputDecoration(labelText: "Pin Code"),
                         controller: _Pincodecontroller,
                         validator: (value) {
@@ -80,7 +80,7 @@ class _AddressState extends State<Address> {
                           return null;
                         },
                         // onSubmitted: (_) {},
-                      ),
+                      ),*/
                     ],
                   )),
               FlatButton(

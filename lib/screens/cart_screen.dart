@@ -154,7 +154,7 @@ class _CartScreenState extends State<CartScreen> {
               ? Center(child: Text("No items added yet"))
               : Column(
                   children: [
-                   /* Container(
+                    Container(
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 0.2)),
                       height: MediaQuery.of(context).size.height / 10,
@@ -197,7 +197,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: Text("Change"))
                         ],
                       ),
-                    ),*/
+                    ),
                     Expanded(
                       child: ListView.builder(
                           itemCount: cartitems.length,
