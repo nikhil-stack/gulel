@@ -18,6 +18,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   bool _isInit = true;
   bool _isLoading = false;
   bool _isAdmin = false;
+  bool _isMe = false;
 
   @override
   void didChangeDependencies() async {
@@ -27,9 +28,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           _isLoading = true;
         });
       }
-      Provider.of<CategoryItems_Provider>(context,listen: false).fetchAndSetCategories();
-      Provider.of<user_provider>(context,listen: false).getCurrentCity();
-      Provider.of<user_provider>(context,listen: false).fetchandset().then((_) {
+      Provider.of<CategoryItems_Provider>(context, listen: false)
+          .fetchAndSetCategories();
+      Provider.of<user_provider>(context, listen: false).getCurrentCity();
+      Provider.of<user_provider>(context, listen: false)
+          .fetchandset()
+          .then((_) {
         if (mounted) {
           setState(() {
             _isLoading = false;

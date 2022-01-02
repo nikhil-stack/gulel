@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gulel/Providers/Cart_Provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class SelectCity extends StatefulWidget {
   @override
@@ -57,6 +59,13 @@ class _SelectCityState extends State<SelectCity> {
                 'city': newValue,
                 'PinCode': null,
               },
+            ),
+          );
+          Provider.of<Cart_Provider>(context, listen: false).clearCart();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:
+                  Text('Your Cart has been emptied, Please re-add the items.'),
             ),
           );
         },
