@@ -364,7 +364,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
-                      onChanged: (value) => ,
+                      ///onChanged: (value) => ,
                       onSaved: (value) {
                         _initValues['Kolkata'] = double.tryParse(value);
                         _newProduct = Product(
