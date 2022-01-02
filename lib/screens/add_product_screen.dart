@@ -411,6 +411,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         );
                       },
                     ),*/
+                    SizedBox(height: 10,),
                     ProductImagePicker(_pickedImage),
                     TextFormField(
                       initialValue: _initValues['stockAvailable'].toString(),
