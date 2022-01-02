@@ -415,7 +415,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         );
                       },
                     ),*/
-                    SizedBox(height: 10,),
                     ProductImagePicker(_pickedImage),
                     TextFormField(
                       initialValue: _initValues['stockAvailable'].toString(),
@@ -459,6 +458,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '5kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['five'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
@@ -488,6 +489,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '10kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['ten'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
@@ -517,6 +520,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '20kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['twenty'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
@@ -546,6 +551,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '30kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['thirty'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
@@ -575,6 +582,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '50kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['fifty'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
@@ -604,6 +613,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '75kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['seventyFive'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
@@ -634,6 +645,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       decoration: InputDecoration(labelText: '100kg'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          _initValues['hundred'] = double.tryParse(value),
                       onSaved: (value) {
                         _newProduct = Product(
                           id: _newProduct.id,
