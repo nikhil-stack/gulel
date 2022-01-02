@@ -6,6 +6,9 @@ import 'package:gulel/Providers/products.dart';
 import 'package:gulel/pickers/product_image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as Path;
+import 'package:path_provider/path_provider.dart';
 
 class AddProductScreen extends StatefulWidget {
   //const AddProductScreen({ Key? key }) : super(key: key);
@@ -89,6 +92,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       bikanerPrice: _newProduct.bikanerPrice,
       varanasiPrice: _newProduct.varanasiPrice,
       kolkataPrice: _newProduct.kolkataPrice,
+      five: _newProduct.five,
+      ten: _newProduct.ten,
+      twenty: _newProduct.twenty,
+      thirty: _newProduct.thirty,
+      fifty: _newProduct.fifty,
+      seventyFive: _newProduct.seventyFive,
+      hundred: _newProduct.hundred,
     );
     if (_newProduct.id.isEmpty) {
       await Provider.of<CategoryItems_Provider>(context, listen: false)
@@ -108,7 +118,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       final data =
           ModalRoute.of(context).settings.arguments as Map<String, String>;
@@ -118,6 +128,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             Provider.of<CategoryItems_Provider>(context).findById(productId);
         //print(_newProduct.price);
         print(_newProduct.stockAvailable);
+
         _initValues = {
           'title': _newProduct.title,
           'description': _newProduct.description,
@@ -137,6 +148,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
           'Bikaner': double.tryParse(_newProduct.bikanerPrice.toString()),
           'Kolkata': double.tryParse(_newProduct.kolkataPrice.toString()),
         };
+        final response = await http.get(Uri.parse(_newProduct.imageUrl));
+        final documentDirectory = await getApplicationDocumentsDirectory();
+
         //print('priceeeeeeeee' + _initValues['price']);
       }
     }
@@ -175,7 +189,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ProductImagePicker(_pickedImage),
+                      if (_initValues['title'] == '')
+                        ProductImagePicker(_pickedImage),
                       TextFormField(
                         initialValue: _initValues['title'],
                         decoration: InputDecoration(labelText: 'Title'),
