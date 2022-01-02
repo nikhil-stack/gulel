@@ -184,8 +184,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) => _initValues['title'] = value,
                       onSaved: (value) {
-                        _initValues['title'] = value;
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: value,
@@ -214,8 +214,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) => _initValues['description'] = value,
                       onSaved: (value) {
-                        _initValues['description'] = value;
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -244,8 +244,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) =>
+                          _initValues['DelhiNCR'] = double.tryParse(value),
                       onSaved: (value) {
-                        _initValues['DelhiNCR'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -274,8 +275,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) =>
+                          _initValues['Bikaner'] = double.tryParse(value),
                       onSaved: (value) {
-                        _initValues['Bikaner'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -304,8 +306,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) =>
+                          _initValues['Varanasi'] = double.tryParse(value),
                       onSaved: (value) {
-                        _initValues['Varanasi'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -334,8 +337,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) =>
+                          _initValues['Hyderabad'] = double.tryParse(value),
                       onSaved: (value) {
-                        _initValues['Hyderabad'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -364,9 +368,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
-                      onChanged: (value) => ,
+                      onChanged: (value) =>
+                          _initValues['Kolkata'] = double.tryParse(value),
                       onSaved: (value) {
-                        _initValues['Kolkata'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
