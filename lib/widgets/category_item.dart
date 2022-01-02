@@ -89,11 +89,17 @@ class CategoryItem extends StatelessWidget {
                   Transform.rotate(
                 angle: 0,
                 child: Container(
-                    decoration: new BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 1),
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                            fit: BoxFit.fill, image: NetworkImage(imageUrl)))),
+                  decoration: new BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                    image: new DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        imageUrl,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

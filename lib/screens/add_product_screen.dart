@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gulel/Providers/categoryItems.dart';
 import 'package:gulel/Providers/products.dart';
+import 'package:gulel/pickers/product_image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AddProductScreen extends StatefulWidget {
   //const AddProductScreen({ Key? key }) : super(key: key);
@@ -12,6 +16,8 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   final _form = GlobalKey<FormState>();
+  String categoryId;
+  File _productImageFile;
   var _newProduct = Product(
     id: '',
     title: '',
@@ -55,7 +61,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Kolkata': '',
   };
 
-  Future<void> _saveForm() async {
+  Future<void> _saveForm(File image) async {
     final isValid = _form.currentState.validate();
     if (!isValid) {
       return;
@@ -64,6 +70,26 @@ class _AddProductScreenState extends State<AddProductScreen> {
     setState(() {
       _isLoading = true;
     });
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('product_image')
+        .child(DateTime.now().toString() + '.jpg');
+    await ref.putFile(image).onComplete;
+    final url = await ref.getDownloadURL();
+    _newProduct = Product(
+      id: _newProduct.id,
+      title: _newProduct.title,
+      imageUrl: url,
+      stockAvailable: _newProduct.stockAvailable,
+      category1: categoryId,
+      isFavourite: _newProduct.isFavourite,
+      description: _newProduct.description,
+      delhiPrice: _newProduct.delhiPrice,
+      hyderabadPrice: _newProduct.hyderabadPrice,
+      bikanerPrice: _newProduct.bikanerPrice,
+      varanasiPrice: _newProduct.varanasiPrice,
+      kolkataPrice: _newProduct.kolkataPrice,
+    );
     if (_newProduct.id.isEmpty) {
       await Provider.of<CategoryItems_Provider>(context, listen: false)
           .addProduct(
@@ -105,11 +131,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
           'seventyFive':
               _newProduct.seventyFive == 0 ? '' : _newProduct.seventyFive,
           'hundred': _newProduct.hundred == 0 ? '' : _newProduct.hundred,
-          'DelhiNCR': double.tryParse( _newProduct.delhiPrice.toString()),
-          'Hyderabad': double.tryParse( _newProduct.hyderabadPrice.toString()),
-          'Varanasi': double.tryParse( _newProduct.varanasiPrice.toString()),
-          'Bikaner': double.tryParse( _newProduct.bikanerPrice.toString()),
-          'Kolkata': double.tryParse( _newProduct.kolkataPrice.toString()),
+          'DelhiNCR': double.tryParse(_newProduct.delhiPrice.toString()),
+          'Hyderabad': double.tryParse(_newProduct.hyderabadPrice.toString()),
+          'Varanasi': double.tryParse(_newProduct.varanasiPrice.toString()),
+          'Bikaner': double.tryParse(_newProduct.bikanerPrice.toString()),
+          'Kolkata': double.tryParse(_newProduct.kolkataPrice.toString()),
         };
         //print('priceeeeeeeee' + _initValues['price']);
       }
@@ -118,19 +144,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
     super.didChangeDependencies();
   }
 
+  void _pickedImage(File image) {
+    _productImageFile = image;
+  }
+
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     // final categoryy = routeArgs['categoryName'];
-    final categoryId = routeArgs['categoryId'];
+    categoryId = routeArgs['categoryId'];
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Product'),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: _saveForm,
+            onPressed: () => _saveForm(_productImageFile),
           )
         ],
       ),
@@ -155,6 +185,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         return null;
                       },
                       onSaved: (value) {
+                        _initValues['title'] = value;
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: value,
@@ -184,6 +215,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         return null;
                       },
                       onSaved: (value) {
+                        _initValues['description'] = value;
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -200,10 +232,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         );
                       },
                     ),
-                    
                     TextFormField(
                       initialValue: _initValues['DelhiNCR'].toString(),
-                      decoration: InputDecoration(labelText: 'Price for Delhi NCR'),
+                      decoration:
+                          InputDecoration(labelText: 'Price for Delhi NCR'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -213,6 +245,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         return null;
                       },
                       onSaved: (value) {
+                        _initValues['DelhiNCR'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -231,7 +264,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     TextFormField(
                       initialValue: _initValues['Bikaner'].toString(),
-                      decoration: InputDecoration(labelText: 'Price for Bikaner'),
+                      decoration:
+                          InputDecoration(labelText: 'Price for Bikaner'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -241,6 +275,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         return null;
                       },
                       onSaved: (value) {
+                        _initValues['Bikaner'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -259,7 +294,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     TextFormField(
                       initialValue: _initValues['Varanasi'].toString(),
-                      decoration: InputDecoration(labelText: 'Price for Varanasi'),
+                      decoration:
+                          InputDecoration(labelText: 'Price for Varanasi'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -269,6 +305,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         return null;
                       },
                       onSaved: (value) {
+                        _initValues['Varanasi'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -287,7 +324,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     TextFormField(
                       initialValue: _initValues['Hyderabad'].toString(),
-                      decoration: InputDecoration(labelText: 'Price for Hyderabad'),
+                      decoration:
+                          InputDecoration(labelText: 'Price for Hyderabad'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -297,6 +335,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         return null;
                       },
                       onSaved: (value) {
+                        _initValues['Hyderabad'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -315,7 +354,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     TextFormField(
                       initialValue: _initValues['Kolkata'].toString(),
-                      decoration: InputDecoration(labelText: 'Price for Kolkata'),
+                      decoration:
+                          InputDecoration(labelText: 'Price for Kolkata'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -324,7 +364,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) => ,
                       onSaved: (value) {
+                        _initValues['Kolkata'] = double.tryParse(value);
                         _newProduct = Product(
                           id: _newProduct.id,
                           title: _newProduct.title,
@@ -341,7 +383,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         );
                       },
                     ),
-                    TextFormField(
+                    /*TextFormField(
                       initialValue: _initValues['imageUrl'],
                       decoration: InputDecoration(labelText: 'ImageUrl'),
                       textInputAction: TextInputAction.next,
@@ -368,7 +410,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           kolkataPrice: _newProduct.kolkataPrice,
                         );
                       },
-                    ),
+                    ),*/
+                    ProductImagePicker(_pickedImage),
                     TextFormField(
                       initialValue: _initValues['stockAvailable'].toString(),
                       decoration: InputDecoration(labelText: 'Stock Available'),
