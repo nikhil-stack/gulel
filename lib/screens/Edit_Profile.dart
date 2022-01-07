@@ -22,8 +22,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _AddressController = TextEditingController();
   final _MobileController = TextEditingController();
   final _PincodeController = TextEditingController();
-  final _GstController = TextEditingController();
-  final _OrganController = TextEditingController();
+  // final _GstController = TextEditingController();
+  //final _OrganController = TextEditingController();
   String UpdatedCity;
   @override
   void didChangeDependencies() async {
@@ -244,7 +244,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           )),
                                     ),
                                   ),
-                                  Padding(
+                                  /*   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextField(
                                       controller: _OrganController,
@@ -277,8 +277,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             color: Colors.black,
                                           )),
                                     ),
-                                  ),
-                                  Padding(
+                                  ),*/
+                                  /*    Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextField(
                                       controller: _GstController,
@@ -311,7 +311,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             color: Colors.black,
                                           )),
                                     ),
-                                  ),
+                                  ),*/
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextField(
@@ -451,7 +451,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                     "")
                                                   'emailId':
                                                       _emailController.text,
-                                                if (_GstController.text
+                                                /*   if (_GstController.text
                                                             .trim() !=
                                                         "" &&
                                                     _GstController.text
@@ -460,13 +460,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                         15)
                                                   "GstNumber": _GstController
                                                       .text
-                                                      .trim(),
-                                                if (_OrganController.text
+                                                      .trim(),*/
+                                                /*  if (_OrganController.text
                                                         .trim() !=
                                                     "")
                                                   "Organame": _OrganController
                                                       .text
-                                                      .trim(),
+                                                      .trim(),*/
                                                 if (_AddressController.text
                                                         .trim() !=
                                                     "")

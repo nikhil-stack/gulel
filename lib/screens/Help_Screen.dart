@@ -21,11 +21,40 @@ class HelpScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                children: [Icon(Icons.call), Text("+91-8368965099")],
+                children: [
+                  Icon(Icons.call),
+                  Text("+91-8368965099"),
+                ],
               ),
             ),
-            Row(
-              children: [Icon(Icons.email), Text("gulelapp@gmail.com")],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [Icon(Icons.call), Text("+91-8800309455")],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [Icon(Icons.email), Text("gulelapp@gmail.com")],
+              ),
+            ),
+            SizedBox(
+              height: 450,
+            ),
+            Text(
+              'Developed By - Nikhil Singhal, Vikas Pandey',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey,
+              ),
+            ),
+            Text(
+              'Contact No. - 8875871480',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey,
+              ),
             )
           ],
         )),

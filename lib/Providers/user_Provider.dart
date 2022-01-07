@@ -9,8 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class user {
   String FullName;
   String emailId;
-  String GstNumber;
-  String OrganName;
+//  String GstNumber;
+//  String OrganName;
   String address;
   String Pincode;
   String MobileNumber;
@@ -19,8 +19,8 @@ class user {
   user({
     @required this.FullName,
     @required this.emailId,
-    @required this.GstNumber,
-    @required this.OrganName,
+    //  @required this.GstNumber,
+    //  @required this.OrganName,
     @required this.address,
     @required this.Pincode,
     @required this.MobileNumber,
@@ -44,8 +44,8 @@ class user_provider with ChangeNotifier {
   Future<void> addUser(
     FullName,
     emailId,
-    GstNumber,
-    OrganName,
+    //GstNumber,
+    //OrganName,
     address,
     Pincode,
     MobileNumber,
@@ -61,8 +61,8 @@ class user_provider with ChangeNotifier {
           {
             'FullName': FullName,
             'emailId': emailId,
-            'GstNumber': GstNumber,
-            'Organame': OrganName,
+            //      'GstNumber': GstNumber,
+            //      'Organame': OrganName,
             'address': address,
             'PinCode': Pincode,
             'MobileNumber': MobileNumber,
@@ -76,8 +76,8 @@ class user_provider with ChangeNotifier {
     users = user(
       FullName: FullName,
       emailId: emailId,
-      GstNumber: GstNumber,
-      OrganName: OrganName,
+      // GstNumber: GstNumber,
+      // OrganName: OrganName,
       address: address,
       Pincode: Pincode,
       MobileNumber: MobileNumber,
@@ -113,8 +113,8 @@ class user_provider with ChangeNotifier {
       loadedUsers = user(
         FullName: '',
         emailId: '',
-        GstNumber: '',
-        OrganName: '',
+        // GstNumber: '',
+        // OrganName: '',
         Pincode: '',
         address: '',
         MobileNumber: '',
@@ -124,8 +124,8 @@ class user_provider with ChangeNotifier {
       loadedUsers = user(
         FullName: extractedData['FullName'],
         emailId: extractedData['emailId'],
-        GstNumber: extractedData['GstNumber'],
-        OrganName: extractedData['Organame'],
+        //GstNumber: extractedData['GstNumber'],
+        // OrganName: extractedData['Organame'],
         Pincode: extractedData['PinCode'],
         address: extractedData['address'],
         MobileNumber: extractedData['MobileNumber'],
@@ -189,6 +189,4 @@ class user_provider with ChangeNotifier {
     notifyListeners();
     return true;
   }
-
-  
 }

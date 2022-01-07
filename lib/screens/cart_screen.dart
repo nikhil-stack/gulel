@@ -126,8 +126,8 @@ class _CartScreenState extends State<CartScreen> {
     if (userdata.emailId.toString().trim().isEmpty) return -1;
     if (userdata.address == null) return -1;
     if (userdata.Pincode == null) return -1;
-    if (userdata.GstNumber == null) return -1;
-    if (userdata.OrganName == null) return -1;
+    // if (userdata.GstNumber == null) return -1;
+    //if (userdata.OrganName == null) return -1;
     if (userdata.MobileNumber == null) return -1;
     return 1;
   }

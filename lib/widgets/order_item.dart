@@ -146,7 +146,7 @@ class _OrderItem1State extends State<OrderItem1> {
                       SizedBox(
                         height: 4,
                       ),
-                      Row(
+                      /* Row(
                         children: [
                           Text(
                             "GST No:-",
@@ -159,8 +159,8 @@ class _OrderItem1State extends State<OrderItem1> {
                       ),
                       SizedBox(
                         height: 2,
-                      ),
-                      Row(
+                      ),*/
+                      /*   Row(
                         children: [
                           Text(
                             "Organization Name:-",
@@ -173,7 +173,7 @@ class _OrderItem1State extends State<OrderItem1> {
                       ),
                       SizedBox(
                         height: 4,
-                      ),
+                      ),*/
                       Row(
                         children: [
                           Text(

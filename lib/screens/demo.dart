@@ -133,8 +133,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       "E-mail", userdata.users.emailId, false),
                                   buildTextField(
                                       "Address", userdata.users.address, false),
-                                  buildTextField("Organization name",
-                                      userdata.users.OrganName, false),
+                                  //  buildTextField("Organization name",
+                                  //    userdata.users.OrganName, false),
                                   SizedBox(
                                     height: 35,
                                   ),

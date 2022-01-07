@@ -19,14 +19,14 @@ class _SignUpState extends State<SignUp> {
   // final _form = GlobalKey<FormState>();
   final NameFocusNode = FocusNode();
   final EmailFocusNode = FocusNode();
-  final OrgNameFocusNode = FocusNode();
+  //final OrgNameFocusNode = FocusNode();
   final AddressFocusNode = FocusNode();
-  final GstFocusNode = FocusNode();
+  // final GstFocusNode = FocusNode();
   final MObileNode = FocusNode();
   final _NameController = TextEditingController();
   final _EmailController = TextEditingController();
-  final _GstController = TextEditingController();
-  final _OrgnameController = TextEditingController();
+  // final _GstController = TextEditingController();
+  // final _OrgnameController = TextEditingController();
   final _AddressController = TextEditingController();
   final _MobileController = TextEditingController();
   final _PincodeController = TextEditingController();
@@ -121,7 +121,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _GstNumberWidget() {
+  /* Widget _GstNumberWidget() {
     return Stack(
       children: [
         TextFormField(
@@ -147,9 +147,9 @@ class _SignUpState extends State<SignUp> {
         ),
       ],
     );
-  }
+  }*/
 
-  Widget _OrganizationnameWidget() {
+  /* Widget _OrganizationnameWidget() {
     return Stack(
       children: [
         TextFormField(
@@ -175,7 +175,7 @@ class _SignUpState extends State<SignUp> {
         ),
       ],
     );
-  }
+  }*/
 
   Widget _AddressWidget() {
     return Stack(
@@ -292,8 +292,8 @@ class _SignUpState extends State<SignUp> {
           Provider.of<user_provider>(context, listen: false).addUser(
             _NameController.text,
             _EmailController.text,
-            _GstController.text,
-            _OrgnameController.text,
+            // _GstController.text,
+            // _OrgnameController.text,
             _AddressController.text,
             _PincodeController.text,
             "+91" + _MobileController.text,
@@ -409,10 +409,10 @@ class _SignUpState extends State<SignUp> {
                             _nameWidget(),
                             SizedBox(height: 20),
                             _emailWidget(),
-                            SizedBox(height: 20),
-                            _GstNumberWidget(),
-                            SizedBox(height: 20),
-                            _OrganizationnameWidget(),
+                            // SizedBox(height: 20),
+                            //_GstNumberWidget(),
+                            // SizedBox(height: 20),
+                            // _OrganizationnameWidget(),
                             SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
