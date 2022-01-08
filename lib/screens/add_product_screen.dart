@@ -77,8 +77,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
         .ref()
         .child('product_image')
         .child(DateTime.now().toString() + '.jpg');
-    await ref.putFile(image).onComplete;
-    final url = await ref.getDownloadURL();
+
+    if (image != null) {
+      await ref.putFile(image).onComplete;
+      url = await ref.getDownloadURL();
+    }
     _newProduct = Product(
       id: _newProduct.id,
       title: _newProduct.title,
@@ -117,6 +120,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
     Navigator.of(context).pop();
   }
 
+  String url;
+
   @override
   void didChangeDependencies() async {
     if (_isInit) {
@@ -128,7 +133,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             Provider.of<CategoryItems_Provider>(context).findById(productId);
         //print(_newProduct.price);
         print(_newProduct.stockAvailable);
-
+        url = _newProduct.imageUrl;
         _initValues = {
           'title': _newProduct.title,
           'description': _newProduct.description,
